@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     description: "Based in Manipur, I'm a dedicated Full-Stack Developer x Software and Autonomous Systems Developer with a passion for creating innovative solutions that bridge the gap between software and hardware.",
     url: "https://rajjitlaishram.netlify.app",
     siteName: "Rajjit Laishram",
-    images: "/og.png",
+    images: "/app/assets/og.png",
     type: "website",
   },
   keywords: ["rajjit laishram", "portfolio", "next js", "tailwind css", "aceternity ui"],
