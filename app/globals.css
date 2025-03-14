@@ -2,15 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-.font-playwrite{
+.font-playwrite {
   font-family: var(--font-playwrite), sans-serif;
 }
 
-.font-merriweather{
+.font-merriweather {
   font-family: var(--font-merriweather), sans-serif;
 }
 
-.font-meitei{
+.font-meitei {
   font-family: var(--font-meitei), serif;
 }
 
@@ -131,9 +131,27 @@
   }
 }
 
-.glow{
+.glow {
   width: 0px;
   height: 0px;
   border-radius: 50%;
   box-shadow: 0 0 200px 130px #00fdea;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a0a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #02746c;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00544d;
 }

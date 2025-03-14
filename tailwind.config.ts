@@ -64,6 +64,32 @@ export default {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			keyframes:{
+				"move-up":{
+					from:{
+						transform: "translateY(10px)",
+						opacity: "0"
+					},
+					to:{
+						transform: "translateY(0px)",
+						opacity: "1"
+					}
+				},
+				"move-down":{
+					from:{
+						transform: "translateY(-10px)",
+						opacity: "0"
+					},
+					to:{
+						transform: "translateY(0px)",
+						opacity: "1"
+					}
+				}
+			},
+			animation:{
+				"move-up": "move-up 1s linear forward",
+				"move-down": "move-down 1s linear forward",
 			}
 		}
 	},

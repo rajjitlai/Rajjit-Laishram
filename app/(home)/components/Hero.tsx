@@ -11,7 +11,7 @@ import Rajjit from "@/public/rajjitlaishram.png"
 
 const Hero = () => {
     return (
-        <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center'>
+        <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center animate-move-up'>
             <div className='space-y-10 text-left items-center'>
                 <h1 className='text-4xl lg:text-7xl font-bold font-playwrite items-center text-center'>
                     <span className='flex flex-row gap-5 font-playwrite text-center justify-center lg:justify-start'>
