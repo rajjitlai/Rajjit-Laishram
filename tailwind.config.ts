@@ -65,32 +65,32 @@ export default {
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
 			},
-			keyframes:{
-				"move-up":{
-					from:{
+			keyframes: {
+				"move-up": {
+					from: {
 						transform: "translateY(10px)",
-						opacity: "0"
+						opacity: "0",
 					},
-					to:{
+					to: {
 						transform: "translateY(0px)",
-						opacity: "1"
-					}
+						opacity: "1",
+					},
 				},
-				"move-down":{
-					from:{
+				"move-down": {
+					from: {
 						transform: "translateY(-10px)",
-						opacity: "0"
+						opacity: "0",
 					},
-					to:{
+					to: {
 						transform: "translateY(0px)",
-						opacity: "1"
-					}
-				}
+						opacity: "1",
+					},
+				},
 			},
-			animation:{
-				"move-up": "move-up 1s linear forward",
-				"move-down": "move-down 1s linear forward",
-			}
+			animation: {
+				"move-up": "move-up 1s linear forwards",
+				"move-down": "move-down 1s linear forwards",
+			},
 		}
 	},
 	// eslint-disable-next-line @typescript-eslint/no-require-imports

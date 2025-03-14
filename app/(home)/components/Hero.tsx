@@ -36,7 +36,7 @@ const Hero = () => {
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
                             <Spline scene="https://prod.spline.design/wQlwz4R7AEtJucn4/scene.splinecode" className="absolute w-full h-full z-20" />
-                            <Image src={Rajjit} alt="rajjit laishram" width={220} height="80" className='absolute z-30 transform -rotate-[20deg] -top-[100px]' priority style={{ width: "auto" }} />
+                            <Image src={Rajjit} alt="rajjit laishram" width={220} height="80" className='absolute z-30 transform -rotate-[20deg] -top-[100px]' style={{ width: "auto" }} />
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>
