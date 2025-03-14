@@ -11,7 +11,7 @@ export function Contact() {
         console.log("Form submitted");
     };
     return (
-        <div className="py-10 p-5 sm:p-0 font-merriweather mt-20">
+        <div className="py-10 p-5 sm:p-0 font-merriweather mt-20" id="contact">
             <Title
                 text="Contact 📞"
                 className="flex flex-col items-center justify-center cursor-pointer"

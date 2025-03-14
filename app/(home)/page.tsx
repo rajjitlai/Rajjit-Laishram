@@ -8,6 +8,8 @@ import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 import { Contact } from "./components/Contact";
+import Experience from "./components/Experience";
+import Testimonials from "./components/Testimonials";
 
 export default function page() {
   return (
@@ -20,6 +22,8 @@ export default function page() {
       <div className="max-w-7xl mx-auto p-5 mt-20">
         <Skills />
         <Projects />
+        <Experience />
+        <Testimonials />
         <Contact />
         <Footer />
       </div>
