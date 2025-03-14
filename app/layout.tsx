@@ -10,10 +10,14 @@ const playwrite = Playwrite_IT_Moderna({
 
 const merriweather = Merriweather_Sans({
   variable: "--font-merriweather",
+  subsets: ['latin'],
+  preload: true,
 })
 
 const meitei = Noto_Sans_Meetei_Mayek({
   variable: "--font-meitei",
+  subsets: ['latin'],
+  preload: true,
 })
 
 export const metadata: Metadata = {
