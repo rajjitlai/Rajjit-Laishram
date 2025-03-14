@@ -7,7 +7,7 @@ import { BackgroundBeams } from "@/components/ui/background-beams";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Footer from "./components/Footer";
-import Contact from "./components/Contact";
+import { Contact } from "./components/Contact";
 
 export default function page() {
   return (
