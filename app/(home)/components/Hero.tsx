@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
 
-import Rajjit from "@/public/rajjitlaishram.png"
+import Rajjit from "@/app/assets/rajjitlaishram.png"
 
 const Hero = () => {
     return (
