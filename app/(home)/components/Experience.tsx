@@ -81,7 +81,7 @@ export function Experience() {
     ];
 
     return (
-        <div className="max-w-5xl mx-auto px-8 font-merriweather mt-20">
+        <div className="max-w-5xl mx-auto px-8 font-merriweather mt-20" id="exp">
             <Title text='Experience 💪' className='flex flex-col items-center justify-center cursor-pointer mb-5' />
             <Timeline data={data} />
         </div>

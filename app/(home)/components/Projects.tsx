@@ -55,7 +55,7 @@ const Projects = () => {
     }, []);
 
     return (
-        <div className="py-10 p-5 sm:p-0 font-merriweather">
+        <div className="py-10 p-5 sm:p-0 font-merriweather" id="projects">
             <Title
                 text="Projects 🪄"
                 className="flex flex-col items-center justify-center cursor-pointer"

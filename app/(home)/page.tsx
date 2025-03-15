@@ -10,10 +10,12 @@ import Footer from "./components/Footer";
 import { Contact } from "./components/Contact";
 import { Experience } from "./components/Experience";
 import { Testimonials } from "./components/Testimonials";
+import { FloatNav } from "./components/FloatNav";
 
 export default function page() {
   return (
     <div className="min-h-screen bg-black overflow-hidden">
+      <FloatNav />
       <div className="max-w-7xl mx-auto p-5">
         <BackgroundBeams />
         <Navbar />

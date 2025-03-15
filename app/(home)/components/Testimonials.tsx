@@ -41,7 +41,7 @@ export function Testimonials() {
     if (loading) return <p className="text-center mt-20">Loading testimonials...</p>;
 
     return (
-        <div className="py-10 p-5 sm:p-0 font-merriweather mt-20">
+        <div className="py-10 p-5 sm:p-0 font-merriweather mt-20" id="review">
             <Title text="What people say?" className="flex flex-col items-center justify-center cursor-pointer" />
             <AnimatedTestimonials testimonials={testimonials} />
         </div>
