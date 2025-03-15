@@ -13,7 +13,6 @@ const Hero = () => {
     const handleDownload = () => {
         const url = getResume();
         window.open(url, "_blank");
-        alert("Resume downloaded!");
     };
 
     return (
