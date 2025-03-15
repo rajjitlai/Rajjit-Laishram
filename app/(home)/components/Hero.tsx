@@ -7,8 +7,6 @@ import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
 
-import Rajjit from "@/app/assets/rajjitlaishram.png"
-
 const Hero = () => {
     return (
         <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center animate-move-up'>
@@ -36,7 +34,7 @@ const Hero = () => {
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
                             <Spline scene="https://prod.spline.design/wQlwz4R7AEtJucn4/scene.splinecode" className="absolute w-full h-full z-20" />
-                            <Image src={Rajjit} alt="rajjit laishram" width="260" height="80" className='absolute z-30 transform -rotate-[20deg] -top-[100px]' />
+                            <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='absolute z-30 transform -rotate-[20deg] -top-[100px]' unoptimized priority />
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>
