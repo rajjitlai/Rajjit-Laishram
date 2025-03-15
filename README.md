@@ -4,7 +4,7 @@ Welcome to the official portfolio of Rajjit Laishram, a dedicated Full-Stack Dev
 
 ## About Me
 
-I'm Rajjit Laishram, currently serving as the Head Developer at Cybrella (2024) and as a Full Stack Web Developer and Programmer at RJ Institute. My expertise spans from web development to IoT and drone automation.
+I'm Rajjit Laishram, a Full Stack Web Developer and Programmer at RJ Institute. My expertise spans from web development to IoT and drone automation.
 
 - **Location:** Imphal East, Manipur
 - **Portfolio:** [rajjitlaishram.netlify.app](https://rajjitlaishram.netlify.app/)
