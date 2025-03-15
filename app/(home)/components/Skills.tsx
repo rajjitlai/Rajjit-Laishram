@@ -95,7 +95,7 @@ function Skills() {
 
     return (
         <div className='max-w-5xl mx-auto px-8 font-merriweather'>
-            <Title text='Skills 💻' className='flex flex-col items-center justify-center cursor-pointer'></Title>
+            <Title text='Skills 💻' className='flex flex-col items-center justify-center cursor-pointer' />
             <HoverEffect items={skills} />
         </div>
     )

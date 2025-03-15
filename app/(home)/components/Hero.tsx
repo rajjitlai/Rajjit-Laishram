@@ -28,7 +28,7 @@ const Hero = () => {
                 </Link>
             </div>
 
-            <div className='mt-10 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4'>
+            <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4'>
                 <Tooltip text="ꯔꯖ꯭ꯖꯤꯠ ꯂꯥꯏꯁ꯭ꯔꯝ">
                     <div className="w-auto h-72 space-y-3 rotate-[20deg] relative flex justify-center items-center mx-auto cursor-pointer">
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
