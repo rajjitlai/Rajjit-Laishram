@@ -7,7 +7,15 @@ import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
 
+import { getResume } from '@/lib/getResume'
+
 const Hero = () => {
+    const handleDownload = () => {
+        const url = getResume();
+        window.open(url, "_blank");
+        alert("Resume downloaded!");
+    };
+
     return (
         <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center animate-move-up'>
             <div className='space-y-10 text-left items-center'>
@@ -45,8 +53,9 @@ const Hero = () => {
                     containerClassName=""
                     as="button"
                     className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 w-[max-content] py-4"
+                    onClick={handleDownload}
                 >
-                    <span className='font-merriweather'>{"🛠️ Let's Build Together!"}</span>
+                    <span className='font-merriweather'>{"🛠️ Download my resume"}</span>
                 </HoverBorderGradient>
             </div>
         </div >

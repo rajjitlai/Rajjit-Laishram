@@ -8,12 +8,14 @@ export const config  = {
     messagesCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_MESSAGES_COLLECTIONS,
     testimonialCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_TESTIMONIAL_COLLECTIONS,
     profileImagesBucketId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_TESTI_PROFILE_BUCKET,
-    resumeBucketId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_RESUME_BUCKET
+    resumeBucketId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_RESUME_BUCKET,
+    resumeFileId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_RESUME_FILE_ID
 }
 
 export const client = new Client()
 
 export const imageBucket = new Storage(client)
+export const resumeBucket = new Storage(client)
 
 client.setEndpoint(config.endpoint!).setProject(config.projectId!)
 
