@@ -45,7 +45,7 @@ export default function Page() {
     };
 
     return (
-        <div className="flex justify-center items-center flex-col h-screen max-w-xl w-full mx-auto p-4 md:p-8 shadow-input bg-black font-merriweather">
+        <div className="max-w-xl w-full mx-auto p-4 md:p-8 shadow-input bg-black font-merriweather">
             <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
                 Write a review for my services
             </h2>
@@ -53,7 +53,7 @@ export default function Page() {
                 {"I'd love to hear your thoughts! Let me know how my services helped you and what I can improve."}
             </p>
 
-            <form className="my-8" onSubmit={handleSubmit}>
+            <form className="my-8 h-screen" onSubmit={handleSubmit}>
                 <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
                     <FileUpload onChange={handleProfileUpload} />
                 </div>
@@ -101,6 +101,7 @@ export default function Page() {
                     Add &rarr;
                     <BottomGradient />
                 </button>
+                <div className="pb-10"></div>
             </form>
         </div>
     );
