@@ -4,18 +4,46 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FileUpload } from "@/components/ui/file-upload";
+import { addReview } from "@/lib/addReview";
 
-export default function page() {
-    const [profile, setProfile] = useState<Profile[]>([])
+export default function Page() {
 
-    const handleProfileUpload = (files: Profile[]) => {
-        setProfile(profile)
-    }
+    const [file, setFile] = useState<File | null>(null);
+    const [fullname, setFullname] = useState("");
+    const [role, setRole] = useState("");
+    const [description, setDescription] = useState("");
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        console.log("Form submitted");
+    const handleProfileUpload = (files: File[]) => {
+        if (files.length > 0) {
+            setFile(files[0]);
+        }
     };
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        if (!file) {
+            alert("Please upload a profile image.");
+            return;
+        }
+
+        try {
+            await addReview({
+                fullname,
+                role_org: role,
+                description,
+                profile_url: "",
+            }, file);
+            alert("Review added successfully");
+            setFullname("");
+            setRole("");
+            setDescription("");
+            setFile(null);
+        } catch (error) {
+            console.error("Error adding review", error);
+        }
+    };
+
     return (
         <div className="flex justify-center items-center flex-col h-screen max-w-xl w-full mx-auto p-4 md:p-8 shadow-input bg-black font-merriweather">
             <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -29,14 +57,26 @@ export default function page() {
                 <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
                     <FileUpload onChange={handleProfileUpload} />
                 </div>
-                <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
+                <div className="flex flex-col mt-5 md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
                     <LabelInputContainer>
                         <Label htmlFor="fullname">Name</Label>
-                        <Input id="fullname" placeholder="Tomba Laishram" type="text" />
+                        <Input
+                            id="fullname"
+                            placeholder="Tomba Laishram"
+                            type="text"
+                            value={fullname}
+                            onChange={(e) => setFullname(e.target.value)}
+                        />
                     </LabelInputContainer>
                     <LabelInputContainer>
                         <Label htmlFor="role">Role</Label>
-                        <Input id="role" placeholder="UI/UX Designer at XYZ" type="text" />
+                        <Input
+                            id="role"
+                            placeholder="UI/UX Designer at XYZ"
+                            type="text"
+                            value={role}
+                            onChange={(e) => setRole(e.target.value)}
+                        />
                     </LabelInputContainer>
                 </div>
                 <LabelInputContainer>
@@ -48,6 +88,8 @@ export default function page() {
                         className={cn(
                             "border-2 w-full p-4 focus-visible:ring-[2px] focus:ring-neutral-600 outline-none resize-none text-sm bg-zinc-800"
                         )}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                         required
                     />
                 </LabelInputContainer>
