@@ -87,7 +87,7 @@ export const AnimatedTestimonials = ({
                                         width={500}
                                         height={500}
                                         draggable={false}
-                                        className="h-full w-full rounded-3xl object-cover object-center"
+                                        className="h-full w-full object-cover object-center"
                                         priority
                                     />
                                 </motion.div>
@@ -126,13 +126,13 @@ export const AnimatedTestimonials = ({
                     <div className="flex gap-4 pt-12 md:pt-0">
                         <button
                             onClick={handlePrev}
-                            className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+                            className="h-7 w-7 bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
                         >
                             <IconArrowLeft className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:rotate-12 transition-transform duration-300" />
                         </button>
                         <button
                             onClick={handleNext}
-                            className="h-7 w-7 rounded-full bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
+                            className="h-7 w-7 bg-gray-100 dark:bg-neutral-800 flex items-center justify-center group/button"
                         >
                             <IconArrowRight className="h-5 w-5 text-black dark:text-neutral-400 group-hover/button:-rotate-12 transition-transform duration-300" />
                         </button>

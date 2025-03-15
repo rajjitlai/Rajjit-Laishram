@@ -31,7 +31,7 @@ export function Contact() {
     return (
         <div className="py-10 p-5 sm:p-0 font-merriweather mt-20" id="contact">
             <Title text="Contact 📞" className="flex flex-col items-center justify-center cursor-pointer" />
-            <div className="max-w-3xl w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black mt-10">
+            <div className="max-w-3xl w-full mx-auto p-4 md:p-8 shadow-input bg-white dark:bg-black mt-10">
                 <p className="text-neutral-600 text-sm mt-2 dark:text-neutral-300">
                     {"If you're interested in working together, please fill out this form. I'll get back to you shortly."}
                 </p>
@@ -56,7 +56,7 @@ export function Contact() {
                         <Input id="message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="What's your idea?" required />
                     </LabelInputContainer>
 
-                    <button className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-lg"
+                    <button className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-lg"
                         type="submit">
                         Send
                         <BottomGradient />
