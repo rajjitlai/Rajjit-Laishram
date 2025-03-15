@@ -9,7 +9,7 @@ import Projects from "./components/Projects";
 import Footer from "./components/Footer";
 import { Contact } from "./components/Contact";
 import { Experience } from "./components/Experience";
-import Testimonials from "./components/Testimonials";
+import { Testimonials } from "./components/Testimonials";
 
 export default function page() {
   return (

@@ -5,7 +5,8 @@ export const config  = {
     projectId: process.env.NEXT_PUBLIC_APPWRITE_ID,
     databaseId: process.env.NEXT_PUBLIC_APPWRITE_DB,
     projectCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_COLLECTIONS,
-    messagesCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_MESSAGES_COLLECTIONS
+    messagesCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_MESSAGES_COLLECTIONS,
+    testimonialCollectionsId: process.env.NEXT_PUBLIC_APPWRITE_TESTIMONIAL_COLLECTIONS
 }
 
 export const client = new Client()
