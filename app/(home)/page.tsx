@@ -23,10 +23,12 @@ export default function page() {
         <Skills />
         <Projects />
         <Experience />
+      </div>
+      <div className="max-w-7xl mx-auto p-5 mt-10">
         <Testimonials />
         <Contact />
-        <Footer />
       </div>
+      <Footer />
     </div>
   )
 }
