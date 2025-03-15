@@ -11,33 +11,33 @@ export function FloatNav() {
         {
             name: "Home",
             link: "/",
-            icon: <IconHome className="h-4 w-4 text-neutral-500 dark:text-white" />,
+            icon: <IconHome className="h-8 w-8 text-neutral-500 dark:text-white" />,
         },
         {
             name: "Skills",
             link: "#skills",
-            icon: <MdLaptopWindows className="h-4 w-4 text-neutral-500 dark:text-white" />,
+            icon: <MdLaptopWindows className="h-8 w-8 text-neutral-500 dark:text-white" />,
         },
         {
             name: "Projects",
             link: "#projects",
-            icon: <WiStars className="h-4 w-4 text-neutral-500 dark:text-white" />,
+            icon: <WiStars className="h-8 w-8 text-neutral-500 dark:text-white" />,
         },
         {
             name: "Experience",
             link: "#exp",
-            icon: <GiMuscleUp className="h-4 w-4 text-neutral-500 dark:text-white" />,
+            icon: <GiMuscleUp className="h-8 w-8 text-neutral-500 dark:text-white" />,
         },
         {
             name: "Testimonials",
             link: "#review",
-            icon: <MdOutlineRateReview className="h-4 w-4 text-neutral-500 dark:text-white" />,
+            icon: <MdOutlineRateReview className="h-8 w-8 text-neutral-500 dark:text-white" />,
         },
         {
             name: "Contact",
             link: "#contact",
             icon: (
-                <IconMessage className="h-4 w-4 text-neutral-500 dark:text-white" />
+                <IconMessage className="h-8 w-8 text-neutral-500 dark:text-white" />
             ),
         },
     ];
