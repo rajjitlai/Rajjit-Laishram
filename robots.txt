@@ -1,9 +1,0 @@
-User-agent: *
-Disallow: /admin/
-Disallow: /private/
-Disallow: /api/
-Disallow: /dashboard/
-
-Allow: /
-
-Sitemap: https://rajjitlaishram.netlify.app/sitemap.xml
