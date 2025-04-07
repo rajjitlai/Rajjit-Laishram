@@ -50,13 +50,13 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-J2FMJLG89T" />
-        <Script id="G-J2FMJLG89T" strategy="afterInteractive" dangerouslySetInnerHTML={{
+        <Script async src="https://www.googletagmanager.com/gtag/js?id=G-HDYCTV3EVL" />
+        <Script id="G-HDYCTV3EVL" strategy="afterInteractive" dangerouslySetInnerHTML={{
           __html: `
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-XXXXXXXXXX', {
+              gtag('config', 'G-HDYCTV3EVL', {
                 page_path: window.location.pathname,
               });
             `,
