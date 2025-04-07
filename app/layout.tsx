@@ -52,14 +52,14 @@ export default function RootLayout({
       <head>
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-HDYCTV3EVL"
+          src="https://www.googletagmanager.com/gtag/js?id=G-J2FMJLG89T"
         />
         <Script id="gtag-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-HDYCTV3EVL', {
+            gtag('config', 'G-J2FMJLG89T', {
               page_path: window.location.pathname,
             });
           `}
