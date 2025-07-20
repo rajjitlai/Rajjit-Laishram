@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "motion/react"; 
+import { motion, AnimatePresence, Variants } from "motion/react";
 
 interface TooltipProps {
     text: string;
     children: React.ReactNode;
 }
 
-const tooltipVariants = {
+const tooltipVariants: Variants = {
     initial: { opacity: 0, y: 10, scale: 0.6 },
     animate: {
         opacity: 1,
