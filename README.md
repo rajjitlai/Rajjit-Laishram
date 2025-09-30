@@ -1,12 +1,13 @@
-# Rajjit Laishram - Official Portfolio (Revamped)
+# Rajjit Laishram - IoT Software Developer Portfolio
 
-Welcome to the official portfolio of Rajjit Laishram, a dedicated Full-Stack Developer and Embedded Systems Engineer with a passion for creating innovative solutions that bridge the gap between software and hardware.
+Welcome to the official portfolio of Rajjit Laishram, a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations.
 
 ## About Me
 
-I'm Rajjit Laishram, a Full Stack Web Developer and Programmer at RJ Institute. My expertise spans from web development to IoT and drone automation.
+I'm Rajjit Laishram, an IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations. My expertise spans from web development to IoT systems and embedded solutions.
 
 - **Location:** Imphal East, Manipur
+- **Current Role:** IoT Software Developer
 - **Portfolio:** [rajjitlaishram.netlify.app](https://rajjitlaishram.netlify.app/)
 - **LinkedIn:** [in/rajjit-laishram-a03a02255](https://in.linkedin.com/in/rajjit-laishram-a03a02255)
 - **Instagram:** [@rajjitlaishram](https://www.instagram.com/rajjitlaishram/)
@@ -15,22 +16,30 @@ I'm Rajjit Laishram, a Full Stack Web Developer and Programmer at RJ Institute. 
 
 ## Skills & Technologies
 
+### IoT Development
+
+- **IoT Platforms:** AWS IoT, Google Cloud IoT, Azure IoT, ThingSpeak
+- **Protocols:** MQTT, HTTP/HTTPS, WebSocket, CoAP, LoRaWAN
+- **Edge Computing:** Raspberry Pi, Arduino, ESP32, NVIDIA Jetson
+- **Sensor Integration:** Temperature, humidity, motion, pressure sensors
+- **Device Management:** Remote monitoring, OTA updates, fleet management
+
 ### Web Development
 
 - **Frontend:** React.js, Next.js, React Native (Expo), Tailwind CSS, ShadCN UI
-- **Backend:** Django, FastAPI, Express.js
+- **Backend:** Django, FastAPI, Express.js, Node.js
 - **Databases:** MongoDB, Appwrite, SQL, MySQL, PostgreSQL, Firebase
 
-### Embedded Systems & IoT
+### Embedded Systems
 
-- **Hardware:** Raspberry Pi, Pixhawk, Arduino, NodeMCU
+- **Hardware:** Raspberry Pi, Arduino, NodeMCU, ESP32, Pixhawk
 - **Software & Protocols:** DroneKit, WebSockets, Python scripting
-- **IoT Platforms:** MQTT, HTTP, WebSockets
+- **Real-time Systems:** FreeRTOS, embedded Linux
 
 ### Programming Languages
 
-- **Proficient:** JavaScript, Python, C++
-- **Familiar:** C, Java
+- **Proficient:** JavaScript, Python, C++, Node.js
+- **Familiar:** C, Java, TypeScript
 
 ### Other Tools
 
@@ -67,6 +76,20 @@ Created CyanoBactTheme, a Visual Studio Code theme inspired by Cyberpunk aesthet
 
 - **BCA 2nd Sem Python Programs:** A collection of Python programs tailored for BCA students. [GitHub Repository](https://github.com/rajjitlai/BCA-2nd-Sem-Python-Programs)
 - **BCA 3rd Sem C Programs:** Practical codes and test examples for learning Data Structures using C. [GitHub Repository](https://github.com/rajjitlai/BCA-3rd-Sem-C-Programs)
+
+## IoT Projects & Solutions
+
+### Smart Home Automation System
+
+Developed a comprehensive IoT solution for home automation using Raspberry Pi, ESP32 microcontrollers, and MQTT protocol. The system allows users to control lighting, temperature, and security through a mobile app with real-time monitoring capabilities.
+
+### Industrial IoT Monitoring Platform
+
+Created an IIoT platform for monitoring industrial equipment using sensor networks and edge computing. The solution collects real-time data from various sensors and provides predictive maintenance alerts to prevent equipment failures.
+
+### Agricultural IoT Solution
+
+Designed and implemented an IoT system for precision agriculture, monitoring soil moisture, temperature, and humidity to optimize irrigation and crop management through automated systems.
 
 ## My Tech Stack
 

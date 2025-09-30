@@ -18,11 +18,29 @@ const tagColorMap: { [key: string]: string } = {
     appwrite: "#fd366e",
     theme: "#55eefd",
     vscode: "#24adf3",
+    // IoT related tags
+    iot: "#00BFFF",
+    mqtt: "#FF6B35",
+    raspberry: "#D40000",
+    arduino: "#00979D",
+    esp32: "#E7352C",
+    aws: "#FF9900",
+    "cloud-platform": "#4B8BF5",
+    sensors: "#32CD32",
+    python: "#3776AB",
+    cplusplus: "#00599C",
     default: "#55eefd",
 };
 
 const getTagColor = (tag: string): string => {
     const lowerCaseTag = tag.toLowerCase();
+    // Handle compound tags like "raspberry-pi" or "cloud-platform"
+    if (lowerCaseTag.includes('raspberry') && lowerCaseTag.includes('pi')) {
+        return tagColorMap.raspberry;
+    }
+    if (lowerCaseTag.includes('cloud') && lowerCaseTag.includes('platform')) {
+        return tagColorMap['cloud-platform'];
+    }
     return tagColorMap[lowerCaseTag] || tagColorMap.default;
 };
 

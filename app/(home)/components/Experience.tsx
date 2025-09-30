@@ -9,16 +9,16 @@ export function Experience() {
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Expanding expertise in full-stack development, integrating AI-driven features into applications.
+                        Transitioned to IoT Software Developer role, specializing in IoT solutions and hardware integrations.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Developing cross-platform mobile applications using React Native, Expo, and NativeWind.
+                        Developing end-to-end IoT systems with cloud connectivity, sensor integration, and real-time data processing.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Implementing advanced hardware-software integration with Python, WebSockets, and microcontrollers.
+                        Implementing IoT protocols like MQTT and HTTP for device communication and data transmission.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Continuously improving and scaling my personal blogging platform built with React.js and Appwrite.
+                        Working with edge computing platforms like Raspberry Pi and ESP32 for local data processing.
                     </p>
                 </div>
             ),
@@ -28,13 +28,16 @@ export function Experience() {
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
-                        Began working with clients, delivering custom web applications and digital solutions.
+                        Worked as a Full-Stack Developer, delivering custom web applications and digital solutions.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
                         Developed and maintained a music web application using React.js and modern web technologies.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
                         Completed multiple web development projects and reusable templates using React.js and Tailwind CSS.
+                    </p>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-8">
+                        Implemented hardware-software integration with Python, WebSockets, and microcontrollers.
                     </p>
                 </div>
             ),

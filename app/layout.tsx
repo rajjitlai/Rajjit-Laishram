@@ -27,19 +27,19 @@ export const metadata: Metadata = {
     name: "Rajjit Laishram",
     url: "https://rajjitlaishram.netlify.app",
   },
-  description: "Based in Manipur, I'm a dedicated Full-Stack Developer x Software and Autonomous Systems Developer with a passion for creating innovative solutions that bridge the gap between software and hardware.",
+  description: "Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations.",
   twitter: {
     site: "@rajjitlai",
   },
   openGraph: {
     "title": "Rajjit Laishram",
-    description: "Based in Manipur, I'm a dedicated Full-Stack Developer x Software and Autonomous Systems Developer with a passion for creating innovative solutions that bridge the gap between software and hardware.",
+    description: "Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations.",
     url: "https://rajjitlaishram.netlify.app",
     siteName: "Rajjit Laishram",
     images: "/og.png",
     type: "website",
   },
-  keywords: ["rajjit laishram", "portfolio", "next js", "tailwind css", "aceternity ui"],
+  keywords: ["rajjit laishram", "portfolio", "IoT developer", "next js", "tailwind css", "aceternity ui", "IoT solutions", "hardware integrations"],
 };
 
 export default function RootLayout({

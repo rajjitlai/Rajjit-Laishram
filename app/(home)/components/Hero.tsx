@@ -28,7 +28,7 @@ const Hero = () => {
                     <span className='underline underline-offset-8 decoration-mine'>{"I'm Rajjit Laishram."}</span>
                 </h1>
                 <p className='md:w-[32rem] text-lg text-gray-100 font-merriweather text-center'>
-                    {"Based in Manipur, I'm a dedicated Full-Stack Developer x Software and Autonomous Systems Developer with a passion for creating innovative solutions that bridge the gap between software and hardware."}
+                    {"Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations."}
                 </p>
                 <Link href="#contact" className='group font-merriweather flex lg:inline-block items-center justify-center'>
                     <Title text="Contact Me 📨" />

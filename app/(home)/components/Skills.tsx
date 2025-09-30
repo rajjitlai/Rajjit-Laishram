@@ -2,11 +2,28 @@ import Title from '@/components/Title'
 import { HoverEffect } from '@/components/ui/card-hover-effect'
 import React from 'react'
 import { FaGitSquare } from 'react-icons/fa'
-import { SiAppwrite, SiC, SiCplusplus, SiCss3, SiDotnet, SiExpress, SiFigma, SiHtml5, SiJavascript, SiMongodb, SiNextdotjs, SiNodedotjs, SiOpencv, SiPhp, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
-import { TbBrandCSharp, TbBrandReactNative } from 'react-icons/tb'
+import { FaAws, FaRaspberryPi } from 'react-icons/fa'
+import { SiAppwrite, SiC, SiCplusplus, SiCss3, SiExpress, SiFigma, SiHtml5, SiJavascript, SiMongodb, SiNextdotjs, SiNodedotjs, SiOpencv, SiPython, SiReact, SiTailwindcss, SiTypescript } from 'react-icons/si'
+import { TbBrandCSharp, TbBrandReactNative, TbCloudComputing, TbNetwork } from 'react-icons/tb'
 
 function Skills() {
     const skills = [
+        {
+            text: "IoT Development",
+            Icon: TbNetwork,
+        },
+        {
+            text: "Raspberry Pi",
+            Icon: FaRaspberryPi,
+        },
+        {
+            text: "Cloud Platforms",
+            Icon: TbCloudComputing,
+        },
+        {
+            text: "AWS IoT",
+            Icon: FaAws,
+        },
         {
             text: "Next",
             Icon: SiNextdotjs,
@@ -28,28 +45,40 @@ function Skills() {
             Icon: SiPython,
         },
         {
-            text: "MongoDB",
-            Icon: SiMongodb,
+            text: "MQTT",
+            Icon: TbNetwork,
         },
         {
-            text: "Git",
-            Icon: FaGitSquare,
-        },
-        {
-            text: "Figma",
-            Icon: SiFigma,
+            text: "Node.js",
+            Icon: SiNodedotjs,
         },
         {
             text: "C++",
             Icon: SiCplusplus,
         },
         {
+            text: "Embedded Systems",
+            Icon: FaRaspberryPi,
+        },
+        {
+            text: "Sensor Integration",
+            Icon: TbNetwork,
+        },
+        {
+            text: "Git",
+            Icon: FaGitSquare,
+        },
+        {
             text: "TypeScript",
             Icon: SiTypescript,
         },
         {
-            text: "Node.js",
-            Icon: SiNodedotjs,
+            text: "MongoDB",
+            Icon: SiMongodb,
+        },
+        {
+            text: "Express",
+            Icon: SiExpress
         },
         {
             text: "HTML",
@@ -59,38 +88,6 @@ function Skills() {
             text: "CSS",
             Icon: SiCss3,
         },
-        {
-            text: "C",
-            Icon: SiC,
-        },
-        {
-            text: "Appwrite",
-            Icon: SiAppwrite,
-        },
-        {
-            text: "Native",
-            Icon: TbBrandReactNative,
-        },
-        {
-            text: "PHP",
-            Icon: SiPhp,
-        },
-        {
-            text: "C#",
-            Icon: TbBrandCSharp,
-        },
-        {
-            text: ".NET",
-            Icon: SiDotnet,
-        },
-        {
-            text: "Express",
-            Icon: SiExpress
-        },
-        {
-            text: "OpenCV",
-            Icon: SiOpencv,
-        }
     ]
 
     return (
