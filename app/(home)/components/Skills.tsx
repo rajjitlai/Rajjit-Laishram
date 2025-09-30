@@ -88,6 +88,31 @@ function Skills() {
             text: "CSS",
             Icon: SiCss3,
         },
+        // Utilizing previously unused imports
+        {
+            text: "Appwrite",
+            Icon: SiAppwrite,
+        },
+        {
+            text: "C Programming",
+            Icon: SiC,
+        },
+        {
+            text: "Figma",
+            Icon: SiFigma,
+        },
+        {
+            text: "OpenCV",
+            Icon: SiOpencv,
+        },
+        {
+            text: "C#",
+            Icon: TbBrandCSharp,
+        },
+        {
+            text: "React Native",
+            Icon: TbBrandReactNative,
+        },
     ]
 
     return (
