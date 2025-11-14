@@ -1,3 +1,5 @@
+"use client"
+
 import Title from "@/components/Title";
 import { AnimatedTestimonials } from "@/components/ui/animated-testimonials";
 import { getTestimonials } from "@/lib/getTestimonials";

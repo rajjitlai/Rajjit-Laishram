@@ -12,11 +12,29 @@ export const config  = {
     resumeFileId: process.env.NEXT_PUBLIC_APPWRITE_PROJECT_RESUME_FILE_ID
 }
 
-export const client = new Client()
+function initializeAppwrite() {
+    if (typeof window === 'undefined') {
+        // Return dummy objects during SSR
+        return {
+            client: {} as Client,
+            databases: {} as Databases,
+            imageBucket: {} as Storage,
+            resumeBucket: {} as Storage,
+        };
+    }
 
-export const imageBucket = new Storage(client)
-export const resumeBucket = new Storage(client)
+    const client = new Client();
+    client.setEndpoint(config.endpoint!).setProject(config.projectId!);
+    const databases = new Databases(client);
+    const imageBucket = new Storage(client);
+    const resumeBucket = new Storage(client);
 
-client.setEndpoint(config.endpoint!).setProject(config.projectId!)
+    return { client, databases, imageBucket, resumeBucket };
+}
 
-export const databases = new Databases(client)
+const appwrite = initializeAppwrite();
+
+export const client = appwrite.client;
+export const databases = appwrite.databases;
+export const imageBucket = appwrite.imageBucket;
+export const resumeBucket = appwrite.resumeBucket;

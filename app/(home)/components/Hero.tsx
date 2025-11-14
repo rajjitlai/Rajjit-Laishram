@@ -1,3 +1,5 @@
+"use client"
+
 import Title from '@/components/Title'
 import Tooltip from '@/components/ToolTip'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
@@ -21,8 +23,8 @@ const Hero = () => {
                 <h1 className='text-4xl lg:text-7xl font-bold font-playwrite items-center text-center'>
                     <span className='flex flex-row gap-5 font-playwrite text-center justify-center lg:justify-start'>
                         Hello!
-                        <Tooltip text="ꯍꯦꯜꯂꯣ">
-                            <SiHey className='rotate-12 hover:-rotate-12 transition-all cursor-pointer' />
+                        <Tooltip text="ꯍꯦꯜꯂꯣ" autoShow>
+                            <SiHey className='animate-wave cursor-pointer' />
                         </Tooltip>
                     </span>
                     <span className='underline underline-offset-8 decoration-mine'>{"I'm Rajjit Laishram."}</span>

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "motion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IconType } from "react-icons";
 
 export const HoverEffect = ({
@@ -14,10 +14,22 @@ export const HoverEffect = ({
     className?: string;
 }) => {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
+
+    useEffect(() => {
+        const moveGlow = () => {
+            const newX = Math.random() * 100;
+            const newY = Math.random() * 100;
+            setGlowPosition({ x: newX, y: newY });
+        };
+
+        const interval = setInterval(moveGlow, 3000); // Move every 3 seconds
+        return () => clearInterval(interval);
+    }, []);
     return (
         <div
             className={cn(
-                "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 py-10",
+                "grid grid-cols-2 py-10",
                 className
             )}
         >
@@ -38,6 +50,7 @@ export const HoverEffect = ({
                                     initial={{ opacity: 0 }}
                                     animate={{
                                         opacity: 1,
+                                        background: `radial-gradient(circle at ${glowPosition.x}% ${glowPosition.y}%, rgba(0, 253, 234, 0.4), rgba(56, 255, 66, 0.2), transparent)`,
                                         transition: { duration: 0.15 },
                                     }}
                                     exit={{

@@ -86,10 +86,43 @@ export default {
 						opacity: "1",
 					},
 				},
+				"spin-slow": {
+					from: {
+						transform: "rotate(0deg)",
+					},
+					to: {
+						transform: "rotate(360deg)",
+					},
+				},
+				"tilt": {
+					"0%, 100%": {
+						transform: "rotate(0deg)",
+					},
+					"25%": {
+						transform: "rotate(6deg)",
+					},
+					"75%": {
+						transform: "rotate(-6deg)",
+					},
+				},
+				"tilt-reverse": {
+					"0%, 100%": {
+						transform: "rotate(0deg)",
+					},
+					"25%": {
+						transform: "rotate(-6deg)",
+					},
+					"75%": {
+						transform: "rotate(6deg)",
+					},
+				},
 			},
 			animation: {
 				"move-up": "move-up 1s linear forwards",
 				"move-down": "move-down 1s linear forwards",
+				"spin-slow": "spin-slow 3s linear infinite",
+				"tilt": "tilt 4s ease-in-out infinite",
+				"tilt-reverse": "tilt-reverse 4s ease-in-out infinite",
 			},
 		}
 	},
