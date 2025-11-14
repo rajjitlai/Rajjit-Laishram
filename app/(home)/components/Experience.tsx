@@ -141,7 +141,7 @@ export function Experience() {
             content: (
                 <div>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-3">
-                        Developed <span className="font-semibold">RJ's BLOG (rjsblog.in)</span> - A blogging platform built with React.js and Appwrite.
+                        Developed <span className="font-semibold">RJ&apos;s BLOG (rjsblog.in)</span> - A blogging platform built with React.js and Appwrite.
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-3">
                         Contributed open-source web templates and personal projects to GitHub.
@@ -160,7 +160,7 @@ export function Experience() {
                         Education - NIELIT Imphal
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-3">
-                        Started Bachelor's degree in Computer Applications (June 2022 - July 2025)
+                        Started Bachelor&apos;s degree in Computer Applications (June 2022 - July 2025)
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal">
                         Built personal projects with React.js, Node.js, and started IoT development with Raspberry Pi.
