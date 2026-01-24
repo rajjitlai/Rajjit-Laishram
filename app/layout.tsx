@@ -40,6 +40,17 @@ export const metadata: Metadata = {
     type: "website",
   },
   keywords: ["rajjit laishram", "portfolio", "IoT developer", "next js", "tailwind css", "aceternity ui", "IoT solutions", "hardware integrations"],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({
