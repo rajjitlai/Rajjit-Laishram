@@ -85,6 +85,7 @@ export default function RootLayout({
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
+          suppressHydrationWarning
         >
           <AuthProvider>
             {children}

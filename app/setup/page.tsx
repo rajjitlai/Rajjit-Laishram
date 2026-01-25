@@ -35,23 +35,34 @@ export default function AdminDashboard() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Placeholder for future widgets */}
-                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all">
+                    {/* Messages Card */}
+                    <div
+                        onClick={() => router.push("/setup/messages")}
+                        className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-mine cursor-pointer transition-all group"
+                    >
                         <h3 className="text-xl font-bold mb-2 text-mine">Messages</h3>
                         <p className="text-neutral-400">View and manage contact form submissions.</p>
-                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4">View Messages &rarr;</button>
+                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4 group-hover:translate-x-1 transition-transform inline-block">View Messages &rarr;</button>
                     </div>
 
-                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all">
+                    {/* Testimonials Card */}
+                    <div
+                        onClick={() => router.push("/setup/testimonials")}
+                        className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-mine cursor-pointer transition-all group"
+                    >
                         <h3 className="text-xl font-bold mb-2 text-mine">Testimonials</h3>
                         <p className="text-neutral-400">Approve or delete user reviews.</p>
-                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4">Manage Reviews &rarr;</button>
+                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4 group-hover:translate-x-1 transition-transform inline-block">Manage Reviews &rarr;</button>
                     </div>
 
-                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all">
+                    {/* Projects Card */}
+                    <div
+                        onClick={() => router.push("/setup/projects")}
+                        className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-mine cursor-pointer transition-all group"
+                    >
                         <h3 className="text-xl font-bold mb-2 text-mine">Projects</h3>
                         <p className="text-neutral-400">Add or edit portfolio projects.</p>
-                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4">Manage Projects &rarr;</button>
+                        <button className="mt-4 text-sm underline decoration-mine underline-offset-4 group-hover:translate-x-1 transition-transform inline-block">Manage Projects &rarr;</button>
                     </div>
                 </div>
 

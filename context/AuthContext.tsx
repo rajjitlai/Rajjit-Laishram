@@ -20,7 +20,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const [isAdmin, setIsAdmin] = useState(false);
 
     useEffect(() => {
-        checkUser();
+        // Only run on client side
+        if (typeof window !== 'undefined') {
+            checkUser();
+        }
     }, []);
 
     const checkUser = async () => {

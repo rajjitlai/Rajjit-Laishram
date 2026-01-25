@@ -6,6 +6,7 @@ interface Review {
     role_org: string;
     description: string;
     profile_url: string;
+    rating?: number;
 }
 
 type Response = unknown;
@@ -13,7 +14,7 @@ type Response = unknown;
 export const addReview = async (rev: Review, file: File): Promise<Response> => {
     const documentId = ID.unique();
     try {
-        if (!config.databaseId ||!config.testimonialCollectionsId || !config.profileImagesBucketId) {
+        if (!config.databaseId || !config.testimonialCollectionsId || !config.profileImagesBucketId) {
             throw new Error("Database ID or Message Collection ID is not defined");
         }
         const fileResponse = await imageBucket.createFile(
@@ -34,6 +35,7 @@ export const addReview = async (rev: Review, file: File): Promise<Response> => {
                 role_org: rev.role_org,
                 description: rev.description,
                 profile_url: imageUrl,
+                rating: rev.rating || 0,
             }
         );
         return response;

@@ -1,0 +1,286 @@
+"use client";
+
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { getProjects } from "@/lib/getProjects";
+import { deleteProject } from "@/lib/deleteProject";
+import { createProject } from "@/lib/createProject";
+import { updateProject } from "@/lib/updateProject";
+import Title from "@/components/Title";
+import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
+import Image from "next/image";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+
+interface Project {
+    id: string;
+    title: string;
+    description: string;
+    url: string;
+    link: string;
+    tags: string[];
+}
+
+export default function ProjectsPage() {
+    const { user, loading, isAdmin } = useAuth();
+    const router = useRouter();
+    const [projects, setProjects] = useState<Project[]>([]);
+    const [loadingProjects, setLoadingProjects] = useState(true);
+    const [showForm, setShowForm] = useState(false);
+    const [editingProject, setEditingProject] = useState<Project | null>(null);
+
+    // Form state
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [projectLink, setProjectLink] = useState("");
+    const [techStack, setTechStack] = useState("");
+    const [imageFile, setImageFile] = useState<File | null>(null);
+
+    useEffect(() => {
+        if (!loading && (!user || !isAdmin)) {
+            router.push("/login");
+        }
+    }, [user, loading, isAdmin, router]);
+
+    useEffect(() => {
+        if (user && isAdmin) {
+            fetchProjects();
+        }
+    }, [user, isAdmin]);
+
+    const fetchProjects = async () => {
+        try {
+            const fetchedProjects = await getProjects();
+            setProjects(fetchedProjects);
+        } catch (error) {
+            console.error("Error fetching projects:", error);
+        } finally {
+            setLoadingProjects(false);
+        }
+    };
+
+    const handleDelete = async (projectId: string) => {
+        if (!confirm("Are you sure you want to delete this project?")) return;
+
+        try {
+            await deleteProject(projectId);
+            setProjects(projects.filter((p) => p.id !== projectId));
+        } catch (error) {
+            console.error("Error deleting project:", error);
+            alert("Failed to delete project");
+        }
+    };
+
+    const handleEdit = (project: Project) => {
+        setEditingProject(project);
+        setTitle(project.title);
+        setDescription(project.description);
+        setProjectLink(project.link);
+        setTechStack(project.tags.join(", "));
+        setShowForm(true);
+    };
+
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setProjectLink("");
+        setTechStack("");
+        setImageFile(null);
+        setEditingProject(null);
+        setShowForm(false);
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!imageFile && !editingProject) {
+            alert("Please upload a project image");
+            return;
+        }
+
+        try {
+            const projectData = {
+                title,
+                description,
+                project_link: projectLink,
+                tech_stack: techStack.split(",").map((tag) => tag.trim()),
+            };
+
+            if (editingProject) {
+                await updateProject(editingProject.id, projectData, imageFile || undefined);
+                alert("Project updated successfully!");
+            } else {
+                await createProject(projectData, imageFile!);
+                alert("Project created successfully!");
+            }
+
+            resetForm();
+            fetchProjects();
+        } catch (error) {
+            console.error("Error saving project:", error);
+            alert("Failed to save project");
+        }
+    };
+
+    if (loading || !user) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-black text-white">
+                Loading...
+            </div>
+        );
+    }
+
+    return (
+        <div className="min-h-screen bg-black text-white p-8 font-merriweather pt-24">
+            <div className="max-w-7xl mx-auto">
+                <div className="flex justify-between items-center mb-8">
+                    <Title text="Manage Projects" className="text-3xl" />
+                    <div className="flex gap-4">
+                        <HoverBorderGradient
+                            as="button"
+                            onClick={() => {
+                                resetForm();
+                                setShowForm(!showForm);
+                            }}
+                            className="bg-black text-white flex items-center space-x-2"
+                        >
+                            <span>{showForm ? "Cancel" : "+ New Project"}</span>
+                        </HoverBorderGradient>
+                        <HoverBorderGradient
+                            as="button"
+                            onClick={() => router.push("/setup")}
+                            className="bg-black text-white flex items-center space-x-2"
+                        >
+                            <span>← Back to Dashboard</span>
+                        </HoverBorderGradient>
+                    </div>
+                </div>
+
+                {showForm && (
+                    <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl mb-8">
+                        <h3 className="text-xl font-bold mb-4 text-mine">
+                            {editingProject ? "Edit Project" : "Create New Project"}
+                        </h3>
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div>
+                                <Label htmlFor="title">Project Title</Label>
+                                <Input
+                                    id="title"
+                                    placeholder="IoT Smart Home System"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="description">Description</Label>
+                                <textarea
+                                    id="description"
+                                    placeholder="Project description..."
+                                    rows={3}
+                                    className={cn(
+                                        "border-2 w-full p-4 focus-visible:ring-[2px] focus:ring-neutral-600 outline-none resize-none text-sm bg-zinc-800 rounded"
+                                    )}
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="link">Project Link</Label>
+                                <Input
+                                    id="link"
+                                    placeholder="https://github.com/..."
+                                    value={projectLink}
+                                    onChange={(e) => setProjectLink(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="techStack">Tech Stack (comma-separated)</Label>
+                                <Input
+                                    id="techStack"
+                                    placeholder="ReactJS, NextJS, IoT, MQTT"
+                                    value={techStack}
+                                    onChange={(e) => setTechStack(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="image">Project Image {editingProject && "(Leave empty to keep current)"}</Label>
+                                <input
+                                    id="image"
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                                    className="w-full p-2 bg-zinc-800 border border-zinc-700 rounded text-sm"
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="w-full bg-gradient-to-br from-mine to-hers text-white py-3 rounded font-medium hover:opacity-90 transition-opacity"
+                            >
+                                {editingProject ? "Update Project" : "Create Project"}
+                            </button>
+                        </form>
+                    </div>
+                )}
+
+                {loadingProjects ? (
+                    <p className="text-center text-neutral-400">Loading projects...</p>
+                ) : projects.length === 0 ? (
+                    <div className="bg-zinc-900/50 border border-zinc-800 rounded-xl p-8 text-center text-neutral-500">
+                        No projects found. Create your first project!
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {projects.map((project) => (
+                            <div
+                                key={project.id}
+                                className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
+                            >
+                                <Image
+                                    src={project.url}
+                                    alt={project.title}
+                                    width={400}
+                                    height={200}
+                                    className="w-full h-40 object-cover rounded mb-4"
+                                />
+                                <h3 className="text-lg font-bold text-mine mb-2">{project.title}</h3>
+                                <p className="text-neutral-300 text-sm mb-3 line-clamp-2">
+                                    {project.description}
+                                </p>
+                                <div className="flex flex-wrap gap-1 mb-4">
+                                    {project.tags.slice(0, 3).map((tag, index) => (
+                                        <span
+                                            key={index}
+                                            className="px-2 py-1 bg-zinc-800 text-xs rounded text-neutral-400"
+                                        >
+                                            #{tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div className="flex gap-2">
+                                    <button
+                                        onClick={() => handleEdit(project)}
+                                        className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() => handleDelete(project.id)}
+                                        className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}

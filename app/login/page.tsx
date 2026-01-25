@@ -15,7 +15,7 @@ export default function Login() {
     const router = useRouter();
 
     if (user) {
-        router.push("/admin");
+        router.push("/setup");
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +23,7 @@ export default function Login() {
         setError("");
         try {
             await loginUser(email, password);
-            router.push("/admin");
+            router.push("/setup");
         } catch (err: unknown) {
             console.error(err);
             setError("Invalid credentials. Please try again.");

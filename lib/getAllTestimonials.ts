@@ -15,31 +15,30 @@ interface Testimonial {
     role: string;
     description: string;
     image_url: string;
+    approved?: boolean;
 }
 
-export const getTestimonials = async (): Promise<Testimonial[]> => {
+export const getAllTestimonials = async (): Promise<Testimonial[]> => {
     try {
         if (!config.databaseId || !config.testimonialCollectionsId) {
             throw new Error("Database ID or Testimonial Collection ID is not defined");
         }
 
-        // NOTE: Add Query.equal("approved", true) after creating the "approved" field in Appwrite
-        // For now, fetching all testimonials to avoid schema errors
         const response = await databases.listDocuments<Document>(
             config.databaseId,
             config.testimonialCollectionsId,
-            // [Query.equal("approved", true)] // Uncomment after adding "approved" field to schema
         );
 
         return response.documents.map((testimonial: Document): Testimonial => ({
-            id: testimonial.id,
+            id: testimonial.$id,
             name: testimonial.fullname,
             role: testimonial.role_org,
             description: testimonial.description,
             image_url: testimonial.profile_url,
+            approved: testimonial.approved,
         }));
     } catch (error) {
-        console.error("Error fetching testimonials", error);
+        console.error("Error fetching all testimonials", error);
         return [];
     }
-}
+};

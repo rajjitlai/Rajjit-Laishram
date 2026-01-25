@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { FileUpload } from "@/components/ui/file-upload";
+import { StarRating } from "@/components/ui/star-rating";
 import { addReview } from "@/lib/addReview";
 
 import { useRouter } from "next/navigation";
@@ -14,6 +15,7 @@ export default function Page() {
     const [fullname, setFullname] = useState("");
     const [role, setRole] = useState("");
     const [description, setDescription] = useState("");
+    const [rating, setRating] = useState(0);
 
     const handleProfileUpload = (files: File[]) => {
         if (files.length > 0) {
@@ -29,17 +31,24 @@ export default function Page() {
             return;
         }
 
+        if (rating === 0) {
+            alert("Please select a rating.");
+            return;
+        }
+
         try {
             await addReview({
                 fullname,
                 role_org: role,
                 description,
                 profile_url: "",
+                rating,
             }, file);
             alert("Review added successfully");
             setFullname("");
             setRole("");
             setDescription("");
+            setRating(0);
             setFile(null);
             router.push('/');
         } catch (error) {
@@ -56,10 +65,14 @@ export default function Page() {
                 {"I'd love to hear your thoughts! Let me know how my services helped you and what I can improve."}
             </p>
 
+
             <form className="my-8 h-screen" onSubmit={handleSubmit}>
-                <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
-                    <FileUpload onChange={handleProfileUpload} />
-                </div>
+                <LabelInputContainer className="mb-4">
+                    <Label htmlFor="profile">Upload a profile</Label>
+                    <div className="w-full max-w-4xl mx-auto min-h-96 border border-dashed bg-white dark:bg-black border-neutral-200 dark:border-neutral-800 rounded-lg">
+                        <FileUpload onChange={handleProfileUpload} />
+                    </div>
+                </LabelInputContainer>
                 <div className="flex flex-col mt-5 md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
                     <LabelInputContainer>
                         <Label htmlFor="fullname">Name</Label>
@@ -82,6 +95,15 @@ export default function Page() {
                         />
                     </LabelInputContainer>
                 </div>
+                <LabelInputContainer className="mb-4">
+                    <Label htmlFor="rating">Rating</Label>
+                    <StarRating rating={rating} onRatingChange={setRating} className="mt-2" />
+                    {rating > 0 && (
+                        <p className="text-xs text-neutral-400 mt-1">
+                            You rated {rating} star{rating !== 1 ? 's' : ''}
+                        </p>
+                    )}
+                </LabelInputContainer>
                 <LabelInputContainer>
                     <Label htmlFor="description">Add review</Label>
                     <textarea
