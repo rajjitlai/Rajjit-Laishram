@@ -2,7 +2,7 @@
 
 ## 🎨 Design Improvements
 
-### High Priority (Quick Wins)
+### High Priority (Roadmap to 10/10)
 - [x] **Experience Timeline Enhancements**
     - [x] Add cyan/green glow effect to timeline line
     - [x] Add pulsing indicator dot for "Present" position
@@ -22,23 +22,32 @@
     - [ ] Add placeholder illustration or icon
     - [ ] Improve empty state messaging
 
-### Medium Priority
-- [ ] **Project Cards Enhancement**
-    - [ ] Wrap project thumbnails in device mockups (laptop/phone frames)
-    - [ ] Add "Live Demo" button alongside "View" button
+- [ ] **Project Visual Polish** (Moved to High)
+    - [ ] Wrap project thumbnails in device mockups (MacBook/iPhone frames)
+    - [ ] Add "Live Demo" button alongside "View" button with distinct style
     - [ ] Ensure consistent image aspect ratios
 
-- [ ] **Skills Section Reorganization**
-    - [ ] Implement tabbed interface (Frontend/Backend/IoT/Tools)
-    - [ ] Or consider accordion/collapsible sections
-    - [ ] Reduce vertical space while maintaining clarity
+### 💎 Visual Polish (10/10 Features)
+- [ ] **Micro-Interactions**
+    - [ ] Add magnetic effect to primary buttons (buttons pull towards cursor)
+    - [ ] Implement creative link hover animations (e.g., underlining reveals)
+    - [ ] Add "Copy Email" button with toast notification in Contact section
 
-- [ ] **Contact Section Polish**
-    - [ ] Add hover effects to "Send" button matching green theme
-    - [ ] Consider adding social media icons near form
-    - [ ] Add form validation feedback
+- [ ] **Loading Experience**
+    - [ ] Implement Skeleton loaders for Testimonials & Projects (instead of text popping in)
+    - [ ] Add smooth page transition animations
 
-### Lower Priority (Nice to Have)
+### 🔧 Technical Excellence (10/10 Features)
+- [ ] **SEO & Social Sharing**
+    - [ ] Add OpenGraph (OG) images for social sharing (a banner with your face/title)
+    - [ ] Polish meta descriptions and title tags for all pages
+    - [ ] Add JSON-LD structured data for Portfolio/Person
+
+- [ ] **Performance Audit**
+    - [ ] Achieve 100/100 Lighthouse score (Performance, Accessibility, SEO)
+    - [ ] Optimize all images (WebP format, proper sizing)
+
+### Medium Priority
 - [ ] **Micro-interactions & Animations**
     - [ ] Add subtle floating animation to profile image
     - [ ] Implement parallax scrolling effects
