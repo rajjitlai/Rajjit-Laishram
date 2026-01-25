@@ -19,25 +19,29 @@ function Skills() {
 
     const SkillCard = ({ text, Icon, index, totalInSection, color }: { text: string; Icon: IconType; index: number; totalInSection: number; color: string }) => {
         const isGlowing = (currentIndex % totalInSection) === index;
-        const glowColor = color === 'mine' 
+        const glowColor = color === 'mine'
             ? 'rgba(56, 255, 66, 0.6)' // green
             : 'rgba(0, 253, 234, 0.6)'; // cyan
+
         const borderColor = color === 'mine' ? 'border-mine' : 'border-hers';
         const textColor = color === 'mine' ? 'text-mine' : 'text-hers';
-        
+
+        // Dynamic hover classes
+        const hoverBorder = color === 'mine' ? 'hover:border-mine' : 'hover:border-hers';
+        const hoverText = color === 'mine' ? 'group-hover:text-mine' : 'group-hover:text-hers';
+        const hoverShadow = color === 'mine' ? 'hover:shadow-[0_0_15px_rgba(56,255,66,0.5)]' : 'hover:shadow-[0_0_15px_rgba(0,253,234,0.5)]';
+
         return (
-            <div className={`flex flex-col items-center gap-2 p-3 bg-black border transition-all cursor-pointer group ${
-                isGlowing 
-                    ? `${borderColor} scale-105` 
-                    : 'border-gray-800 hover:border-mine'
-            }`}
-            style={{
-                boxShadow: isGlowing ? `0 0 15px ${glowColor}` : 'none'
-            }}>
-                <Icon className={`w-5 h-5 transition-colors ${
-                    isGlowing ? textColor : 'text-gray-400 group-hover:text-mine'
-                }`} />
-                <p className='text-xs text-gray-300 text-center'>{text}</p>
+            <div className={`flex flex-col items-center gap-2 p-3 bg-black border transition-all duration-300 cursor-pointer group hover:scale-110 ${hoverShadow} ${isGlowing
+                    ? `${borderColor} scale-105`
+                    : `border-gray-800 ${hoverBorder}`
+                }`}
+                style={{
+                    boxShadow: isGlowing ? `0 0 15px ${glowColor}` : undefined
+                }}>
+                <Icon className={`w-5 h-5 transition-colors duration-300 ${isGlowing ? textColor : `text-gray-400 ${hoverText}`
+                    }`} />
+                <p className='text-xs text-gray-300 text-center transition-colors duration-300 group-hover:text-white'>{text}</p>
             </div>
         );
     };
@@ -57,13 +61,13 @@ function Skills() {
                 {items.map((item, idx) => {
                     const snakeIdx = getSnakeIndex(idx);
                     return (
-                        <SkillCard 
-                            key={idx} 
-                            text={item.text} 
-                            Icon={item.Icon} 
-                            index={snakeIdx} 
-                            totalInSection={items.length} 
-                            color={color} 
+                        <SkillCard
+                            key={idx}
+                            text={item.text}
+                            Icon={item.Icon}
+                            index={snakeIdx}
+                            totalInSection={items.length}
+                            color={color}
                         />
                     );
                 })}
@@ -422,7 +426,7 @@ function Skills() {
     return (
         <div className='max-w-7xl mx-auto px-8 font-merriweather relative' id='skills'>
             <Title text='Skills 💻' className='flex flex-col items-center justify-center cursor-pointer relative z-10' />
-            
+
             {/* Row 1: Frontend (left) + Backend & Database (right) */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16'>
                 <div>

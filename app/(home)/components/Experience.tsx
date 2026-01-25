@@ -12,17 +12,17 @@ export function Experience() {
     useEffect(() => {
         const handleScroll = () => {
             if (!timelineRef.current) return;
-            
+
             const timelineTop = timelineRef.current.offsetTop;
             const timelineHeight = timelineRef.current.offsetHeight;
             const scrollY = window.scrollY;
             const windowHeight = window.innerHeight;
-            
+
             // Calculate how much of the timeline has been scrolled through
             const start = timelineTop - windowHeight + 200;
             const end = timelineTop + timelineHeight - 200;
             const progress = Math.min(Math.max((scrollY - start) / (end - start), 0), 1);
-            
+
             setScrollProgress(progress * 100);
 
             // Check which items are visible
@@ -39,7 +39,7 @@ export function Experience() {
 
         window.addEventListener('scroll', handleScroll);
         handleScroll(); // Initial calculation
-        
+
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -60,7 +60,7 @@ export function Experience() {
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
                         Building end-to-end IoT systems with cloud connectivity, sensor integration, and real-time data processing using MQTT and HTTP protocols.
                     </p>
-                    
+
                     <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
                         Lead Software Engineer & Team Captain — Nongin Aerial Wings Aid (NAWA) | NIDAR Drone Competition
                     </p>
@@ -76,7 +76,7 @@ export function Experience() {
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
                         Designed and coordinated two autonomous drones (scout and delivery). Validated the system through 200+ real-world flight tests along with simulation-based testing.
                     </p>
-                    
+
                     <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
                         Software & Autonomous Systems Developer - NIELIT Imphal (Drone Lab)
                     </p>
@@ -92,7 +92,7 @@ export function Experience() {
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
                         Working on drone communication systems and autonomous flight control software.
                     </p>
-                    
+
                     <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
                         Student Internship - Airport Authority of India (AAI)
                     </p>
@@ -124,7 +124,7 @@ export function Experience() {
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
                         Mentored junior developers and fostered a collaborative problem-solving environment.
                     </p>
-                    
+
                     <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
                         Full-Stack Developer (Freelance)
                     </p>
@@ -202,43 +202,49 @@ export function Experience() {
     return (
         <div className="max-w-7xl mx-auto px-8 font-merriweather mt-20" id="exp">
             <Title text='Experience 💪' className='flex flex-col items-center justify-center cursor-pointer mb-16' />
-            
+
             <div className="relative" ref={timelineRef}>
-                {/* Center vertical line - background */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-800 hidden lg:block"></div>
-                
-                {/* Center vertical line - animated progress */}
-                <div 
-                    className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-mine via-hers to-mine hidden lg:block transition-all duration-300 ease-out"
+                {/* Center vertical line - background with subtle glow */}
+                <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-800 hidden lg:block shadow-[0_0_10px_rgba(34,197,94,0.3)]"></div>
+
+                {/* Center vertical line - animated progress with enhanced glow */}
+                <div
+                    className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-mine via-hers to-mine hidden lg:block transition-all duration-300 ease-out shadow-[0_0_15px_rgba(34,197,94,0.6),0_0_30px_rgba(34,197,94,0.4)]"
                     style={{ height: `${scrollProgress}%` }}
                 ></div>
-                
+
                 {data.map((item, index) => (
-                    <div 
-                        key={index} 
+                    <div
+                        key={index}
                         ref={(el) => { itemRefs.current[index] = el; }}
-                        className={`mb-16 lg:mb-24 flex flex-col lg:flex-row items-center transition-all duration-700 ${
-                            index % 2 === 0 ? 'lg:flex-row-reverse' : ''
-                        } ${
-                            visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                        }`}
+                        className={`mb-16 lg:mb-24 flex flex-col lg:flex-row items-center transition-all duration-700 ${index % 2 === 0 ? 'lg:flex-row-reverse' : ''
+                            } ${visibleItems.has(index) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                            }`}
                     >
                         {/* Content */}
-                        <div className={`w-full lg:w-[45%] ${
-                            index % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:text-left lg:pl-12'
-                        }`}>
+                        <div className={`w-full lg:w-[45%] ${index % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:text-left lg:pl-12'
+                            }`}>
                             <div className="bg-black border border-gray-800 p-6 hover:border-mine transition-all duration-300 hover:shadow-lg hover:shadow-mine/20">
                                 {item.content}
                             </div>
                         </div>
-                        
-                        {/* Year badge in center */}
-                        <div className="w-full lg:w-[10%] flex justify-center items-center my-4 lg:my-0 z-10">
-                            <div className="bg-black border-2 border-mine px-6 py-3 text-mine font-bold text-xl shadow-lg shadow-mine/30">
+
+                        {/* Year badge in center with enhanced glow */}
+                        <div className="w-full lg:w-[10%] flex justify-center items-center my-4 lg:my-0 z-10 relative">
+                            <div className="bg-black border-2 border-mine px-6 py-3 text-mine font-bold text-xl shadow-lg shadow-mine/50 hover:shadow-mine/70 hover:scale-105 transition-all duration-300 relative">
                                 {item.title}
+                                {/* Pulsing indicator for "Present" */}
+                                {index === 0 && (
+                                    <div className="absolute -top-1 -right-1 flex items-center justify-center">
+                                        <span className="relative flex h-3 w-3">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-mine opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-3 w-3 bg-mine shadow-[0_0_10px_rgba(34,197,94,0.8)]"></span>
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </div>
-                        
+
                         {/* Empty space for alternating layout */}
                         <div className="hidden lg:block w-[45%]"></div>
                     </div>

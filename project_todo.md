@@ -1,42 +1,98 @@
 # Project TODO List
 
-## Admin Dashboard & CMS Features
-- [x] **Admin Authentication**
-    - [x] Create an Admin Login page.
-    - [x] Implement Auth Context to protect admin routes.
-    - [x] Secure Appwrite client/server logic for admin actions.
+## 🎨 Design Improvements
 
-- [x] **Admin Dashboard**
-    - [x] Create `/admin` page (protected).
-    - [x] Add ability to manage (approve/delete) Testimonials.
-    - [x] Add ability to manage Projects (CRUD).
-    - [x] Add ability to view Messages.
+### High Priority (Quick Wins)
+- [x] **Experience Timeline Enhancements**
+    - [x] Add cyan/green glow effect to timeline line
+    - [x] Add pulsing indicator dot for "Present" position
+    - [x] Enhance year markers with neon glow
 
-## Public Features
-- [x] **Testimonials Form**
-    - [x] Create a public page `/review` (or similar).
-    - [x] Design a user-friendly form for submitting reviews (Name, Role, Company, Review, Rating).
-    - [x] Integrate with Appwrite to save the review.
-    - [x] Add success state / redirection back to the main portfolio.
+- [x] **Button Consistency & CTAs**
+    - [x] Redesign "Contact Me" link to match "Download Resume" button style
+    - [x] Ensure consistent hover effects across all primary buttons
+    - [x] Add proper visual hierarchy for CTAs
 
-- [x] **Testimonials Section Integration**
-    - [x] Ensure the 'What people say?' section on the home page fetches approved reviews from Appwrite.
+- [x] **Skills Section Interactivity**
+    - [x] Add hover effects (scale-up/glow) to skill cards
+    - [x] Consider adding subtle animations on scroll
 
-## ✅ Project Complete!
+- [ ] **Testimonials Empty State**
+    - [ ] Add "Submit Your Review" CTA button to empty state
+    - [ ] Add placeholder illustration or icon
+    - [ ] Improve empty state messaging
 
-All major features have been implemented:
+### Medium Priority
+- [ ] **Project Cards Enhancement**
+    - [ ] Wrap project thumbnails in device mockups (laptop/phone frames)
+    - [ ] Add "Live Demo" button alongside "View" button
+    - [ ] Ensure consistent image aspect ratios
+
+- [ ] **Skills Section Reorganization**
+    - [ ] Implement tabbed interface (Frontend/Backend/IoT/Tools)
+    - [ ] Or consider accordion/collapsible sections
+    - [ ] Reduce vertical space while maintaining clarity
+
+- [ ] **Contact Section Polish**
+    - [ ] Add hover effects to "Send" button matching green theme
+    - [ ] Consider adding social media icons near form
+    - [ ] Add form validation feedback
+
+### Lower Priority (Nice to Have)
+- [ ] **Micro-interactions & Animations**
+    - [ ] Add subtle floating animation to profile image
+    - [ ] Implement parallax scrolling effects
+    - [ ] Add smooth transitions between sections
+    - [ ] Consider scroll-triggered animations
+
+- [ ] **Additional Features**
+    - [ ] Add dark/light mode toggle (currently only dark)
+    - [ ] Implement loading skeleton screens
+    - [ ] Add "Back to Top" floating button
+
+## 🔧 Technical Improvements
+- [ ] **Appwrite Schema Updates**
+    - [x] Add `approved` field (Boolean, default: false) to Testimonials collection
+    - [x] Add `rating` field (Integer, min: 0, max: 5) to Testimonials collection
+    - [ ] Uncomment approval filter in `lib/getTestimonials.ts` after schema update
+
+- [ ] **Performance Optimization**
+    - [ ] Add pagination for admin management lists
+    - [ ] Implement image optimization for project thumbnails
+    - [ ] Consider lazy loading for sections
+
+- [ ] **Email integration for contact form**
+    - [ ] Add email integration for contact form
+    - [ ] Add email integration for review form
+
+- [ ] **Support other data to be fetched from appwrite**
+
+## ✅ Completed Features
+
+### Admin Dashboard & CMS
 - ✅ Admin authentication with role-based access
-- ✅ Full CRUD operations for Projects
-- ✅ Testimonials management with approval system
-- ✅ Contact messages viewer
-- ✅ Public review submission form
-- ✅ Protected admin routes
+- ✅ Protected admin routes (now at `/setup`)
+- ✅ Messages management (view/delete)
+- ✅ Testimonials management (approve/delete)
+- ✅ Projects CRUD (create/edit/delete)
 
-## Optional Future Enhancements
-- [ ] Add pagination for large lists
-- [ ] Add search/filter functionality
-- [ ] Add analytics dashboard
-- [ ] Add email notifications for new messages/reviews
-- [ ] Add rich text editor for project descriptions
-- [ ] Add drag-and-drop image upload
-- [ ] Add bulk operations (approve/delete multiple items)
+### Public Features
+- ✅ Review submission form with star ratings
+- ✅ File upload for profile images
+- ✅ Testimonials display on homepage
+- ✅ Contact form integration
+
+### Recent Updates
+- ✅ Changed admin routing from `/admin` to `/setup`
+- ✅ Added star rating component to review form
+- ✅ Added "Upload a profile" label to file upload
+- ✅ Fixed Appwrite v17 localStorage SSR issues (downgraded to v16)
+
+---
+
+**Priority Order for Implementation:**
+1. Experience Timeline Glow (Quick visual impact)
+2. Button Consistency (Improves UX/conversion)
+3. Project Device Mockups (Professional polish)
+4. Skills Section Tabs (Better organization)
+5. Micro-interactions (Enhanced engagement)

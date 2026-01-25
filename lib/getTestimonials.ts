@@ -23,12 +23,11 @@ export const getTestimonials = async (): Promise<Testimonial[]> => {
             throw new Error("Database ID or Testimonial Collection ID is not defined");
         }
 
-        // NOTE: Add Query.equal("approved", true) after creating the "approved" field in Appwrite
-        // For now, fetching all testimonials to avoid schema errors
+        // Filter to show only approved testimonials
         const response = await databases.listDocuments<Document>(
             config.databaseId,
             config.testimonialCollectionsId,
-            // [Query.equal("approved", true)] // Uncomment after adding "approved" field to schema
+            [Query.equal("approved", true)]
         );
 
         return response.documents.map((testimonial: Document): Testimonial => ({

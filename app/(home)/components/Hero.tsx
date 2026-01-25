@@ -37,9 +37,25 @@ const Hero = () => {
                 <p className='md:w-[32rem] text-lg text-gray-100 font-merriweather text-center'>
                     {"Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations."}
                 </p>
-                <Link href="#contact" className='group font-merriweather flex lg:inline-block items-center justify-center'>
-                    <Title text="Contact Me 📨" />
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+                    <Link href="#contact" className='w-full sm:w-auto'>
+                        <HoverBorderGradient
+                            containerClassName="w-full sm:w-auto"
+                            as="button"
+                            className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
+                        >
+                            <span className='font-merriweather'>{"📨 Contact Me"}</span>
+                        </HoverBorderGradient>
+                    </Link>
+                    <HoverBorderGradient
+                        containerClassName="w-full sm:w-auto"
+                        as="button"
+                        className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
+                        onClick={handleDownload}
+                    >
+                        <span className='font-merriweather'>{"🛠️ Download Resume"}</span>
+                    </HoverBorderGradient>
+                </div>
             </div>
 
             <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4'>
@@ -55,14 +71,6 @@ const Hero = () => {
                     <div className='w-full h-2 bg-hers'></div>
                     <div className='w-full h-2 bg-mine translate-x-2 transition-all cursor-pointer'></div>
                 </Tooltip>
-                <HoverBorderGradient
-                    containerClassName=""
-                    as="button"
-                    className="dark:bg-black bg-white text-black dark:text-white flex items-center space-x-2 w-[max-content] py-4"
-                    onClick={handleDownload}
-                >
-                    <span className='font-merriweather'>{"🛠️ Download my resume"}</span>
-                </HoverBorderGradient>
             </div>
         </div >
     )
