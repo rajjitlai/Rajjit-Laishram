@@ -3,11 +3,16 @@
 import Title from '@/components/Title'
 import Tooltip from '@/components/ToolTip'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
-import Spline from '@splinetool/react-spline'
+import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
+
+const Spline = dynamic(() => import('@splinetool/react-spline'), {
+    ssr: false,
+    loading: () => <div className="absolute w-full h-full bg-transparent z-20"></div>
+})
 
 import { getResume } from '@/lib/getResume'
 
@@ -43,7 +48,7 @@ const Hero = () => {
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
                             <Spline scene="https://prod.spline.design/wQlwz4R7AEtJucn4/scene.splinecode" className="absolute w-full h-full z-20" />
-                            <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='absolute z-30 transform -rotate-[20deg] -top-[70px]' unoptimized priority />
+                            <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='absolute z-30 transform -rotate-[20deg] -top-[70px]' priority />
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>

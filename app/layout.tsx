@@ -3,6 +3,7 @@ import { Playwrite_IT_Moderna, Merriweather_Sans, Noto_Sans_Meetei_Mayek } from 
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
+import { AuthProvider } from "@/context/AuthContext";
 
 const playwrite = Playwrite_IT_Moderna({
   variable: "--font-playwrite",
@@ -85,7 +86,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <AuthProvider>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

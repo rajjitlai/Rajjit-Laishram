@@ -62,6 +62,22 @@ export function Experience() {
                     </p>
                     
                     <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
+                        Lead Software Engineer & Team Captain — Nongin Aerial Wings Aid (NAWA) | NIDAR Drone Competition
+                    </p>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+                        Mar 2025 - Jan 2026 (11 months)
+                    </p>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+                        Led drone automation and software development as Team Captain for Nongin Aerial Wings Aid (NAWA) in the NIDAR Drone Competition.
+                    </p>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+                        Architected and built a custom Ground Control Station (GCS) with a dedicated backend server, database, and APIs. Implemented autonomous mission execution using DroneKit and MAVLink, WebSockets and FastAPIs, integrating OpenCV-based survivor detection, path-planning algorithms, and custom reliability logic including multi-GPS confirmation.
+                    </p>
+                    <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">
+                        Designed and coordinated two autonomous drones (scout and delivery). Validated the system through 200+ real-world flight tests along with simulation-based testing.
+                    </p>
+                    
+                    <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-bold mb-2 mt-6">
                         Software & Autonomous Systems Developer - NIELIT Imphal (Drone Lab)
                     </p>
                     <p className="text-neutral-800 dark:text-neutral-200 text-xs md:text-sm font-normal mb-4">

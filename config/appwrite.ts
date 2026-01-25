@@ -1,6 +1,6 @@
-import { Client, Databases, Storage } from "appwrite"
+import { Client, Databases, Storage, Account } from "appwrite"
 
-export const config  = {
+export const config = {
     endpoint: process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT,
     projectId: process.env.NEXT_PUBLIC_APPWRITE_ID,
     databaseId: process.env.NEXT_PUBLIC_APPWRITE_DB,
@@ -20,6 +20,7 @@ function initializeAppwrite() {
             databases: {} as Databases,
             imageBucket: {} as Storage,
             resumeBucket: {} as Storage,
+            account: {} as Account,
         };
     }
 
@@ -28,8 +29,9 @@ function initializeAppwrite() {
     const databases = new Databases(client);
     const imageBucket = new Storage(client);
     const resumeBucket = new Storage(client);
+    const account = new Account(client);
 
-    return { client, databases, imageBucket, resumeBucket };
+    return { client, databases, imageBucket, resumeBucket, account };
 }
 
 const appwrite = initializeAppwrite();
@@ -38,3 +40,4 @@ export const client = appwrite.client;
 export const databases = appwrite.databases;
 export const imageBucket = appwrite.imageBucket;
 export const resumeBucket = appwrite.resumeBucket;
+export const account = appwrite.account;

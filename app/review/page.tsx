@@ -6,8 +6,10 @@ import { cn } from "@/lib/utils";
 import { FileUpload } from "@/components/ui/file-upload";
 import { addReview } from "@/lib/addReview";
 
-export default function Page() {
+import { useRouter } from "next/navigation";
 
+export default function Page() {
+    const router = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [fullname, setFullname] = useState("");
     const [role, setRole] = useState("");
@@ -39,6 +41,7 @@ export default function Page() {
             setRole("");
             setDescription("");
             setFile(null);
+            router.push('/');
         } catch (error) {
             console.error("Error adding review", error);
         }

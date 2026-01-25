@@ -2,15 +2,16 @@
 
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import dynamic from "next/dynamic";
 
-import { BackgroundBeams } from "@/components/ui/background-beams";
-import Skills from "./components/Skills";
-import Projects from "./components/Projects";
-import Footer from "./components/Footer";
-import { Contact } from "./components/Contact";
-import { Experience } from "./components/Experience";
-// import { Testimonials } from "./components/Testimonials";
-import { FloatNav } from "./components/FloatNav";
+const BackgroundBeams = dynamic(() => import("@/components/ui/background-beams").then(mod => mod.BackgroundBeams), { ssr: false });
+const Skills = dynamic(() => import("./components/Skills"));
+const Projects = dynamic(() => import("./components/Projects"));
+const Footer = dynamic(() => import("./components/Footer"));
+const Contact = dynamic(() => import("./components/Contact").then(mod => mod.Contact));
+const Experience = dynamic(() => import("./components/Experience").then(mod => mod.Experience));
+const Testimonials = dynamic(() => import("./components/Testimonials").then(mod => mod.Testimonials));
+const FloatNav = dynamic(() => import("./components/FloatNav").then(mod => mod.FloatNav), { ssr: false });
 
 export default function page() {
   return (
@@ -27,7 +28,7 @@ export default function page() {
         <Experience />
       </div>
       <div className="max-w-7xl mx-auto p-5 mt-10 relative z-10">
-        {/* <Testimonials /> */}
+        <Testimonials />
         <Contact />
       </div>
       <Footer />
