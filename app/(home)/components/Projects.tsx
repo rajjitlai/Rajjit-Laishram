@@ -197,6 +197,7 @@ const Projects = () => {
                                                                         width={600}
                                                                         className="w-full h-full object-cover object-top"
                                                                         alt={project.title}
+                                                                        unoptimized
                                                                     />
                                                                     <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                                                         <p className="text-white font-bold tracking-widest uppercase text-xs">View Theme</p>

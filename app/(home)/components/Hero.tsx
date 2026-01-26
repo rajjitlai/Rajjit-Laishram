@@ -2,19 +2,13 @@
 
 import Tooltip from '@/components/ToolTip'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
-import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-import { SiHey } from 'react-icons/si'
+import { SiHey, SiArduino, SiRaspberrypi, SiPython, SiReact, SiNextdotjs, SiTypescript, SiCplusplus } from 'react-icons/si'
 import { FaEnvelope, FaFileDownload } from 'react-icons/fa'
 import { MagneticButton } from '@/components/ui/magnetic-button'
-
-const Spline = dynamic(() => import('@splinetool/react-spline'), {
-    ssr: false,
-    loading: () => <div className="absolute w-full h-full bg-transparent z-20"></div>
-})
-
+import { motion } from 'framer-motion'
 import { getResume } from '@/lib/getResume'
 
 const Hero = () => {
@@ -22,6 +16,16 @@ const Hero = () => {
         const url = getResume();
         window.open(url, "_blank");
     };
+
+    const floatingIcons = [
+        { Icon: SiArduino, color: "text-[#00979D]", initialX: -160, initialY: -100, delay: 0 },
+        { Icon: SiRaspberrypi, color: "text-[#C51A4A]", initialX: 160, initialY: -80, delay: 0.5 },
+        { Icon: SiPython, color: "text-[#3776AB]", initialX: -140, initialY: 80, delay: 1 },
+        { Icon: SiReact, color: "text-[#61DAFB]", initialX: 180, initialY: 100, delay: 1.5 },
+        { Icon: SiNextdotjs, color: "text-white", initialX: 0, initialY: -160, delay: 2 },
+        { Icon: SiTypescript, color: "text-[#3178C6]", initialX: -180, initialY: 0, delay: 2.5 },
+        { Icon: SiCplusplus, color: "text-[#00599C]", initialX: 150, initialY: 20, delay: 3 },
+    ];
 
     return (
         <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center animate-move-up'>
@@ -64,24 +68,48 @@ const Hero = () => {
                 </div>
             </div>
 
-            <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4'>
+            <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4 relative'>
                 <Tooltip text="ꯔꯖ꯭ꯖꯤꯠ ꯂꯥꯏꯁ꯭ꯔꯝ">
                     <div className="w-auto h-72 space-y-3 rotate-[20deg] relative flex justify-center items-center mx-auto cursor-pointer">
+                        {/* Floating Icons centered behind the profile image */}
+                        <div className="absolute inset-0 flex justify-center items-center pointer-events-none -z-10">
+                            {floatingIcons.map((item, index) => (
+                                <motion.div
+                                    key={index}
+                                    className={`absolute ${item.color} text-4xl md:text-5xl opacity-40`}
+                                    initial={{ x: item.initialX, y: item.initialY, scale: 0.8 }}
+                                    animate={{
+                                        x: [item.initialX, item.initialX + 15, item.initialX - 15, item.initialX],
+                                        y: [item.initialY - 20, item.initialY + 20, item.initialY - 20],
+                                        scale: [0.8, 1.1, 0.8],
+                                        opacity: [0.3, 0.6, 0.3],
+                                    }}
+                                    transition={{
+                                        duration: 4 + Math.random() * 2,
+                                        repeat: Infinity,
+                                        ease: "easeInOut",
+                                        delay: item.delay
+                                    }}
+                                >
+                                    <item.Icon className="drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] -rotate-[20deg]" />
+                                </motion.div>
+                            ))}
+                        </div>
+
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
-                            <Spline scene="https://prod.spline.design/wQlwz4R7AEtJucn4/scene.splinecode" className="absolute w-full h-full z-20" />
                             <div className="absolute z-30 -top-[70px] animate-float">
                                 <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='transform -rotate-[20deg]' priority />
                             </div>
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>
-                    <div className='w-full h-2 bg-hers z-50'></div>
-                    <div className='w-full h-2 bg-mine translate-x-2 transition-all cursor-pointer z-50'></div>
+                    <div className='w-full h-3 bg-hers z-50'></div>
+                    <div className='w-full h-3 bg-mine translate-x-2 transition-all cursor-pointer z-50'></div>
                 </Tooltip>
             </div>
         </div >
     )
 }
 
-export default Hero
+export default Hero;
