@@ -33,7 +33,7 @@ export const AnimatedTestimonials = ({
         setActive((prev) => (prev - 1 + testimonials.length) % testimonials.length);
     }, [testimonials.length]);
 
-    const isActive = (index: number) => index === active;
+    // const isActive = (index: number) => index === active;
 
     useEffect(() => {
         if (autoplay) {
@@ -42,7 +42,7 @@ export const AnimatedTestimonials = ({
         }
     }, [autoplay, handleNext]);
 
-    const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
+    // const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
 
     if (!testimonials || testimonials.length === 0) {
         return (

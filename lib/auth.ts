@@ -1,5 +1,4 @@
 import { account } from "@/config/appwrite";
-import { ID } from "appwrite";
 
 export async function login(email: string, pass: string) {
     try {

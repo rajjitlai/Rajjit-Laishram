@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { useRef } from "react";
 
 export const ScrollReveal = ({ children, className }: { children: React.ReactNode, className?: string }) => {
     return (

@@ -10,10 +10,17 @@ import { getAllTestimonials } from "@/lib/getAllTestimonials";
 import { getProjects } from "@/lib/getProjects";
 
 export default function AdminDashboard() {
-    const { user, loading, isAdmin, logoutUser } = useAuth();
+    const { user, loading, logoutUser } = useAuth();
     const router = useRouter();
     const [stats, setStats] = useState({ messages: 0, reviews: 0, projects: 0 });
-    const [recentActivity, setRecentActivity] = useState<any[]>([]);
+    const [recentActivity, setRecentActivity] = useState<{
+        id: string;
+        type: 'message' | 'review' | 'project';
+        date: string;
+        title: string;
+        desc: string;
+        meta?: string;
+    }[]>([]);
     const [isLoadingStats, setIsLoadingStats] = useState(true);
 
     useEffect(() => {
@@ -39,10 +46,19 @@ export default function AdminDashboard() {
                     projects: projs.length
                 });
 
-                const activity = [
+                type ActivityItem = {
+                    id: string;
+                    type: 'message' | 'review' | 'project';
+                    date: string;
+                    title: string;
+                    desc: string;
+                    meta?: string;
+                };
+
+                const activity: ActivityItem[] = [
                     ...msgs.map(m => ({
                         id: m.id,
-                        type: 'message',
+                        type: 'message' as const,
                         date: m.createdAt,
                         title: `Message from ${m.name}`,
                         desc: m.message.substring(0, 50) + (m.message.length > 50 ? '...' : ''),
@@ -50,11 +66,19 @@ export default function AdminDashboard() {
                     })),
                     ...reviews.map(r => ({
                         id: r.id,
-                        type: 'review',
+                        type: 'review' as const,
                         date: r.createdAt,
                         title: `Review by ${r.name}`,
                         desc: r.description.substring(0, 50) + (r.description.length > 50 ? '...' : ''),
                         meta: `${r.rating} stars`
+                    })),
+                    ...projs.map(p => ({
+                        id: p.id,
+                        type: 'project' as const,
+                        date: p.createdAt,
+                        title: `New Project: ${p.title}`,
+                        desc: p.description.substring(0, 50) + (p.description.length > 50 ? '...' : ''),
+                        meta: p.tags.slice(0, 2).join(", ")
                     }))
                 ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
                     .slice(0, 5);

@@ -16,6 +16,7 @@ interface Project {
     url: string;
     link: string;
     tags: string[];
+    createdAt: string;
 }
 
 export const getProjects = async (): Promise<Project[]> => {
@@ -41,6 +42,7 @@ export const getProjects = async (): Promise<Project[]> => {
                 : typeof project.tech_stack === "string"
                     ? project.tech_stack.split(",").map(tag => tag.trim())
                     : [],
+            createdAt: project.$createdAt,
         }));
     } catch (error) {
         console.error("Error getting projects:", error);

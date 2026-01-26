@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  transpilePackages: ['@splinetool/runtime'],
+  webpack: (config) => {
+    config.resolve.alias['@splinetool/react-spline'] = 'D:/2025/code/rajjit-laishram/node_modules/@splinetool/react-spline/dist/react-spline.js';
+    return config;
+  },
 };
 
 export default nextConfig;
