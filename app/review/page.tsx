@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { FileUpload } from "@/components/ui/file-upload";
 import { StarRating } from "@/components/ui/star-rating";
 import { addReview } from "@/lib/addReview";
+import { MagneticButton } from "@/components/ui/magnetic-button";
 
 import { useRouter } from "next/navigation";
 
@@ -119,13 +120,15 @@ export default function Page() {
                     />
                 </LabelInputContainer>
 
-                <button
-                    className="mt-5 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                    type="submit"
-                >
-                    Add &rarr;
-                    <BottomGradient />
-                </button>
+                <MagneticButton className="w-full">
+                    <button
+                        className="mt-5 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                        type="submit"
+                    >
+                        Add &rarr;
+                        <BottomGradient />
+                    </button>
+                </MagneticButton>
                 <div className="pb-10"></div>
             </form>
         </div>

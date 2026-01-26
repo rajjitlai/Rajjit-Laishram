@@ -4,6 +4,9 @@ import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import Link from "next/link";
+import { HoverBorderGradient } from "./hover-border-gradient";
+import { MagneticButton } from "./magnetic-button";
 
 type Testimonial = {
     name: string;
@@ -42,9 +45,36 @@ export const AnimatedTestimonials = ({
     const randomRotateY = () => Math.floor(Math.random() * 21) - 10;
 
     if (!testimonials || testimonials.length === 0) {
-        return <p className="text-center text-gray-500 dark:text-neutral-400 mt-10">
-            Be the first to share your review!
-        </p>;
+        return (
+            <div className="flex flex-col items-center justify-center py-20 px-4">
+                <div className="bg-zinc-900 border border-zinc-800 p-12 rounded-3xl text-center max-w-lg w-full relative overflow-hidden group">
+                    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity duration-500">
+                        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white transform rotate-12">
+                            <path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.017 16H9C9.00001 7.29177 14.017 6 14.017 6V3C6.01701 3 3.01702 11.2086 3.01702 18V21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.017 16H16C16 7.29177 21.017 6 21.017 6V3C13.017 3 10.017 11.2086 10.017 18V21H21.017Z" fill="currentColor" />
+                        </svg>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-white mb-2 relative z-10">No reviews yet</h3>
+                    <p className="text-neutral-400 mb-8 relative z-10">
+                        I&apos;d love to hear your feedback! Be the first one to share your experience working with me.
+                    </p>
+
+                    <div className="flex justify-center relative z-10">
+                        <MagneticButton>
+                            <Link href="/review">
+                                <HoverBorderGradient
+                                    containerClassName=""
+                                    as="button"
+                                    className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 px-8 py-3"
+                                >
+                                    <span>✍️ Write a Review</span>
+                                </HoverBorderGradient>
+                            </Link>
+                        </MagneticButton>
+                    </div>
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -113,8 +143,8 @@ export const AnimatedTestimonials = ({
                                             <svg
                                                 key={i}
                                                 className={`w-5 h-5 ${i < (testimonials[active].rating || 5)
-                                                        ? "text-yellow-500 fill-yellow-500"
-                                                        : "text-neutral-600 fill-neutral-600"
+                                                    ? "text-yellow-500 fill-yellow-500"
+                                                    : "text-neutral-600 fill-neutral-600"
                                                     }`}
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"

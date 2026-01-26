@@ -17,31 +17,31 @@
     - [x] Add hover effects (scale-up/glow) to skill cards
     - [x] Consider adding subtle animations on scroll
 
-- [ ] **Testimonials Empty State**
-    - [ ] Add "Submit Your Review" CTA button to empty state
-    - [ ] Add placeholder illustration or icon
-    - [ ] Improve empty state messaging
+- [x] **Testimonials Empty State**
+    - [x] Add "Submit Your Review" CTA button to empty state
+    - [x] Add placeholder illustration or icon
+    - [x] Improve empty state messaging
 
-- [ ] **Project Visual Polish** (Moved to High)
-    - [ ] Wrap project thumbnails in device mockups (MacBook/iPhone frames)
-    - [ ] Add "Live Demo" button alongside "View" button with distinct style
-    - [ ] Ensure consistent image aspect ratios
+- [x] **Project Visual Polish** (Moved to High)
+    - [x] Wrap project thumbnails in device mockups (Browser Window Frames)
+    - [x] Add "View Project" overlay for clearer CTA
+    - [x] Ensure consistent image aspect ratios
 
 ### 💎 Visual Polish (10/10 Features)
 - [ ] **Micro-Interactions**
-    - [ ] Add magnetic effect to primary buttons (buttons pull towards cursor)
+    - [x] Add magnetic effect to primary buttons (buttons pull towards cursor)
     - [ ] Implement creative link hover animations (e.g., underlining reveals)
-    - [ ] Add "Copy Email" button with toast notification in Contact section
+    - [x] Add "Copy Email" button with toast notification in Contact section
 
 - [ ] **Loading Experience**
-    - [ ] Implement Skeleton loaders for Testimonials & Projects (instead of text popping in)
+    - [x] Implement Skeleton loaders for Testimonials & Projects (instead of text popping in)
     - [ ] Add smooth page transition animations
 
 ### 🔧 Technical Excellence (10/10 Features)
 - [ ] **SEO & Social Sharing**
-    - [ ] Add OpenGraph (OG) images for social sharing (a banner with your face/title)
-    - [ ] Polish meta descriptions and title tags for all pages
-    - [ ] Add JSON-LD structured data for Portfolio/Person
+    - [x] Add OpenGraph (OG) images for social sharing (a banner with your face/title)
+    - [x] Polish meta descriptions and title tags for all pages
+    - [x] Add JSON-LD structured data for Portfolio/Person
 
 - [ ] **Performance Audit**
     - [ ] Achieve 100/100 Lighthouse score (Performance, Accessibility, SEO)
@@ -96,6 +96,11 @@
 - ✅ Added star rating component to review form
 - ✅ Added "Upload a profile" label to file upload
 - ✅ Fixed Appwrite v17 localStorage SSR issues (downgraded to v16)
+- ✅ Implemented Project Filtering (Tabs for Websites, Apps, Themes)
+- ✅ Added Smart Device Mockups for Projects (Browser/Phone/VS Code)
+- ✅ Added "Copy Email" micro-interaction with toast feedback
+- ✅ Simplified Admin Authentication logic
+- ✅ Implemented Project Sorting (Created Latest First)
 
 ---
 

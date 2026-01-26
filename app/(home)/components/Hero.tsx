@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
+import { MagneticButton } from '@/components/ui/magnetic-button'
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
     ssr: false,
@@ -38,23 +39,27 @@ const Hero = () => {
                     {"Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations."}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-                    <Link href="#contact" className='w-full sm:w-auto'>
+                    <MagneticButton className='w-full sm:w-auto'>
+                        <Link href="#contact" className='w-full sm:w-auto block'>
+                            <HoverBorderGradient
+                                containerClassName="w-full sm:w-auto"
+                                as="button"
+                                className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
+                            >
+                                <span className='font-merriweather'>{"📨 Contact Me"}</span>
+                            </HoverBorderGradient>
+                        </Link>
+                    </MagneticButton>
+                    <MagneticButton className='w-full sm:w-auto'>
                         <HoverBorderGradient
                             containerClassName="w-full sm:w-auto"
                             as="button"
                             className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
+                            onClick={handleDownload}
                         >
-                            <span className='font-merriweather'>{"📨 Contact Me"}</span>
+                            <span className='font-merriweather'>{"🛠️ Download Resume"}</span>
                         </HoverBorderGradient>
-                    </Link>
-                    <HoverBorderGradient
-                        containerClassName="w-full sm:w-auto"
-                        as="button"
-                        className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
-                        onClick={handleDownload}
-                    >
-                        <span className='font-merriweather'>{"🛠️ Download Resume"}</span>
-                    </HoverBorderGradient>
+                    </MagneticButton>
                 </div>
             </div>
 

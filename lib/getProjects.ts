@@ -1,5 +1,5 @@
 import { config, databases } from "@/config/appwrite";
-import { Models } from "appwrite";
+import { Models, Query } from "appwrite";
 
 interface Document extends Models.Document {
     title: string;
@@ -27,6 +27,7 @@ export const getProjects = async (): Promise<Project[]> => {
         const response = await databases.listDocuments<Document>(
             config.databaseId,
             config.projectCollectionsId,
+            [Query.orderDesc("$createdAt")]
         );
 
         return response.documents.map((project: Document): Project => ({

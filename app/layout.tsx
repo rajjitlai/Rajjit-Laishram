@@ -23,24 +23,42 @@ const meitei = Noto_Sans_Meetei_Mayek({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://rajjitlaishram.netlify.app/"),
-  title: "Rajjit Laishram",
-  authors: {
-    name: "Rajjit Laishram",
-    url: "https://rajjitlaishram.netlify.app",
+  title: {
+    default: "Rajjit Laishram | IoT Software Developer",
+    template: "%s | Rajjit Laishram"
   },
-  description: "Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations.",
-  twitter: {
-    site: "@rajjitlai",
-  },
+  description: "IoT Software Developer & Hardware Integrator based in Manipur. Building smart homes, innovative IoT solutions, and modern web applications with Next.js and MQTT.",
+  keywords: [
+    "Rajjit Laishram", "IoT Developer", "Software Engineer",
+    "React", "Next.js", "Node.js", "Appwrite", "Firebase",
+    "IoT", "MQTT", "ESP32", "Arduino", "Smart Home",
+    "Manipur", "India", "Web Development"
+  ],
+  authors: [{ name: "Rajjit Laishram", url: "https://rajjitlaishram.netlify.app" }],
+  creator: "Rajjit Laishram",
   openGraph: {
-    "title": "Rajjit Laishram",
-    description: "Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations.",
-    url: "https://rajjitlaishram.netlify.app",
-    siteName: "Rajjit Laishram",
-    images: "/og.png",
     type: "website",
+    locale: "en_US",
+    url: "https://rajjitlaishram.netlify.app",
+    title: "Rajjit Laishram | IoT Software Developer",
+    description: "Building the future of smart living through code. Expert in IoT integrations, modern web apps, and hardware communication.",
+    siteName: "Rajjit Laishram Portfolio",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Rajjit Laishram - IoT Developer",
+      },
+    ],
   },
-  keywords: ["rajjit laishram", "portfolio", "IoT developer", "next js", "tailwind css", "aceternity ui", "IoT solutions", "hardware integrations"],
+  twitter: {
+    card: "summary_large_image",
+    title: "Rajjit Laishram | IoT Software Developer",
+    description: "IoT Software Developer & Hardware Integrator based in Manipur. Building smart homes and innovative IoT solutions.",
+    images: ["/og.png"],
+    creator: "@rajjitlai",
+  },
   robots: {
     index: true,
     follow: true,
@@ -52,6 +70,25 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Rajjit Laishram",
+  "url": "https://rajjitlaishram.netlify.app",
+  "jobTitle": "IoT Software Developer",
+  "sameAs": [
+    "https://www.linkedin.com/in/rajjitlaishram/",
+    "https://github.com/rajjitlai/",
+    "https://instagram.com/rajjitlaishram",
+    "https://facebook.com/rajjitlaishram"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Manipur",
+    "addressCountry": "IN"
+  }
 };
 
 export default function RootLayout({
@@ -80,12 +117,15 @@ export default function RootLayout({
       <body
         className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
-          suppressHydrationWarning
         >
           <AuthProvider>
             {children}

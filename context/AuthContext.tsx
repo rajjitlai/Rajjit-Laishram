@@ -29,26 +29,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const checkUser = async () => {
         try {
             const currentUser = await getCurrentUser();
-            if (currentUser) {
-                setUser(currentUser);
-                // Strict Admin Check
-                // Only allow the specific email to be considered an admin
-                // You should probably put this in an environment variable in a real app, 
-                // but for a personal portfolio, this is acceptable if source isn't public.
-                // Better yet, use NEXT_PUBLIC_ADMIN_EMAIL
-                const adminEmail = "rajjitlaishram@gmail.com"; // Replace with your actual admin email
-                if (currentUser.email === adminEmail || currentUser.labels?.includes("admin")) {
-                    setIsAdmin(true);
-                } else {
-                    setIsAdmin(false);
-                }
-            } else {
-                setUser(null);
-                setIsAdmin(false);
-            }
+            setUser(currentUser);
+            // Since signups are disabled in Appwrite and you are the only user,
+            // we treat any logged-in user as an admin.
+            setIsAdmin(!!currentUser);
         } catch (error) {
             console.error("Auth Check Error:", error);
             setUser(null);
+            setIsAdmin(false);
         } finally {
             setLoading(false);
         }
