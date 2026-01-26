@@ -201,7 +201,7 @@ export function Experience() {
 
     return (
         <div className="max-w-7xl mx-auto px-8 font-merriweather mt-20" id="exp">
-            <Title text='Experience 💪' className='flex flex-col items-center justify-center cursor-pointer mb-16' />
+            <Title text='Experience' className='flex flex-col items-center justify-center cursor-pointer mb-16' />
 
             <div className="relative" ref={timelineRef}>
                 {/* Center vertical line - background with subtle glow */}

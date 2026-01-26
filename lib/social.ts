@@ -3,7 +3,7 @@ import { SiLinkedin, SiGithub, SiInstagram, SiFacebook } from "react-icons/si"
 export const socialLinks = [
     {
         link: "https://www.linkedin.com/in/rajjitlaishram/",
-        labe: "LinkedIn",
+        label: "LinkedIn",
         Icon: SiLinkedin
     },
     {

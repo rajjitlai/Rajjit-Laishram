@@ -130,7 +130,7 @@
   }
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -160,18 +160,26 @@ html{
 }
 
 @keyframes wave {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: rotate(0deg);
   }
-  10%, 30% {
+
+  10%,
+  30% {
     transform: rotate(14deg);
   }
-  20%, 40% {
+
+  20%,
+  40% {
     transform: rotate(-8deg);
   }
+
   50% {
     transform: rotate(14deg);
   }
+
   60% {
     transform: rotate(0deg);
   }
@@ -180,4 +188,27 @@ html{
 .animate-wave {
   animation: wave 2.5s ease-in-out infinite;
   transform-origin: 70% 70%;
+}
+
+.link-underline {
+  position: relative;
+  text-decoration: none;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 4px;
+  bottom: -4px;
+  left: 0;
+  background-color: #38ff42;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
 }

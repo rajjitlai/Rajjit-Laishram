@@ -91,7 +91,7 @@ const Projects = () => {
     return (
         <div className="py-10 p-5 sm:p-0 font-merriweather mt-16" id="projects">
             <Title
-                text="Projects 🪄"
+                text="Projects"
                 className="flex flex-col items-center justify-center cursor-pointer"
             />
             <div className="flex flex-wrap justify-center gap-4 mt-10 mb-8">

@@ -8,6 +8,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { SiHey } from 'react-icons/si'
+import { FaEnvelope, FaFileDownload } from 'react-icons/fa'
 import { MagneticButton } from '@/components/ui/magnetic-button'
 
 const Spline = dynamic(() => import('@splinetool/react-spline'), {
@@ -46,7 +47,8 @@ const Hero = () => {
                                 as="button"
                                 className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
                             >
-                                <span className='font-merriweather'>{"📨 Contact Me"}</span>
+
+                                <span className='font-merriweather flex items-center gap-2'><FaEnvelope /> Contact Me</span>
                             </HoverBorderGradient>
                         </Link>
                     </MagneticButton>
@@ -57,7 +59,7 @@ const Hero = () => {
                             className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
                             onClick={handleDownload}
                         >
-                            <span className='font-merriweather'>{"🛠️ Download Resume"}</span>
+                            <span className='font-merriweather flex items-center gap-2'><FaFileDownload /> Download Resume</span>
                         </HoverBorderGradient>
                     </MagneticButton>
                 </div>
@@ -69,7 +71,9 @@ const Hero = () => {
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
                             <Spline scene="https://prod.spline.design/wQlwz4R7AEtJucn4/scene.splinecode" className="absolute w-full h-full z-20" />
-                            <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='absolute z-30 transform -rotate-[20deg] -top-[70px]' priority />
+                            <div className="absolute z-30 -top-[70px] animate-float">
+                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='transform -rotate-[20deg]' priority />
+                            </div>
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>

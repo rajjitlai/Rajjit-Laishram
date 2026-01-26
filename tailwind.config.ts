@@ -116,6 +116,14 @@ export default {
 						transform: "rotate(6deg)",
 					},
 				},
+				"float": {
+					"0%, 100%": {
+						transform: "translateY(0)",
+					},
+					"50%": {
+						transform: "translateY(-10px)",
+					},
+				},
 			},
 			animation: {
 				"move-up": "move-up 1s linear forwards",
@@ -123,6 +131,7 @@ export default {
 				"spin-slow": "spin-slow 3s linear infinite",
 				"tilt": "tilt 4s ease-in-out infinite",
 				"tilt-reverse": "tilt-reverse 4s ease-in-out infinite",
+				"float": "float 5s ease-in-out infinite",
 			},
 		}
 	},

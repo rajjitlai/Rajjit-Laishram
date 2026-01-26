@@ -33,8 +33,8 @@ function Skills() {
 
         return (
             <div className={`flex flex-col items-center gap-2 p-3 bg-black border transition-all duration-300 cursor-pointer group hover:scale-110 ${hoverShadow} ${isGlowing
-                    ? `${borderColor} scale-105`
-                    : `border-gray-800 ${hoverBorder}`
+                ? `${borderColor} scale-105`
+                : `border-gray-800 ${hoverBorder}`
                 }`}
                 style={{
                     boxShadow: isGlowing ? `0 0 15px ${glowColor}` : undefined
@@ -57,7 +57,7 @@ function Skills() {
         };
 
         return (
-            <div className='grid grid-cols-3 gap-3'>
+            <div className='grid grid-cols-4 md:grid-cols-5 gap-3'>
                 {items.map((item, idx) => {
                     const snakeIdx = getSnakeIndex(idx);
                     return (
@@ -425,7 +425,7 @@ function Skills() {
 
     return (
         <div className='max-w-7xl mx-auto px-8 font-merriweather relative' id='skills'>
-            <Title text='Skills 💻' className='flex flex-col items-center justify-center cursor-pointer relative z-10' />
+            <Title text='Skills' className='flex flex-col items-center justify-center cursor-pointer relative z-10' />
 
             {/* Row 1: Frontend (left) + Backend & Database (right) */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16'>

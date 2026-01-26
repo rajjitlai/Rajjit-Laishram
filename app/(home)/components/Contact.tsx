@@ -39,7 +39,7 @@ export function Contact() {
 
     return (
         <div className="py-10 p-5 sm:p-0 font-merriweather mt-20" id="contact">
-            <Title text="Contact 📞" className="flex flex-col items-center justify-center cursor-pointer" />
+            <Title text="Contact" className="flex flex-col items-center justify-center cursor-pointer" />
             <div className="max-w-3xl w-full mx-auto p-4 md:p-8 shadow-input bg-white dark:bg-black mt-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-4 gap-4">
                     <p className="text-neutral-600 text-sm dark:text-neutral-300 max-w-lg">

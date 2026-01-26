@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
+import { BackToTop } from "@/components/BackToTop";
 
 const playwrite = Playwrite_IT_Moderna({
   variable: "--font-playwrite",
@@ -116,6 +117,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} antialiased`}
+        suppressHydrationWarning
       >
         <script
           type="application/ld+json"
@@ -129,6 +131,7 @@ export default function RootLayout({
         >
           <AuthProvider>
             {children}
+            <BackToTop />
           </AuthProvider>
         </ThemeProvider>
       </body>

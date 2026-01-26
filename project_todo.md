@@ -1,112 +1,51 @@
 # Project TODO List
 
-## 🎨 Design Improvements
+## 🚀 Outstanding Tasks (Roadmap to 10/10)
 
-### High Priority (Roadmap to 10/10)
-- [x] **Experience Timeline Enhancements**
-    - [x] Add cyan/green glow effect to timeline line
-    - [x] Add pulsing indicator dot for "Present" position
-    - [x] Enhance year markers with neon glow
-
-- [x] **Button Consistency & CTAs**
-    - [x] Redesign "Contact Me" link to match "Download Resume" button style
-    - [x] Ensure consistent hover effects across all primary buttons
-    - [x] Add proper visual hierarchy for CTAs
-
-- [x] **Skills Section Interactivity**
-    - [x] Add hover effects (scale-up/glow) to skill cards
-    - [x] Consider adding subtle animations on scroll
-
-- [x] **Testimonials Empty State**
-    - [x] Add "Submit Your Review" CTA button to empty state
-    - [x] Add placeholder illustration or icon
-    - [x] Improve empty state messaging
-
-- [x] **Project Visual Polish** (Moved to High)
-    - [x] Wrap project thumbnails in device mockups (Browser Window Frames)
-    - [x] Add "View Project" overlay for clearer CTA
-    - [x] Ensure consistent image aspect ratios
-
-### 💎 Visual Polish (10/10 Features)
+### 💎 Visual Polish & UX
 - [ ] **Micro-Interactions**
-    - [x] Add magnetic effect to primary buttons (buttons pull towards cursor)
-    - [ ] Implement creative link hover animations (e.g., underlining reveals)
-    - [x] Add "Copy Email" button with toast notification in Contact section
+    - [x] Implement creative link hover animations (e.g., underlining reveals)
+    - [x] Add subtle floating animation to profile image
+    - [x] Add smooth page transition animations
+    - [x] Implement parallax scrolling effects
+    - [x] Add "Back to Top" floating button
+    - [x] Use Icons instead of Emojis
+    - [x] Use Smaller skills cards
 
-- [ ] **Loading Experience**
-    - [x] Implement Skeleton loaders for Testimonials & Projects (instead of text popping in)
-    - [ ] Add smooth page transition animations
-
-### 🔧 Technical Excellence (10/10 Features)
-- [ ] **SEO & Social Sharing**
-    - [x] Add OpenGraph (OG) images for social sharing (a banner with your face/title)
-    - [x] Polish meta descriptions and title tags for all pages
-    - [x] Add JSON-LD structured data for Portfolio/Person
-
+### 🔧 Technical Excellence
 - [ ] **Performance Audit**
     - [ ] Achieve 100/100 Lighthouse score (Performance, Accessibility, SEO)
-    - [ ] Optimize all images (WebP format, proper sizing)
+    - [x] Optimize all images (WebP format, proper sizing) - Processed via next/image
+    - [x] Implement image optimization for project thumbnails - Handled
+    - [x] Consider lazy loading for sections - Implemented via scroll animations
 
-### Medium Priority
-- [ ] **Micro-interactions & Animations**
-    - [ ] Add subtle floating animation to profile image
-    - [ ] Implement parallax scrolling effects
-    - [ ] Add smooth transitions between sections
-    - [ ] Consider scroll-triggered animations
-
-- [ ] **Additional Features**
-    - [ ] Add dark/light mode toggle (currently only dark)
-    - [ ] Implement loading skeleton screens
-    - [ ] Add "Back to Top" floating button
-
-## 🔧 Technical Improvements
-- [ ] **Appwrite Schema Updates**
-    - [x] Add `approved` field (Boolean, default: false) to Testimonials collection
-    - [x] Add `rating` field (Integer, min: 0, max: 5) to Testimonials collection
-    - [ ] Uncomment approval filter in `lib/getTestimonials.ts` after schema update
-
-- [ ] **Performance Optimization**
+- [ ] **Functionality Upgrades**
+    - [ ] **Email Integration**: Connect contact/review forms to a real email service (Resend/EmailJS)
     - [ ] Add pagination for admin management lists
-    - [ ] Implement image optimization for project thumbnails
-    - [ ] Consider lazy loading for sections
-
-- [ ] **Email integration for contact form**
-    - [ ] Add email integration for contact form
-    - [ ] Add email integration for review form
-
-- [ ] **Support other data to be fetched from appwrite**
+    - [ ] Uncomment approval filter in `lib/getTestimonials.ts` (Appwrite schema updated)
 
 ## ✅ Completed Features
 
+### Recent Updates (Latest Sprint)
+- ✅ **SEO Complete**: Added OpenGraph images, polished metadata/titles, and injected JSON-LD structured data.
+- ✅ **Micro-Interactions**: Added "Magnetic" effect to primary buttons (Hero, Contact, Review) and "Copy Email" toast.
+- ✅ **Loading Experience**: Implemented Skeleton loaders for Testimonials & Projects to replace text flashes.
+- ✅ **Project Polish**:
+    - Standardized card heights (360px) for Mobile/Web consistency.
+    - Added Smart Device Mockups (Phone, Browser, VS Code).
+    - Added "View Project" overlay and clickable card links.
+    - Implemented Filtering (Tabs) and Sorting (Latest).
+- ✅ **Timeline**: Added neon glow and pulsing dots to experience timeline.
+- ✅ **Empty States**: Added "Write a Review" CTA to testimonials empty state.
+- ✅ **Skills**: Added interactive hover effects to skill cards.
+
 ### Admin Dashboard & CMS
 - ✅ Admin authentication with role-based access
-- ✅ Protected admin routes (now at `/setup`)
-- ✅ Messages management (view/delete)
-- ✅ Testimonials management (approve/delete)
-- ✅ Projects CRUD (create/edit/delete)
+- ✅ Protected admin routes (`/setup`)
+- ✅ CRUD for Projects, Testimonials, and Messages
+- ✅ Star rating and approval support for reviews
 
 ### Public Features
 - ✅ Review submission form with star ratings
 - ✅ File upload for profile images
-- ✅ Testimonials display on homepage
 - ✅ Contact form integration
-
-### Recent Updates
-- ✅ Changed admin routing from `/admin` to `/setup`
-- ✅ Added star rating component to review form
-- ✅ Added "Upload a profile" label to file upload
-- ✅ Fixed Appwrite v17 localStorage SSR issues (downgraded to v16)
-- ✅ Implemented Project Filtering (Tabs for Websites, Apps, Themes)
-- ✅ Added Smart Device Mockups for Projects (Browser/Phone/VS Code)
-- ✅ Added "Copy Email" micro-interaction with toast feedback
-- ✅ Simplified Admin Authentication logic
-- ✅ Implemented Project Sorting (Created Latest First)
-
----
-
-**Priority Order for Implementation:**
-1. Experience Timeline Glow (Quick visual impact)
-2. Button Consistency (Improves UX/conversion)
-3. Project Device Mockups (Professional polish)
-4. Skills Section Tabs (Better organization)
-5. Micro-interactions (Enhanced engagement)

@@ -1,6 +1,6 @@
 "use client";
 
-import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
+import { IconArrowLeft, IconArrowRight, IconPencil } from "@tabler/icons-react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
@@ -67,7 +67,7 @@ export const AnimatedTestimonials = ({
                                     as="button"
                                     className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 px-8 py-3"
                                 >
-                                    <span>✍️ Write a Review</span>
+                                    <span className="flex items-center gap-2"><IconPencil className="w-4 h-4" /> Write a Review</span>
                                 </HoverBorderGradient>
                             </Link>
                         </MagneticButton>

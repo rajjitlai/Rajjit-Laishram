@@ -18,6 +18,7 @@ interface Testimonial {
     image_url: string;
     approved?: boolean;
     rating?: number;
+    createdAt: string;
 }
 
 export const getAllTestimonials = async (): Promise<Testimonial[]> => {
@@ -39,6 +40,7 @@ export const getAllTestimonials = async (): Promise<Testimonial[]> => {
             image_url: testimonial.profile_url,
             approved: testimonial.approved,
             rating: testimonial.rating || 5,
+            createdAt: testimonial.$createdAt,
         }));
     } catch (error) {
         console.error("Error fetching all testimonials", error);

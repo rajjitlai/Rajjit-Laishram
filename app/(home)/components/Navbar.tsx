@@ -3,12 +3,14 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import React from 'react'
 
+import { TbSparkles } from "react-icons/tb";
+
 const Navbar = ({ className }: { className?: string }) => {
     return (
         <nav className={cn('py-10 flex justify-between items-center font-merriweather animate-move-down', className)}>
-            <h1 className='text-2xl font-bold underline underline-offset-8 decoration-mine animate-tilt'>
-                <Link href="/">
-                    Rajjit Laishram <span className='inline-block animate-spin-slow'>💫</span>
+            <h1 className='text-2xl font-bold animate-tilt'>
+                <Link href="/" className="inline-flex items-center gap-2 link-underline whitespace-nowrap">
+                    Rajjit Laishram <TbSparkles className='w-6 h-6 text-yellow-400 animate-spin-slow' />
                 </Link>
             </h1>
             <div className='flex items-center gap-5 animate-tilt-reverse'>

@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import { HoverBorderGradient } from "@/components/ui/hover-border-gradient";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { FaPen } from "react-icons/fa";
 
 type Testimonial = {
     id: string;
@@ -85,7 +86,7 @@ export function Testimonials() {
                                 as="button"
                                 className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 px-8 py-3"
                             >
-                                <span>✍️ Write a Review</span>
+                                <span className="flex items-center gap-2"><FaPen className="w-4 h-4" /> Write a Review</span>
                             </HoverBorderGradient>
                         </Link>
                     </MagneticButton>
