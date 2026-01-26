@@ -91,7 +91,7 @@ export default function ResumeManagementPage() {
                         </div>
                         <h3 className="text-xl font-bold mb-2">Current Resume</h3>
                         <p className="text-neutral-400 text-sm mb-6">
-                            This is the file users see when they click "Download Resume" on your homepage.
+                            This is the file users see when they click &quot;Download Resume&quot; on your homepage.
                         </p>
 
                         <div className="flex gap-4 w-full">
@@ -110,7 +110,7 @@ export default function ResumeManagementPage() {
                     <div className="bg-zinc-900 border border-zinc-800 p-8 rounded-2xl flex flex-col">
                         <h3 className="text-xl font-bold mb-4 text-hers">Upload New Version</h3>
                         <p className="text-neutral-400 text-sm mb-6">
-                            Upload a new PDF file to replace the current resume. Make sure it's a valid PDF document.
+                            Upload a new PDF file to replace the current resume. Make sure it&apos;s a valid PDF document.
                         </p>
 
                         <div className="flex-1 flex flex-col justify-center gap-6">
