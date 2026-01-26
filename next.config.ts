@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "cloud.appwrite.io",
+        hostname: "*",
         pathname: "/v1/storage/buckets/**",
       },
     ],

@@ -7,6 +7,7 @@ interface Document extends Models.Document {
     description: string;
     profile_url: string;
     approved?: boolean;
+    rating?: number;
 }
 
 interface Testimonial {
@@ -15,6 +16,7 @@ interface Testimonial {
     role: string;
     description: string;
     image_url: string;
+    rating?: number;
 }
 
 export const getTestimonials = async (): Promise<Testimonial[]> => {
@@ -36,6 +38,7 @@ export const getTestimonials = async (): Promise<Testimonial[]> => {
             role: testimonial.role_org,
             description: testimonial.description,
             image_url: testimonial.profile_url,
+            rating: testimonial.rating || 5, // Default to 5 if missing
         }));
     } catch (error) {
         console.error("Error fetching testimonials", error);

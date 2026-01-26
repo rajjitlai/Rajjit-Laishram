@@ -11,6 +11,7 @@ type Testimonial = {
     description: string;
     role: string;
     image_url: string;
+    rating?: number;
 };
 
 export function Testimonials() {
@@ -27,6 +28,7 @@ export function Testimonials() {
                     description: t.description,
                     role: t.role,
                     image_url: t.image_url,
+                    rating: t.rating,
                 }));
 
                 setTestimonials(formattedTestimonials);
