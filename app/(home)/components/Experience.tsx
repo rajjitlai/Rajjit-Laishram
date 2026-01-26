@@ -204,12 +204,12 @@ export function Experience() {
             <Title text='Experience' className='flex flex-col items-center justify-center cursor-pointer mb-16' />
 
             <div className="relative" ref={timelineRef}>
-                {/* Center vertical line - background with subtle glow */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gray-800 hidden lg:block shadow-[0_0_10px_rgba(34,197,94,0.3)]"></div>
+                {/* Vertical line - background with subtle glow (visible on all screens, but moved on mobile) */}
+                <div className="absolute left-4 lg:left-1/2 transform lg:-translate-x-1/2 w-0.5 h-full bg-gray-800 shadow-[0_0_10px_rgba(34,197,94,0.1)]"></div>
 
-                {/* Center vertical line - animated progress with enhanced glow */}
+                {/* Vertical line - animated progress with dual color gradient and enhanced glow */}
                 <div
-                    className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-mine via-hers to-mine hidden lg:block transition-all duration-300 ease-out shadow-[0_0_15px_rgba(34,197,94,0.6),0_0_30px_rgba(34,197,94,0.4)]"
+                    className="absolute left-4 lg:left-1/2 transform lg:-translate-x-1/2 w-0.5 bg-gradient-to-b from-mine via-hers to-mine transition-all duration-300 ease-out shadow-[0_0_15px_rgba(56,255,66,0.4),0_0_15px_rgba(0,253,234,0.4)]"
                     style={{ height: `${scrollProgress}%` }}
                 ></div>
 
@@ -222,7 +222,7 @@ export function Experience() {
                             }`}
                     >
                         {/* Content */}
-                        <div className={`w-full lg:w-[45%] ${index % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:text-left lg:pl-12'
+                        <div className={`w-full lg:w-[45%] pl-10 lg:pl-0 ${index % 2 === 0 ? 'lg:text-right lg:pr-12' : 'lg:text-left lg:pl-12'
                             }`}>
                             <div className="bg-black border border-gray-800 p-6 hover:border-mine transition-all duration-300 hover:shadow-lg hover:shadow-mine/20">
                                 {item.content}
@@ -230,7 +230,7 @@ export function Experience() {
                         </div>
 
                         {/* Year badge in center with enhanced glow */}
-                        <div className="w-full lg:w-[10%] flex justify-center items-center my-4 lg:my-0 z-10 relative">
+                        <div className="w-full lg:w-[10%] flex justify-start lg:justify-center items-center my-4 lg:my-0 z-10 relative pl-1 lg:pl-0">
                             <div className="bg-black border-2 border-mine px-6 py-3 text-mine font-bold text-xl shadow-lg shadow-mine/50 hover:shadow-mine/70 hover:scale-105 transition-all duration-300 relative">
                                 {item.title}
                                 {/* Pulsing indicator for "Present" */}

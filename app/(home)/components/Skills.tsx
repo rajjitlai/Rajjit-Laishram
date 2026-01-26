@@ -1,3 +1,5 @@
+"use client"
+
 import Title from '@/components/Title'
 import React, { useEffect, useState } from 'react'
 import { FaGitSquare, FaDocker, FaRaspberryPi, FaJava, FaPhp, FaSlack } from 'react-icons/fa'
@@ -47,30 +49,18 @@ function Skills() {
     };
 
     const SkillsGrid = ({ items, color }: { items: { text: string; Icon: IconType }[]; color: string }) => {
-        const cols = 3;
-        const getSnakeIndex = (idx: number) => {
-            const row = Math.floor(idx / cols);
-            const col = idx % cols;
-            // If row is even, go left to right; if odd, go right to left
-            const snakeCol = row % 2 === 0 ? col : (cols - 1 - col);
-            return row * cols + snakeCol;
-        };
-
         return (
-            <div className='grid grid-cols-4 md:grid-cols-5 gap-3'>
-                {items.map((item, idx) => {
-                    const snakeIdx = getSnakeIndex(idx);
-                    return (
-                        <SkillCard
-                            key={idx}
-                            text={item.text}
-                            Icon={item.Icon}
-                            index={snakeIdx}
-                            totalInSection={items.length}
-                            color={color}
-                        />
-                    );
-                })}
+            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3'>
+                {items.map((item, idx) => (
+                    <SkillCard
+                        key={idx}
+                        text={item.text}
+                        Icon={item.Icon}
+                        index={idx}
+                        totalInSection={items.length}
+                        color={color}
+                    />
+                ))}
             </div>
         );
     };

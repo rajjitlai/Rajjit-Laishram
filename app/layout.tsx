@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playwrite_IT_Moderna, Merriweather_Sans, Noto_Sans_Meetei_Mayek } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -22,8 +22,17 @@ const meitei = Noto_Sans_Meetei_Mayek({
   preload: true,
 })
 
+export const viewport: Viewport = {
+  themeColor: "#38ff42",
+  width: "device-width",
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://rajjitlaishram.netlify.app/"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     default: "Rajjit Laishram | IoT Software Developer",
     template: "%s | Rajjit Laishram"
