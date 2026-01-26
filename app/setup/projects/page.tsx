@@ -30,6 +30,7 @@ export default function ProjectsPage() {
     const [loadingProjects, setLoadingProjects] = useState(true);
     const [showForm, setShowForm] = useState(false);
     const [editingProject, setEditingProject] = useState<Project | null>(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
     // Form state
     const [title, setTitle] = useState("");
@@ -235,50 +236,73 @@ export default function ProjectsPage() {
                         No projects found. Create your first project!
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {projects.map((project) => (
-                            <div
-                                key={project.id}
-                                className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
-                            >
-                                <Image
-                                    src={project.url}
-                                    alt={project.title}
-                                    width={400}
-                                    height={200}
-                                    className="w-full h-40 object-cover rounded mb-4"
-                                />
-                                <h3 className="text-lg font-bold text-mine mb-2">{project.title}</h3>
-                                <p className="text-neutral-300 text-sm mb-3 line-clamp-2">
-                                    {project.description}
-                                </p>
-                                <div className="flex flex-wrap gap-1 mb-4">
-                                    {project.tags.slice(0, 3).map((tag, index) => (
-                                        <span
-                                            key={index}
-                                            className="px-2 py-1 bg-zinc-800 text-xs rounded text-neutral-400"
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {projects.slice((currentPage - 1) * 9, currentPage * 9).map((project) => (
+                                <div
+                                    key={project.id}
+                                    className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
+                                >
+                                    <Image
+                                        src={project.url}
+                                        alt={project.title}
+                                        width={400}
+                                        height={200}
+                                        className="w-full h-40 object-cover rounded mb-4"
+                                    />
+                                    <h3 className="text-lg font-bold text-mine mb-2">{project.title}</h3>
+                                    <p className="text-neutral-300 text-sm mb-3 line-clamp-2">
+                                        {project.description}
+                                    </p>
+                                    <div className="flex flex-wrap gap-1 mb-4">
+                                        {project.tags.slice(0, 3).map((tag, index) => (
+                                            <span
+                                                key={index}
+                                                className="px-2 py-1 bg-zinc-800 text-xs rounded text-neutral-400"
+                                            >
+                                                #{tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => handleEdit(project)}
+                                            className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
                                         >
-                                            #{tag}
-                                        </span>
-                                    ))}
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(project.id)}
+                                            className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => handleEdit(project)}
-                                        className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded transition-colors"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(project.id)}
-                                        className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
-                                    >
-                                        Delete
-                                    </button>
-                                </div>
+                            ))}
+                        </div>
+                        {projects.length > 9 && (
+                            <div className="flex justify-between items-center mt-6 pt-4 border-t border-zinc-800">
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-sm text-neutral-400">
+                                    Page {currentPage} of {Math.ceil(projects.length / 9)}
+                                </span>
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.min(Math.ceil(projects.length / 9), p + 1))}
+                                    disabled={currentPage === Math.ceil(projects.length / 9)}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Next
+                                </button>
                             </div>
-                        ))}
-                    </div>
+                        )}
+                    </>
                 )}
             </div>
         </div>

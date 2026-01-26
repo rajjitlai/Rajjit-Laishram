@@ -1,6 +1,5 @@
 "use client"
 
-import Title from '@/components/Title'
 import Tooltip from '@/components/ToolTip'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
 import dynamic from 'next/dynamic'
@@ -77,8 +76,8 @@ const Hero = () => {
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
                     </div>
-                    <div className='w-full h-2 bg-hers'></div>
-                    <div className='w-full h-2 bg-mine translate-x-2 transition-all cursor-pointer'></div>
+                    <div className='w-full h-2 bg-hers z-50'></div>
+                    <div className='w-full h-2 bg-mine translate-x-2 transition-all cursor-pointer z-50'></div>
                 </Tooltip>
             </div>
         </div >

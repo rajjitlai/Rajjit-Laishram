@@ -21,6 +21,7 @@ export default function MessagesPage() {
     const router = useRouter();
     const [messages, setMessages] = useState<Message[]>([]);
     const [loadingMessages, setLoadingMessages] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         if (!loading && (!user || !isAdmin)) {
@@ -87,7 +88,7 @@ export default function MessagesPage() {
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        {messages.map((message) => (
+                        {messages.slice((currentPage - 1) * 10, currentPage * 10).map((message) => (
                             <div
                                 key={message.id}
                                 className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
@@ -116,9 +117,31 @@ export default function MessagesPage() {
                                 <p className="text-neutral-300 whitespace-pre-wrap">{message.message}</p>
                             </div>
                         ))}
+
+                        {messages.length > 10 && (
+                            <div className="flex justify-between items-center mt-6 pt-4 border-t border-zinc-800">
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-sm text-neutral-400">
+                                    Page {currentPage} of {Math.ceil(messages.length / 10)}
+                                </span>
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.min(Math.ceil(messages.length / 10), p + 1))}
+                                    disabled={currentPage === Math.ceil(messages.length / 10)}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Next
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>
-        </div>
+        </div >
     );
 }

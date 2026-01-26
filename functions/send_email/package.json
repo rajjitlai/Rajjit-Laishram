@@ -1,0 +1,9 @@
+{
+    "name": "send-email",
+    "version": "1.0.0",
+    "description": "Send email notification on new message",
+    "main": "src/main.js",
+    "dependencies": {
+        "nodemailer": "^6.9.1"
+    }
+}

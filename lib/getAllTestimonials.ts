@@ -30,6 +30,7 @@ export const getAllTestimonials = async (): Promise<Testimonial[]> => {
         const response = await databases.listDocuments<Document>(
             config.databaseId,
             config.testimonialCollectionsId,
+            [Query.orderDesc("$createdAt")]
         );
 
         return response.documents.map((testimonial: Document): Testimonial => ({

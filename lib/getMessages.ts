@@ -1,5 +1,5 @@
 import { config, databases } from "@/config/appwrite";
-import { Models } from "appwrite";
+import { Models, Query } from "appwrite";
 
 interface MessageDocument extends Models.Document {
     name: string;
@@ -25,6 +25,7 @@ export const getMessages = async (): Promise<Message[]> => {
         const response = await databases.listDocuments<MessageDocument>(
             config.databaseId,
             config.messagesCollectionsId,
+            [Query.orderDesc("$createdAt")]
         );
 
         return response.documents.map((msg: MessageDocument): Message => ({

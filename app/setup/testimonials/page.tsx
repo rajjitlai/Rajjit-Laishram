@@ -25,6 +25,7 @@ export default function TestimonialsPage() {
     const router = useRouter();
     const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
     const [loadingTestimonials, setLoadingTestimonials] = useState(true);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
         if (!loading && (!user || !isAdmin)) {
@@ -106,70 +107,94 @@ export default function TestimonialsPage() {
                         No testimonials found.
                     </div>
                 ) : (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {testimonials.map((testimonial) => (
-                            <div
-                                key={testimonial.id}
-                                className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
-                            >
-                                <div className="flex items-center gap-4 mb-4">
-                                    <Image
-                                        src={testimonial.image_url}
-                                        alt={testimonial.name}
-                                        width={60}
-                                        height={60}
-                                        className="rounded-full object-cover"
-                                    />
-                                    <div className="flex-1">
-                                        <h3 className="text-lg font-bold text-mine">{testimonial.name}</h3>
-                                        <p className="text-sm text-neutral-400">{testimonial.role}</p>
-                                        <div className="flex gap-1 mt-1">
-                                            {[...Array(5)].map((_, i) => (
-                                                <svg
-                                                    key={i}
-                                                    className={`w-4 h-4 ${i < (testimonial.rating || 5)
-                                                        ? "text-yellow-500 fill-yellow-500"
-                                                        : "text-neutral-600 fill-neutral-600"
-                                                        }`}
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth="1.5"
-                                                    stroke="currentColor"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
-                                                    />
-                                                </svg>
-                                            ))}
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {testimonials.slice((currentPage - 1) * 9, currentPage * 9).map((testimonial) => (
+                                <div
+                                    key={testimonial.id}
+                                    className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
+                                >
+                                    <div className="flex items-center gap-4 mb-4">
+                                        <Image
+                                            src={testimonial.image_url}
+                                            alt={testimonial.name}
+                                            width={60}
+                                            height={60}
+                                            className="rounded-full object-cover"
+                                        />
+                                        <div className="flex-1">
+                                            <h3 className="text-lg font-bold text-mine">{testimonial.name}</h3>
+                                            <p className="text-sm text-neutral-400">{testimonial.role}</p>
+                                            <div className="flex gap-1 mt-1">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <svg
+                                                        key={i}
+                                                        className={`w-4 h-4 ${i < (testimonial.rating || 5)
+                                                            ? "text-yellow-500 fill-yellow-500"
+                                                            : "text-neutral-600 fill-neutral-600"
+                                                            }`}
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="1.5"
+                                                        stroke="currentColor"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z"
+                                                        />
+                                                    </svg>
+                                                ))}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <p className="text-neutral-300 text-sm mb-4 line-clamp-4">
-                                    {testimonial.description}
-                                </p>
-                                <div className="flex gap-2">
-                                    <button
-                                        onClick={() => !testimonial.approved && handleApprove(testimonial.id)}
-                                        disabled={testimonial.approved}
-                                        className={`flex-1 px-3 py-2 text-white text-sm rounded transition-colors ${testimonial.approved
+                                    <p className="text-neutral-300 text-sm mb-4 line-clamp-4">
+                                        {testimonial.description}
+                                    </p>
+                                    <div className="flex gap-2">
+                                        <button
+                                            onClick={() => !testimonial.approved && handleApprove(testimonial.id)}
+                                            disabled={testimonial.approved}
+                                            className={`flex-1 px-3 py-2 text-white text-sm rounded transition-colors ${testimonial.approved
                                                 ? "bg-green-900/50 cursor-not-allowed text-green-200 border border-green-800"
                                                 : "bg-green-600 hover:bg-green-700"
-                                            }`}
-                                    >
-                                        {testimonial.approved ? "Approved" : "Approve"}
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(testimonial.id)}
-                                        className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
-                                    >
-                                        Delete
-                                    </button>
+                                                }`}
+                                        >
+                                            {testimonial.approved ? "Approved" : "Approve"}
+                                        </button>
+                                        <button
+                                            onClick={() => handleDelete(testimonial.id)}
+                                            className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded transition-colors"
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
+                            ))}
+                        </div>
+
+                        {testimonials.length > 9 && (
+                            <div className="flex justify-between items-center mt-6 pt-4 border-t border-zinc-800">
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Previous
+                                </button>
+                                <span className="text-sm text-neutral-400">
+                                    Page {currentPage} of {Math.ceil(testimonials.length / 9)}
+                                </span>
+                                <button
+                                    onClick={() => setCurrentPage(p => Math.min(Math.ceil(testimonials.length / 9), p + 1))}
+                                    disabled={currentPage === Math.ceil(testimonials.length / 9)}
+                                    className="px-4 py-2 bg-zinc-800 rounded hover:bg-zinc-700 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+                                >
+                                    Next
+                                </button>
                             </div>
-                        ))}
-                    </div>
+                        )}
+                    </>
                 )}
             </div>
         </div>
