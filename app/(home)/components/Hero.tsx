@@ -99,7 +99,7 @@ const Hero = () => {
                         <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
                             <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
                             <div className="absolute z-30 -top-[70px] animate-float">
-                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='transform -rotate-[20deg]' priority />
+                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='transform -rotate-[20deg]' priority unoptimized />
                             </div>
                             <div className='glow absolute top-[40%] right-1/2 z-10'></div>
                         </div>
