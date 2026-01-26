@@ -5,6 +5,7 @@ import { IconHome, IconMessage } from "@tabler/icons-react";
 import { MdLaptopWindows, MdOutlineRateReview } from "react-icons/md";
 import { WiStars } from "react-icons/wi";
 import { GiMuscleUp } from "react-icons/gi";
+import { FaPenNib } from "react-icons/fa";
 
 export function FloatNav() {
     const navItems = [
@@ -27,6 +28,13 @@ export function FloatNav() {
             name: "Experience",
             link: "#exp",
             icon: <GiMuscleUp className="h-8 w-8 text-neutral-500 dark:text-white" />,
+        },
+        {
+            name: "Blog",
+            link: "https://rjsblog.in",
+            icon: (
+                <FaPenNib className="h-8 w-8 text-neutral-500 dark:text-white" />
+            ),
         },
         {
             name: "Testimonials",

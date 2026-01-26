@@ -8,6 +8,7 @@ import { ScrollReveal } from "@/components/ui/ScrollReveal";
 const BackgroundBeams = dynamic(() => import("@/components/ui/background-beams").then(mod => mod.BackgroundBeams), { ssr: false });
 const Skills = dynamic(() => import("./Skills"));
 const Projects = dynamic(() => import("./Projects"));
+const BlogHighlight = dynamic(() => import("./BlogHighlight").then(mod => mod.BlogHighlight));
 const Footer = dynamic(() => import("./Footer"));
 const Contact = dynamic(() => import("./Contact").then(mod => mod.Contact));
 const Experience = dynamic(() => import("./Experience").then(mod => mod.Experience));
@@ -29,6 +30,9 @@ export default function HomeContent() {
                 </ScrollReveal>
                 <ScrollReveal>
                     <Projects />
+                </ScrollReveal>
+                <ScrollReveal>
+                    <BlogHighlight />
                 </ScrollReveal>
                 <ScrollReveal>
                     <Experience />
