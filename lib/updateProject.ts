@@ -3,10 +3,15 @@ import { ID } from "appwrite";
 
 interface ProjectUpdateData {
     title?: string;
-    description?: string;
+    summary?: string;
+    problem?: string;
+    solution?: string;
+    role?: string;
+    impact?: string;
     project_link?: string;
     tech_stack?: string[];
     project_image_url?: string;
+    isArchived?: boolean;
 }
 
 export const updateProject = async (

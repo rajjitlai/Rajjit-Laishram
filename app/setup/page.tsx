@@ -37,7 +37,7 @@ export default function AdminDashboard() {
                 const [msgs, reviews, projs] = await Promise.all([
                     getMessages(),
                     getAllTestimonials(),
-                    getProjects()
+                    getProjects(true)
                 ]);
 
                 setStats({
@@ -77,7 +77,7 @@ export default function AdminDashboard() {
                         type: 'project' as const,
                         date: p.createdAt,
                         title: `New Project: ${p.title}`,
-                        desc: p.description.substring(0, 50) + (p.description.length > 50 ? '...' : ''),
+                        desc: p.summary.substring(0, 50) + (p.summary.length > 50 ? '...' : ''),
                         meta: p.tags.slice(0, 2).join(", ")
                     }))
                 ].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())

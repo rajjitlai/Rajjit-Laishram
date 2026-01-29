@@ -17,10 +17,15 @@ import { cn } from "@/lib/utils";
 interface Project {
     id: string;
     title: string;
-    description: string;
+    summary: string;
+    problem: string;
+    solution: string;
+    role: string;
+    impact: string;
     url: string;
     link: string;
     tags: string[];
+    isArchived: boolean;
 }
 
 export default function ProjectsPage() {
@@ -34,9 +39,14 @@ export default function ProjectsPage() {
 
     // Form state
     const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
+    const [summary, setSummary] = useState("");
+    const [problem, setProblem] = useState("");
+    const [solution, setSolution] = useState("");
+    const [role, setRole] = useState("");
+    const [impact, setImpact] = useState("");
     const [projectLink, setProjectLink] = useState("");
     const [techStack, setTechStack] = useState("");
+    const [isArchived, setIsArchived] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
 
     useEffect(() => {
@@ -53,7 +63,7 @@ export default function ProjectsPage() {
 
     const fetchProjects = async () => {
         try {
-            const fetchedProjects = await getProjects();
+            const fetchedProjects = await getProjects(true); // Fetch all including inactive
             setProjects(fetchedProjects);
         } catch (error) {
             console.error("Error fetching projects:", error);
@@ -77,17 +87,27 @@ export default function ProjectsPage() {
     const handleEdit = (project: Project) => {
         setEditingProject(project);
         setTitle(project.title);
-        setDescription(project.description);
+        setSummary(project.summary);
+        setProblem(project.problem);
+        setSolution(project.solution);
+        setRole(project.role);
+        setImpact(project.impact);
         setProjectLink(project.link);
         setTechStack(project.tags.join(", "));
+        setIsArchived(project.isArchived);
         setShowForm(true);
     };
 
     const resetForm = () => {
         setTitle("");
-        setDescription("");
+        setSummary("");
+        setProblem("");
+        setSolution("");
+        setRole("");
+        setImpact("");
         setProjectLink("");
         setTechStack("");
+        setIsArchived(false);
         setImageFile(null);
         setEditingProject(null);
         setShowForm(false);
@@ -104,9 +124,14 @@ export default function ProjectsPage() {
         try {
             const projectData = {
                 title,
-                description,
+                summary,
+                problem,
+                solution,
+                role,
+                impact,
                 project_link: projectLink,
                 tech_stack: techStack.split(",").map((tag) => tag.trim()),
+                isArchived,
             };
 
             if (editingProject) {
@@ -165,39 +190,103 @@ export default function ProjectsPage() {
                             {editingProject ? "Edit Project" : "Create New Project"}
                         </h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                                <Label htmlFor="title">Project Title</Label>
-                                <Input
-                                    id="title"
-                                    placeholder="IoT Smart Home System"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
-                                    required
-                                />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <Label htmlFor="title">Project Title</Label>
+                                    <Input
+                                        id="title"
+                                        placeholder="IoT Smart Home System"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="link">Project Link</Label>
+                                    <Input
+                                        id="link"
+                                        placeholder="https://github.com/..."
+                                        value={projectLink}
+                                        onChange={(e) => setProjectLink(e.target.value)}
+                                        required
+                                    />
+                                </div>
                             </div>
+
                             <div>
-                                <Label htmlFor="description">Description</Label>
+                                <Label htmlFor="summary">Summary</Label>
                                 <textarea
-                                    id="description"
-                                    placeholder="Project description..."
-                                    rows={3}
+                                    id="summary"
+                                    placeholder="Brief summary used in cards..."
+                                    rows={2}
                                     className={cn(
                                         "border-2 w-full p-4 focus-visible:ring-[2px] focus:ring-neutral-600 outline-none resize-none text-sm bg-zinc-800 rounded"
                                     )}
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    value={summary}
+                                    onChange={(e) => setSummary(e.target.value)}
                                     required
                                 />
                             </div>
-                            <div>
-                                <Label htmlFor="link">Project Link</Label>
-                                <Input
-                                    id="link"
-                                    placeholder="https://github.com/..."
-                                    value={projectLink}
-                                    onChange={(e) => setProjectLink(e.target.value)}
-                                    required
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <Label htmlFor="problem">Problem</Label>
+                                    <textarea
+                                        id="problem"
+                                        placeholder="What problem does this solve?"
+                                        rows={3}
+                                        className={cn(
+                                            "border-2 w-full p-4 focus-visible:ring-[2px] focus:ring-neutral-600 outline-none resize-none text-sm bg-zinc-800 rounded"
+                                        )}
+                                        value={problem}
+                                        onChange={(e) => setProblem(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="solution">Solution</Label>
+                                    <textarea
+                                        id="solution"
+                                        placeholder="How did you solve it?"
+                                        rows={3}
+                                        className={cn(
+                                            "border-2 w-full p-4 focus-visible:ring-[2px] focus:ring-neutral-600 outline-none resize-none text-sm bg-zinc-800 rounded"
+                                        )}
+                                        value={solution}
+                                        onChange={(e) => setSolution(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <Label htmlFor="role">My Role</Label>
+                                    <Input
+                                        id="role"
+                                        placeholder="Lead IoT Developer"
+                                        value={role}
+                                        onChange={(e) => setRole(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <Label htmlFor="impact">Impact</Label>
+                                    <Input
+                                        id="impact"
+                                        placeholder="Reduced energy costs by 20%"
+                                        value={impact}
+                                        onChange={(e) => setImpact(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="flex items-center space-x-2">
+                                <input
+                                    type="checkbox"
+                                    id="isArchived"
+                                    checked={isArchived}
+                                    onChange={(e) => setIsArchived(e.target.checked)}
+                                    className="w-4 h-4 rounded border-zinc-700 bg-zinc-800 text-mine focus:ring-mine accent-mine"
                                 />
+                                <Label htmlFor="isArchived" className="cursor-pointer">Archived (Hidden from public view)</Label>
                             </div>
                             <div>
                                 <Label htmlFor="techStack">Tech Stack (comma-separated)</Label>
@@ -217,6 +306,7 @@ export default function ProjectsPage() {
                                     accept="image/*"
                                     onChange={(e) => setImageFile(e.target.files?.[0] || null)}
                                     className="w-full p-2 bg-zinc-800 border border-zinc-700 rounded text-sm"
+                                    required={!editingProject}
                                 />
                             </div>
                             <button
@@ -241,20 +331,28 @@ export default function ProjectsPage() {
                             {projects.slice((currentPage - 1) * 9, currentPage * 9).map((project) => (
                                 <div
                                     key={project.id}
-                                    className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all"
+                                    className="bg-zinc-900 border border-zinc-800 p-6 rounded-xl hover:border-zinc-700 transition-all flex flex-col h-full"
                                 >
-                                    <Image
-                                        src={project.url}
-                                        alt={project.title}
-                                        width={400}
-                                        height={200}
-                                        className="w-full h-40 object-cover rounded mb-4"
-                                    />
-                                    <h3 className="text-lg font-bold text-mine mb-2">{project.title}</h3>
-                                    <p className="text-neutral-300 text-sm mb-3 line-clamp-2">
-                                        {project.description}
+                                    <div className="relative h-40 w-full mb-4">
+                                        <Image
+                                            src={project.url}
+                                            alt={project.title}
+                                            fill
+                                            className="object-cover rounded"
+                                        />
+                                    </div>
+                                    <h3 className="text-lg font-bold text-mine mb-2 flex items-center flex-wrap gap-2">
+                                        {project.title}
+                                        {project.isArchived &&
+                                            <span className="text-[10px] bg-red-900/50 text-red-200 px-2 py-0.5 rounded border border-red-800 uppercase tracking-wider">
+                                                Archived
+                                            </span>
+                                        }
+                                    </h3>
+                                    <p className="text-neutral-300 text-sm mb-3 line-clamp-2 flex-grow">
+                                        {project.summary}
                                     </p>
-                                    <div className="flex flex-wrap gap-1 mb-4">
+                                    <div className="flex flex-wrap gap-1 mb-4 mt-auto">
                                         {project.tags.slice(0, 3).map((tag, index) => (
                                             <span
                                                 key={index}

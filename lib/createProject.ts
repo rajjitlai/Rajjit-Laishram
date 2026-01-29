@@ -3,9 +3,14 @@ import { ID } from "appwrite";
 
 interface ProjectData {
     title: string;
-    description: string;
+    summary: string;
+    problem: string;
+    solution: string;
+    role: string;
+    impact: string;
     project_link: string;
     tech_stack: string[];
+    isArchived?: boolean;
 }
 
 export const createProject = async (
@@ -34,10 +39,15 @@ export const createProject = async (
             ID.unique(),
             {
                 title: data.title,
-                description: data.description,
+                summary: data.summary,
+                problem: data.problem,
+                solution: data.solution,
+                role: data.role,
+                impact: data.impact,
                 project_image_url: fileUrl,
                 project_link: data.project_link,
                 tech_stack: data.tech_stack,
+                isArchived: data.isArchived || false,
             }
         );
     } catch (error) {
