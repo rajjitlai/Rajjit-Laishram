@@ -31,6 +31,8 @@ export const getProjects = async (): Promise<Project[]> => {
             [Query.orderDesc("$createdAt")]
         );
 
+        console.log(response.documents);
+
         return response.documents.map((project: Document): Project => ({
             id: project.$id,
             title: project.title,

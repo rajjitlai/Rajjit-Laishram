@@ -16,35 +16,27 @@ I'm Rajjit Laishram, an IoT Software Developer specializing in creating innovati
 
 ## Skills & Technologies
 
-### IoT Development
+### IoT & Embedded Systems
 
-- **IoT Platforms:** AWS IoT, Google Cloud IoT, Azure IoT, ThingSpeak
-- **Protocols:** MQTT, HTTP/HTTPS, WebSocket, CoAP, LoRaWAN
-- **Edge Computing:** Raspberry Pi, Arduino, ESP32, NVIDIA Jetson
-- **Sensor Integration:** Temperature, humidity, motion, pressure sensors
-- **Device Management:** Remote monitoring, OTA updates, fleet management
+- **Hardware:** Raspberry Pi, ESP32, NVIDIA Jetson
+- **Firmware & OS:** C/C++, Embedded Linux, FreeRTOS
+- **Connectivity:** MQTT, CoAP, LoRaWAN
+- **Tools:** DroneKit, Edge Computing
 
-### Web Development
+### Full-Stack Development
 
-- **Frontend:** React.js, Next.js, React Native (Expo), Tailwind CSS, ShadCN UI
-- **Backend:** Django, FastAPI, Express.js, Node.js
-- **Databases:** MongoDB, Appwrite, SQL, MySQL, PostgreSQL, Firebase
+- **Frontend:** Next.js, React Native, TypeScript, Tailwind CSS
+- **Backend:** Node.js, FastAPI, Django
+- **Database:** PostgreSQL, MongoDB, Appwrite
 
-### Embedded Systems
+### AI & Engineering
 
-- **Hardware:** Raspberry Pi, Arduino, NodeMCU, ESP32, Pixhawk
-- **Software & Protocols:** DroneKit, WebSockets, Python scripting
-- **Real-time Systems:** FreeRTOS, embedded Linux
+- **Machine Learning:** TensorFlow, PyTorch
+- **Computer Vision:** OpenCV, YOLO
 
-### Programming Languages
+### DevOps & Tools
 
-- **Proficient:** JavaScript, Python, C++, Node.js
-- **Familiar:** C, Java, TypeScript
-
-### Other Tools
-
-- Git, Docker, Linux, CI/CD
-- REST APIs, GraphQL, WebSockets
+- **Infrastructure:** Docker, AWS IoT, Git, CI/CD
 
 ## Notable Projects
 
