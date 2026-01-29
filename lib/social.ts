@@ -21,10 +21,5 @@ export const socialLinks = [
         link: "https://facebook.com/rajjitlaishram",
         label: "Facebook",
         Icon: SiFacebook
-    },
-    {
-        link: "https://rjsblog.in",
-        label: "Blog",
-        Icon: FaPenNib
     }
 ]

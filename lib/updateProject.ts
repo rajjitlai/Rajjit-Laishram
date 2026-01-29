@@ -12,6 +12,7 @@ interface ProjectUpdateData {
     tech_stack?: string[];
     project_image_url?: string;
     isArchived?: boolean;
+    signals?: string[];
 }
 
 export const updateProject = async (

@@ -12,6 +12,7 @@ interface Document extends Models.Document {
     project_link: string;
     tech_stack?: string | string[];
     isArchived?: boolean;
+    signals?: string | string[];
 }
 
 export interface Project {
@@ -25,6 +26,7 @@ export interface Project {
     url: string;
     link: string;
     tags: string[];
+    signals: string[];
     createdAt: string;
     isArchived: boolean;
 }
@@ -60,6 +62,11 @@ export const getProjects = async (includeArchived: boolean = false): Promise<Pro
                 ? project.tech_stack
                 : typeof project.tech_stack === "string"
                     ? project.tech_stack.split(",").map(tag => tag.trim())
+                    : [],
+            signals: Array.isArray(project.signals)
+                ? project.signals
+                : typeof project.signals === "string"
+                    ? project.signals.split(",").map(s => s.trim())
                     : [],
             createdAt: project.$createdAt,
             isArchived: !!project.isArchived,

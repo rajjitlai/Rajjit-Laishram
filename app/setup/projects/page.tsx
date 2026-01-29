@@ -13,6 +13,8 @@ import Image from "next/image";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { config } from "@/config/appwrite";
+
 
 interface Project {
     id: string;
@@ -25,6 +27,7 @@ interface Project {
     url: string;
     link: string;
     tags: string[];
+    signals: string[];
     isArchived: boolean;
 }
 
@@ -46,6 +49,7 @@ export default function ProjectsPage() {
     const [impact, setImpact] = useState("");
     const [projectLink, setProjectLink] = useState("");
     const [techStack, setTechStack] = useState("");
+    const [signals, setSignals] = useState("");
     const [isArchived, setIsArchived] = useState(false);
     const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -94,6 +98,7 @@ export default function ProjectsPage() {
         setImpact(project.impact);
         setProjectLink(project.link);
         setTechStack(project.tags.join(", "));
+        setSignals(project.signals.join(", "));
         setIsArchived(project.isArchived);
         setShowForm(true);
     };
@@ -107,6 +112,7 @@ export default function ProjectsPage() {
         setImpact("");
         setProjectLink("");
         setTechStack("");
+        setSignals("");
         setIsArchived(false);
         setImageFile(null);
         setEditingProject(null);
@@ -131,6 +137,7 @@ export default function ProjectsPage() {
                 impact,
                 project_link: projectLink,
                 tech_stack: techStack.split(",").map((tag) => tag.trim()),
+                signals: signals.split(",").map((s) => s.trim()).filter(Boolean),
                 isArchived,
             };
 
@@ -297,6 +304,16 @@ export default function ProjectsPage() {
                                     onChange={(e) => setTechStack(e.target.value)}
                                     required
                                 />
+                            </div>
+                            <div>
+                                <Label htmlFor="signals">Project Signals (max 3, comma-separated)</Label>
+                                <Input
+                                    id="signals"
+                                    placeholder="IoT System, Real-time, AI Integration"
+                                    value={signals}
+                                    onChange={(e) => setSignals(e.target.value)}
+                                />
+                                <p className="text-xs text-neutral-500 mt-1">Short, 1-2 word tags for simple scanning. Manual entry.</p>
                             </div>
                             <div>
                                 <Label htmlFor="image">Project Image {editingProject && "(Leave empty to keep current)"}</Label>
