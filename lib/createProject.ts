@@ -11,7 +11,7 @@ interface ProjectData {
     project_link: string;
     tech_stack: string[];
     isArchived?: boolean;
-    signals?: string[];
+    signals?: string;
 }
 
 export const createProject = async (
@@ -49,7 +49,7 @@ export const createProject = async (
                 project_link: data.project_link,
                 tech_stack: data.tech_stack,
                 isArchived: data.isArchived || false,
-                signals: data.signals || [],
+                signals: data.signals || "",
             }
         );
     } catch (error) {

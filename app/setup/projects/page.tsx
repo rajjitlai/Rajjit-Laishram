@@ -27,7 +27,7 @@ interface Project {
     url: string;
     link: string;
     tags: string[];
-    signals: string[];
+    signals: string;
     isArchived: boolean;
 }
 
@@ -98,7 +98,7 @@ export default function ProjectsPage() {
         setImpact(project.impact);
         setProjectLink(project.link);
         setTechStack(project.tags.join(", "));
-        setSignals(project.signals.join(", "));
+        setSignals(Array.isArray(project.signals) ? project.signals.join(", ") : project.signals || "");
         setIsArchived(project.isArchived);
         setShowForm(true);
     };
@@ -137,7 +137,7 @@ export default function ProjectsPage() {
                 impact,
                 project_link: projectLink,
                 tech_stack: techStack.split(",").map((tag) => tag.trim()),
-                signals: signals.split(",").map((s) => s.trim()).filter(Boolean),
+                signals: signals, // Keeping it as a string
                 isArchived,
             };
 

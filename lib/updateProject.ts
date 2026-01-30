@@ -12,7 +12,7 @@ interface ProjectUpdateData {
     tech_stack?: string[];
     project_image_url?: string;
     isArchived?: boolean;
-    signals?: string[];
+    signals?: string;
 }
 
 export const updateProject = async (
@@ -25,7 +25,7 @@ export const updateProject = async (
             throw new Error("Database ID or Project Collection ID is not defined");
         }
 
-        const updateData = { ...data };
+        const updateData: any = { ...data };
 
         // If a new image is provided, upload it
         if (imageFile && config.profileImagesBucketId) {

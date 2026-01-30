@@ -93,7 +93,9 @@ const Projects = () => {
                     ))
                 ) : projects.length > 0 ? (
                     projects.map((project, idx) => {
-                        const signals = project.signals || [];
+                        const signalList = typeof project.signals === "string"
+                            ? project.signals.split(",").map(s => s.trim()).filter(Boolean)
+                            : [];
                         return (
                             <motion.div
                                 key={project.id}
@@ -122,12 +124,12 @@ const Projects = () => {
                                 <div className="p-6 flex flex-col flex-1 relative z-10 bg-zinc-900/40 backdrop-blur-sm">
                                     {/* Project Signal Strip */}
                                     <div className="flex items-center gap-2 mb-2">
-                                        {signals.map((signal, sIdx) => (
+                                        {signalList.map((signal, sIdx) => (
                                             <React.Fragment key={sIdx}>
                                                 <span className="text-[10px] uppercase tracking-widest font-bold text-mine/90">
                                                     {signal}
                                                 </span>
-                                                {sIdx < signals.length - 1 && (
+                                                {sIdx < signalList.length - 1 && (
                                                     <span className="w-1 h-1 rounded-full bg-zinc-700" />
                                                 )}
                                             </React.Fragment>

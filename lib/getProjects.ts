@@ -26,7 +26,7 @@ export interface Project {
     url: string;
     link: string;
     tags: string[];
-    signals: string[];
+    signals: string;
     createdAt: string;
     isArchived: boolean;
 }
@@ -63,11 +63,11 @@ export const getProjects = async (includeArchived: boolean = false): Promise<Pro
                 : typeof project.tech_stack === "string"
                     ? project.tech_stack.split(",").map(tag => tag.trim())
                     : [],
-            signals: Array.isArray(project.signals)
+            signals: typeof project.signals === "string"
                 ? project.signals
-                : typeof project.signals === "string"
-                    ? project.signals.split(",").map(s => s.trim())
-                    : [],
+                : Array.isArray(project.signals)
+                    ? project.signals.join(", ")
+                    : "",
             createdAt: project.$createdAt,
             isArchived: !!project.isArchived,
         }));
