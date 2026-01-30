@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.font-outfit {
+  font-family: var(--font-outfit), sans-serif;
+}
+
 .font-playwrite {
   font-family: var(--font-playwrite), sans-serif;
 }

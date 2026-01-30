@@ -2,6 +2,7 @@
 
 import Title from '@/components/Title'
 import React, { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { FaGitSquare, FaDocker, FaRaspberryPi } from 'react-icons/fa'
 import {
     SiAppwrite, SiC, SiCplusplus, SiDjango, SiFastapi, SiMongodb,
@@ -25,28 +26,28 @@ function Skills() {
     const SkillCard = ({ text, Icon, index, totalInSection, color }: { text: string; Icon: IconType; index: number; totalInSection: number; color: string }) => {
         const isGlowing = (currentIndex % totalInSection) === index;
         const glowColor = color === 'mine'
-            ? 'rgba(56, 255, 66, 0.6)' // green
-            : 'rgba(0, 253, 234, 0.6)'; // cyan
+            ? 'rgba(56, 255, 66, 0.4)' // green
+            : 'rgba(0, 253, 234, 0.4)'; // cyan
 
-        const borderColor = color === 'mine' ? 'border-mine' : 'border-hers';
+        const borderColor = color === 'mine' ? 'border-mine/50' : 'border-hers/50';
         const textColor = color === 'mine' ? 'text-mine' : 'text-hers';
 
-        const hoverBorder = color === 'mine' ? 'hover:border-mine' : 'hover:border-hers';
-        const hoverText = color === 'mine' ? 'group-hover:text-mine' : 'group-hover:text-hers';
-        const hoverShadow = color === 'mine' ? 'hover:shadow-[0_0_15px_rgba(56,255,66,0.5)]' : 'hover:shadow-[0_0_15px_rgba(0,253,234,0.5)]';
-
         return (
-            <div className={`flex flex-col items-center gap-2 p-3 bg-black border transition-all duration-300 cursor-pointer group hover:scale-110 ${hoverShadow} ${isGlowing
-                ? `${borderColor} scale-105`
-                : `border-gray-800 ${hoverBorder}`
-                }`}
-                style={{
-                    boxShadow: isGlowing ? `0 0 15px ${glowColor}` : undefined
-                }}>
-                <Icon className={`w-5 h-5 transition-colors duration-300 ${isGlowing ? textColor : `text-gray-400 ${hoverText}`
-                    }`} />
-                <p className='text-xs text-gray-300 text-center transition-colors duration-300 group-hover:text-white'>{text}</p>
-            </div>
+            <motion.div
+                whileHover={{ y: -5, scale: 1.05, rotateX: 10, rotateY: 10 }}
+                className={`flex flex-col items-center gap-3 p-4 bg-zinc-900/40 backdrop-blur-sm border transition-all duration-500 cursor-pointer group rounded-xl ${isGlowing
+                    ? `${borderColor} shadow-[0_0_20px_${glowColor}]`
+                    : `border-zinc-800/50 hover:border-white/20 hover:shadow-2xl`
+                    }`}
+            >
+                <div className={`p-2 rounded-lg transition-colors duration-300 ${isGlowing ? 'bg-white/5' : 'bg-transparent group-hover:bg-white/5'}`}>
+                    <Icon className={`w-6 h-6 transition-all duration-300 ${isGlowing ? textColor : `text-zinc-500 group-hover:text-white`
+                        }`} />
+                </div>
+                <p className='text-[10px] uppercase tracking-widest font-bold text-zinc-500 transition-colors duration-300 group-hover:text-white'>
+                    {text}
+                </p>
+            </motion.div>
         );
     };
 

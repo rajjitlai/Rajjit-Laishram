@@ -101,17 +101,21 @@ const Projects = () => {
                                 key={project.id}
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
+                                whileHover={{ y: -10 }}
                                 transition={{ delay: idx * 0.1 }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-zinc-900/40 border border-zinc-800 rounded-2xl overflow-hidden hover:border-mine/50 hover:shadow-[0_0_30px_rgba(56,255,66,0.1)] transition-all duration-300 cursor-pointer flex flex-col h-full ring-1 ring-transparent hover:ring-mine/20"
+                                className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-2xl overflow-hidden hover:border-mine transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.15)]"
                             >
+                                {/* Decorative Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-mine/5 via-transparent to-hers/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                                 {/* Image Container */}
-                                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-900">
+                                <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-950">
                                     <Image
                                         src={project.url}
                                         alt={project.title}
                                         fill
-                                        className="object-cover object-top group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out"
                                     />
                                     <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                         <span className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-bold tracking-wider text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2">

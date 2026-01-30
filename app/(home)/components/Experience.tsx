@@ -6,21 +6,26 @@ import { Timeline } from "@/components/ui/timeline";
 export function Experience() {
     const data = [
         {
-            title: "2025",
+            title: "2026",
             content: (
                 <div className="space-y-8">
                     <div>
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h4 className="text-xl font-bold text-mine">IoT Software Developer</h4>
+                            <h4 className="text-xl font-bold text-mine flex items-center gap-2">
+                                IoT Software Developer
+                                <span className="flex h-2 w-2">
+                                    <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-mine opacity-75"></span>
+                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-mine"></span>
+                                </span>
+                            </h4>
                             <span className="text-sm text-neutral-500 font-mono">July 2025 - Present</span>
                         </div>
                         <p className="text-neutral-400 font-semibold mb-3">Nibiaa • Imphal, Manipur</p>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Developing enterprise IoT solutions focusing on smart warehouse management systems.",
-                                "Implementing real-time monitoring and automation for large-scale inventory tracking.",
-                                "Architecting end-to-end systems with cloud connectivity using MQTT and HTTP protocols.",
-                                "Integrating diverse industrial sensors for precise data collection and edge processing."
+                                "Scaleable IoT solutions for enterprise warehouse management.",
+                                "Advanced real-time monitoring systems with edge processing.",
+                                "Full-stack architectural oversight for cloud-hardware communication."
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-mine mt-1.5 h-1.5 w-1.5 rounded-full bg-mine shrink-0" />
@@ -35,14 +40,26 @@ export function Experience() {
                             <h4 className="text-xl font-bold text-hers">Lead Software Engineer</h4>
                             <span className="text-sm text-neutral-500 font-mono">Mar 2025 - Jan 2026</span>
                         </div>
-                        <p className="text-neutral-400 font-semibold mb-3">Nongin Aerial Wings Aid (NAWA) • NIDAR Drone Competition</p>
+                        <p className="text-neutral-400 font-semibold mb-3">Nongin Aerial Wings Aid (NAWA)</p>
+                        <p className="text-neutral-500 text-sm mb-4 italic">Transitioning to system maintenance and documentation after successful NIDAR deployment.</p>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            title: "2025",
+            content: (
+                <div className="space-y-8">
+                    <div>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h4 className="text-xl font-bold text-hers">NAWA Mission Success</h4>
+                            <span className="text-sm text-neutral-500 font-mono">2025 Milestone</span>
+                        </div>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Spearheaded autonomous drone mission systems as Team Captain.",
-                                "Architected custom GCS with a robust backend, database, and real-time APIs.",
-                                "Implemented path-planning and survivor detection using OpenCV and DroneKit.",
-                                "Engineered custom reliability logic including multi-GPS confirmation systems.",
-                                "Orchestrated two-drone autonomous coordination for scout and delivery operations."
+                                "Successfully led team to NIDAR Drone Competition finals.",
+                                "Architected custom GCS with real-time survivor detection (OpenCV).",
+                                "Engineered multi-drone autonomous coordination for delivery operations."
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-hers mt-1.5 h-1.5 w-1.5 rounded-full bg-hers shrink-0" />
@@ -60,9 +77,8 @@ export function Experience() {
                         <p className="text-neutral-400 font-semibold mb-3">NIELIT Imphal (Drone Lab)</p>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Crafting high-performance mobile apps with React Native & Expo for hardware control.",
-                                "Optimizing server-side Python scripts for low-latency drone communication.",
-                                "Collaborating on mission control algorithms for complex autonomous flight paths."
+                                "React Native mobile control systems for drone hardware.",
+                                "Mission control algorithms for complex autonomous flight paths."
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-mine mt-1.5 h-1.5 w-1.5 rounded-full bg-mine shrink-0" />
@@ -127,7 +143,7 @@ export function Experience() {
                 <div className="space-y-4">
                     <p className="text-neutral-400 font-semibold">Product Launch & Open Source</p>
                     <div className="bg-gradient-to-br from-mine/10 to-transparent p-6 border border-mine/20 rounded-2xl">
-                        <h5 className="text-white font-bold mb-2">Developed RJ&apos;s BLOG</h5>
+                        <h5 className="text-white font-bold mb-2">Developed RJ&apos;s BLOG.</h5>
                         <p className="text-neutral-400 text-sm leading-relaxed mb-4">
                             Launched a full-featured blogging platform built with React.js and Appwrite, reaching users at rjsblog.in.
                         </p>

@@ -28,43 +28,49 @@ const Hero = () => {
     ];
 
     return (
-        <div className='mt-6 md:mt-3 min-h-[60vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-center animate-move-up'>
-            <div className='space-y-10 text-left items-center'>
-                <h1 className='text-4xl lg:text-7xl font-bold font-playwrite items-center text-center'>
-                    <span className='flex flex-row gap-5 font-playwrite text-center justify-center lg:justify-start'>
-                        Hello!
+        <div className='mt-10 md:mt-20 min-h-[70vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-between animate-move-up'>
+            <div className='flex-1 space-y-8 text-left lg:pr-10'>
+                <div className="space-y-4">
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        className='flex items-center gap-3 text-mine font-mono text-sm tracking-[0.2em] uppercase'
+                    >
+                        <span className="h-px w-8 bg-mine"></span>
+                        IoT & Autonomous Systems
                         <Tooltip text="ꯍꯦꯜꯂꯣ" autoShow>
-                            <SiHey className='animate-wave cursor-pointer' />
+                            <SiHey className='animate-wave cursor-pointer text-xl text-mine' />
                         </Tooltip>
-                    </span>
-                    <span className='underline underline-offset-8 decoration-mine'>{"I'm Rajjit Laishram."}</span>
-                </h1>
-                <p className='md:w-[32rem] text-lg text-gray-100 font-merriweather text-center'>
-                    {"Based in Manipur, I'm a dedicated IoT Software Developer specializing in creating innovative IoT solutions and hardware integrations."}
+                    </motion.div>
+                    <h1 className='text-4xl lg:text-6xl font-black font-outfit leading-tight'>
+                        {"I'm Rajjit, and I build machines that "}
+                        <span className='text-transparent bg-clip-text bg-gradient-to-r from-mine to-hers contrast-125'>think.</span>
+                    </h1>
+                </div>
+
+                <p className='max-w-xl text-lg text-zinc-400 font-outfit leading-relaxed'>
+                    {"An IoT Developer based in Manipur, I specialize in bridging the gap between hardware and software through sophisticated autonomous systems."}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+
+                <div className="flex flex-col sm:flex-row gap-5 items-center">
                     <MagneticButton className='w-full sm:w-auto'>
                         <Link href="#contact" className='w-full sm:w-auto block'>
                             <HoverBorderGradient
                                 containerClassName="w-full sm:w-auto"
                                 as="button"
-                                className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
+                                className="dark:bg-white bg-black dark:text-black text-white flex items-center justify-center space-x-2 w-full py-4 px-8 font-bold"
                             >
-
-                                <span className='font-merriweather flex items-center gap-2'><FaEnvelope /> Contact Me</span>
+                                <span className='font-outfit flex items-center gap-2'>Work with me <FaEnvelope /></span>
                             </HoverBorderGradient>
                         </Link>
                     </MagneticButton>
-                    <MagneticButton className='w-full sm:w-auto'>
-                        <HoverBorderGradient
-                            containerClassName="w-full sm:w-auto"
-                            as="button"
-                            className="dark:bg-black bg-white text-black dark:text-white flex items-center justify-center space-x-2 w-full py-4 px-6"
-                            onClick={handleDownload}
-                        >
-                            <span className='font-merriweather flex items-center gap-2'><FaFileDownload /> Download Resume</span>
-                        </HoverBorderGradient>
-                    </MagneticButton>
+                    <button
+                        onClick={handleDownload}
+                        className='font-outfit flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group px-4 py-2'
+                    >
+                        <FaFileDownload className="group-hover:-translate-y-1 transition-transform" />
+                        Get Resume
+                    </button>
                 </div>
             </div>
 

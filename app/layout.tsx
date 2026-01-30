@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Playwrite_IT_Moderna, Merriweather_Sans, Noto_Sans_Meetei_Mayek } from "next/font/google";
+import { Playwrite_IT_Moderna, Merriweather_Sans, Noto_Sans_Meetei_Mayek, Outfit } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
@@ -8,6 +8,11 @@ import { BackToTop } from "@/components/BackToTop";
 
 const playwrite = Playwrite_IT_Moderna({
   variable: "--font-playwrite",
+})
+
+const outfit = Outfit({
+  variable: "--font-outfit",
+  subsets: ['latin'],
 })
 
 const merriweather = Merriweather_Sans({
@@ -125,7 +130,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} antialiased`}
+        className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} ${outfit.variable} antialiased`}
         suppressHydrationWarning
       >
         <script
