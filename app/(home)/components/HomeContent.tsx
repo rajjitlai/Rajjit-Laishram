@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import dynamic from "next/dynamic";
+import { AnimatePresence, motion } from "framer-motion";
 import Hero from "./Hero";
 import Navbar from "./Navbar";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
@@ -15,44 +17,94 @@ const Experience = dynamic(() => import("./Experience").then(mod => mod.Experien
 const Testimonials = dynamic(() => import("./Testimonials").then(mod => mod.Testimonials));
 const FloatNav = dynamic(() => import("./FloatNav").then(mod => mod.FloatNav), { ssr: false });
 const Stats = dynamic(() => import("./Stats").then(mod => mod.Stats));
+const ViewportHUD = dynamic(() => import("@/components/ui/ViewportHUD").then(mod => mod.ViewportHUD), { ssr: false });
+const Terminal = dynamic(() => import("@/components/ui/Terminal").then(mod => mod.Terminal), { ssr: false });
+const AtmosphericPulse = dynamic(() => import("@/components/ui/AtmosphericPulse").then(mod => mod.AtmosphericPulse), { ssr: false });
+const Loader = dynamic(() => import("@/components/ui/Loader").then(mod => mod.Loader), { ssr: false });
+const HUDIndex = dynamic(() => import("@/components/ui/HUDIndex").then(mod => mod.HUDIndex), { ssr: false });
+const SystemToaster = dynamic(() => import("@/components/ui/SystemToaster").then(mod => mod.SystemToaster), { ssr: false });
+const SystemLog = dynamic(() => import("@/components/ui/SystemLog").then(mod => mod.SystemLog), { ssr: false });
 
 export default function HomeContent() {
+    const [isLoading, setIsLoading] = useState(true);
+
     return (
         <div className="min-h-screen bg-black overflow-hidden relative">
-            <BackgroundBeams />
-            <FloatNav />
-            <div className="max-w-7xl mx-auto p-5 relative z-10">
-                <Navbar />
-                <Hero />
-            </div>
-            <div className="max-w-7xl mx-auto p-5 relative z-10">
-                <ScrollReveal>
-                    <Stats />
-                </ScrollReveal>
-            </div>
-            <div className="max-w-7xl mx-auto p-5 mt-10 relative z-10">
-                <ScrollReveal>
-                    <Skills />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <Projects />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <BlogHighlight />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <Experience />
-                </ScrollReveal>
-            </div>
-            <div className="max-w-7xl mx-auto p-5 mt-10 relative z-10">
-                <ScrollReveal>
-                    <Testimonials />
-                </ScrollReveal>
-                <ScrollReveal>
-                    <Contact />
-                </ScrollReveal>
-            </div>
-            <Footer />
+            <AnimatePresence mode="wait">
+                {isLoading ? (
+                    <Loader key="loader" onFinished={() => setIsLoading(false)} />
+                ) : (
+                    <motion.div
+                        key="main-content"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
+                    >
+                        <BackgroundBeams />
+                        <AtmosphericPulse />
+                        <ViewportHUD />
+                        <HUDIndex />
+                        <SystemToaster />
+                        <Terminal />
+
+                        {/* Global Scanline Effect */}
+                        <div className="fixed inset-0 pointer-events-none z-[1000] opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]" />
+
+                        <FloatNav />
+
+                        <div className="max-w-7xl mx-auto p-5 relative z-10">
+                            <Navbar />
+                            <div id="hero">
+                                <Hero />
+                            </div>
+                        </div>
+
+                        <div className="max-w-7xl mx-auto p-5 relative z-10" id="stats">
+                            <ScrollReveal>
+                                <Stats />
+                            </ScrollReveal>
+                        </div>
+
+                        <div className="max-w-7xl mx-auto p-5 mt-10 relative z-10">
+                            <ScrollReveal>
+                                <div id="skills">
+                                    <Skills />
+                                </div>
+                            </ScrollReveal>
+                            <ScrollReveal>
+                                <div id="projects">
+                                    <Projects />
+                                </div>
+                            </ScrollReveal>
+                            <ScrollReveal>
+                                <BlogHighlight />
+                            </ScrollReveal>
+                            <ScrollReveal>
+                                <div id="exp">
+                                    <Experience />
+                                </div>
+                            </ScrollReveal>
+                        </div>
+
+                        <div className="max-w-7xl mx-auto p-5 mt-10 relative z-10">
+                            <div id="review">
+                                <ScrollReveal>
+                                    <Testimonials />
+                                </ScrollReveal>
+                            </div>
+                            <div id="contact">
+                                <ScrollReveal>
+                                    <Contact />
+                                </ScrollReveal>
+                            </div>
+                        </div>
+                        <Footer />
+                        <div className="fixed bottom-0 left-0 right-0 z-[1002]">
+                            <SystemLog />
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

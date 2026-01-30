@@ -1,6 +1,7 @@
 "use client"
 
 import Tooltip from '@/components/ToolTip'
+import { DecryptedText } from '@/components/ui/DecryptedText'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -43,7 +44,8 @@ const Hero = () => {
                         </Tooltip>
                     </motion.div>
                     <h1 className='text-4xl lg:text-6xl font-black font-outfit leading-tight'>
-                        {"I'm Rajjit, and I build machines that "}
+                        <DecryptedText text="I'm Rajjit" />
+                        {", and I build machines that "}
                         <span className='text-transparent bg-clip-text bg-gradient-to-r from-mine to-hers contrast-125'>think.</span>
                     </h1>
                 </div>
@@ -76,19 +78,26 @@ const Hero = () => {
 
             <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4 relative'>
                 <Tooltip text="ꯔꯖ꯭ꯖꯤꯠ ꯂꯥꯏꯁ꯭ꯔꯝ">
-                    <div className="w-auto h-72 space-y-3 rotate-[20deg] relative flex justify-center items-center mx-auto cursor-pointer">
-                        {/* Floating Icons centered behind the profile image */}
+                    <div className="w-auto h-72 relative flex justify-center items-center mx-auto cursor-pointer group">
+                        {/* HUD Brackets */}
+                        <div className="absolute -inset-4 pointer-events-none">
+                            <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-mine/50 rounded-tl-lg group-hover:border-mine transition-colors duration-500" />
+                            <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-hers/50 rounded-tr-lg group-hover:border-hers transition-colors duration-500" />
+                            <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-hers/50 rounded-bl-lg group-hover:border-hers transition-colors duration-500" />
+                            <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-mine/50 rounded-br-lg group-hover:border-mine transition-colors duration-500" />
+                        </div>
+
+                        {/* Floating Icons Background */}
                         <div className="absolute inset-0 flex justify-center items-center pointer-events-none -z-10">
                             {floatingIcons.map((item, index) => (
                                 <motion.div
                                     key={index}
-                                    className={`absolute ${item.color} text-4xl md:text-5xl opacity-40`}
+                                    className={`absolute ${item.color} text-4xl md:text-5xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000`}
                                     initial={{ x: item.initialX, y: item.initialY, scale: 0.8 }}
                                     animate={{
                                         x: [item.initialX, item.initialX + 15, item.initialX - 15, item.initialX],
                                         y: [item.initialY - 20, item.initialY + 20, item.initialY - 20],
                                         scale: [0.8, 1.1, 0.8],
-                                        opacity: [0.3, 0.6, 0.3],
                                     }}
                                     transition={{
                                         duration: 4 + Math.random() * 2,
@@ -97,21 +106,33 @@ const Hero = () => {
                                         delay: item.delay
                                     }}
                                 >
-                                    <item.Icon className="drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] -rotate-[20deg]" />
+                                    <item.Icon className="drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]" />
                                 </motion.div>
                             ))}
                         </div>
 
-                        <div className="relative w-64 h-60 flex justify-center items-center bg-gradient-to-t from-mine to-hers">
-                            <div className="absolute w-[98%] h-[98%] transform bg-black"></div>
-                            <div className="absolute z-30 -top-[70px] animate-float">
-                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="260" height="80" className='transform -rotate-[20deg]' priority unoptimized />
+                        <div className="relative w-72 h-72 flex justify-center items-center p-2">
+                            {/* Inner Circuit Background */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-mine/20 via-transparent to-hers/20 rounded-3xl animate-pulse" />
+                            <div className="absolute inset-[2px] bg-black rounded-[22px] overflow-hidden">
+                                {/* Scanline Effect */}
+                                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]" />
                             </div>
-                            <div className='glow absolute top-[40%] right-1/2 z-10'></div>
+
+                            <motion.div
+                                className="relative z-30 transform hover:scale-110 transition-transform duration-500"
+                                animate={{ y: [0, -10, 0] }}
+                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                            >
+                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="280" height="280" className='object-contain drop-shadow-[0_0_30px_rgba(56,255,66,0.3)]' priority unoptimized />
+                            </motion.div>
                         </div>
                     </div>
-                    <div className='w-full h-3 bg-hers z-50'></div>
-                    <div className='w-full h-3 bg-mine translate-x-2 transition-all cursor-pointer z-50'></div>
+                    {/* Progress bars transformed into tech stripes */}
+                    <div className="flex flex-col gap-1 w-full max-w-[200px] mt-8 group-hover:scale-110 transition-transform">
+                        <div className='w-full h-1 bg-gradient-to-r from-hers/50 via-hers to-hers/50 rounded-full shadow-[0_0_10px_rgba(0,253,190,0.5)]'></div>
+                        <div className='w-3/4 h-1 bg-gradient-to-r from-mine/50 via-mine to-mine/50 rounded-full shadow-[0_0_10px_rgba(56,255,66,0.5)] translate-x-4'></div>
+                    </div>
                 </Tooltip>
             </div>
         </div >

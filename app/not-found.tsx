@@ -54,7 +54,7 @@ export default function NotFound() {
                     className="text-neutral-500 max-w-lg mx-auto mb-10 text-lg"
                 >
                     The frequency you are looking for seems to be offline or out of range.
-                    Let's re-establish connection at the base.
+                    Let&apos;s re-establish connection at the base.
                 </motion.p>
 
                 {/* Button */}

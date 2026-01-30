@@ -22,22 +22,22 @@ const tooltipVariants: Variants = {
 const Tooltip: React.FC<TooltipProps> = ({ text, children, autoShow = false }) => {
     const [hovered, setHovered] = useState(false);
     const [autoVisible, setAutoVisible] = useState(autoShow);
-    
+
     useEffect(() => {
         if (autoShow) {
             const interval = setInterval(() => {
                 setAutoVisible((prev) => !prev);
             }, 3000); // Toggle every 3 seconds
-            
+
             return () => clearInterval(interval);
         }
     }, [autoShow]);
-    
+
     const showTooltip = autoShow ? autoVisible : hovered;
 
     return (
         <div
-            className="relative flex flex-col items-center"
+            className="relative flex flex-col items-center z-50"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
         >
@@ -45,7 +45,7 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children, autoShow = false }) =
             <AnimatePresence>
                 {showTooltip && (
                     <motion.div
-                        className="absolute bottom-full mb-2 flex flex-col items-center justify-center bg-white text-black px-3 py-1 shadow-lg text-lg w-[200px]"
+                        className="absolute bottom-full mb-2 flex flex-col items-center justify-center bg-white text-black px-3 py-1 shadow-lg text-lg w-[200px] z-50"
                         variants={tooltipVariants}
                         initial="initial"
                         animate="animate"

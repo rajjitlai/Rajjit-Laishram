@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export const BackgroundBeams = React.memo(
@@ -112,10 +112,10 @@ export const BackgroundBeams = React.memo(
                                     delay: Math.random() * 10,
                                 }}
                             >
-                                <stop stopColor="#18CCFC" stopOpacity="0"></stop>
-                                <stop stopColor="#18CCFC"></stop>
-                                <stop offset="32.5%" stopColor="#6344F5"></stop>
-                                <stop offset="100%" stopColor="#AE48FF" stopOpacity="0"></stop>
+                                <stop stopColor="#38ff42" stopOpacity="0"></stop>
+                                <stop stopColor="#38ff42" stopOpacity="0.5"></stop>
+                                <stop offset="50%" stopColor="#00fdbe"></stop>
+                                <stop offset="100%" stopColor="#38ff42" stopOpacity="0"></stop>
                             </motion.linearGradient>
                         ))}
 

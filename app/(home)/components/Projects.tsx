@@ -5,7 +5,6 @@ import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectModal } from "./ProjectModal";
 import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
 
 const tagColorMap: { [key: string]: string } = {
     reactjs: "#61DAFB",
@@ -70,9 +69,9 @@ const Projects = () => {
     }, []);
 
     return (
-        <div className="py-20 p-5 sm:p-0 font-merriweather mt-10" id="projects">
+        <div className="py-20 p-5 sm:p-0 font-outfit mt-10" id="projects">
             <Title
-                text="Projects"
+                text="Missions"
                 className="flex flex-col items-center justify-center cursor-pointer mb-12"
             />
 
@@ -104,10 +103,12 @@ const Projects = () => {
                                 whileHover={{ y: -10 }}
                                 transition={{ delay: idx * 0.1 }}
                                 onClick={() => setSelectedProject(project)}
-                                className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-2xl overflow-hidden hover:border-mine transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.15)]"
+                                className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-[2rem] overflow-hidden hover:border-mine/50 transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.1)]"
                             >
-                                {/* Decorative Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-mine/5 via-transparent to-hers/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                                {/* Technical ID Label */}
+                                <div className="absolute top-4 right-4 z-20 font-mono text-[8px] text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    P-ID_{project.id.slice(0, 8)} {"//"} REV_26
+                                </div>
 
                                 {/* Image Container */}
                                 <div className="relative aspect-[16/10] w-full overflow-hidden bg-zinc-950">
@@ -115,35 +116,52 @@ const Projects = () => {
                                         src={project.url}
                                         alt={project.title}
                                         fill
-                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out"
+                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out opacity-80 group-hover:opacity-100"
                                     />
-                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                        <span className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white font-bold tracking-wider text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 flex items-center gap-2">
-                                            View Details <span className="text-mine">→</span>
-                                        </span>
+
+                                    {/* Scanning Line Effect */}
+                                    <motion.div
+                                        initial={{ top: "-10%" }}
+                                        whileHover={{ top: "110%" }}
+                                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                                        className="absolute left-0 right-0 h-[2px] bg-mine/50 shadow-[0_0_15px_#38ff42] z-10 pointer-events-none hidden group-hover:block"
+                                    />
+
+                                    <div className="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-30">
+                                        <div className="flex flex-col items-center gap-2">
+                                            <span className="px-8 py-4 bg-zinc-950/90 border border-mine/50 rounded-xl text-mine font-mono font-black tracking-[0.3em] text-sm transform translate-y-8 group-hover:translate-y-0 transition-all duration-500 flex items-center gap-4 shadow-[0_0_50px_rgba(56,255,66,0.2)] uppercase relative overflow-hidden">
+                                                <div className="absolute inset-0 bg-mine/5 animate-pulse" />
+                                                <span className="text-zinc-700 animate-pulse">[</span> INIT_UPLINK <span className="text-zinc-700 animate-pulse">]</span>
+                                            </span>
+                                            <span className="text-[10px] font-mono text-mine/50 opacity-0 group-hover:opacity-100 transition-opacity delay-300 animate-pulse">ESTABLISHING_SECURE_CONNECTION...</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-6 flex flex-col flex-1 relative z-10 bg-zinc-900/40 backdrop-blur-sm">
-                                    {/* Project Signal Strip */}
-                                    <div className="flex items-center gap-2 mb-2">
-                                        {signalList.map((signal, sIdx) => (
-                                            <React.Fragment key={sIdx}>
-                                                <span className="text-[10px] uppercase tracking-widest font-bold text-mine/90">
-                                                    {signal}
-                                                </span>
-                                                {sIdx < signalList.length - 1 && (
-                                                    <span className="w-1 h-1 rounded-full bg-zinc-700" />
-                                                )}
-                                            </React.Fragment>
-                                        ))}
+                                <div className="p-8 flex flex-col flex-1 relative z-10">
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-mine/10 border border-mine/20">
+                                                <div className="w-1 h-1 rounded-full bg-mine animate-pulse" />
+                                                <span className="text-[8px] font-black uppercase text-mine tracking-widest">Active</span>
+                                            </div>
+
+                                            {/* Project Signals Overlay */}
+                                            <div className="flex gap-1 ml-2">
+                                                {(signalList.length > 0 ? signalList : ['01', '02', '03', '04']).map((_, i) => (
+                                                    <div key={i} className="w-1.5 h-1.5 rounded-[1px] bg-mine/30 group-hover:bg-mine transition-colors" style={{ transitionDelay: `${i * 100}ms` }} />
+                                                ))}
+                                            </div>
+                                        </div>
+                                        <div className="text-[10px] font-mono text-zinc-700">SIG_STABLE</div>
                                     </div>
-                                    <h3 className="text-xl font-bold text-white mb-2 group-hover:text-mine transition-colors line-clamp-1">
+
+                                    <h3 className="text-2xl font-black text-white mb-3 group-hover:text-mine transition-colors line-clamp-1 leading-none uppercase tracking-tighter">
                                         {project.title}
                                     </h3>
 
-                                    <p className="text-neutral-400 text-sm line-clamp-3 mb-6 flex-1 leading-relaxed">
+                                    <p className="text-zinc-500 text-sm line-clamp-2 mb-6 flex-1 leading-relaxed font-outfit">
                                         {project.summary}
                                     </p>
 
@@ -157,11 +175,6 @@ const Projects = () => {
                                                 {tag}
                                             </span>
                                         ))}
-                                        {project.tags.length > 3 && (
-                                            <span className="px-2.5 py-1 text-[10px] uppercase tracking-wider font-semibold rounded-md bg-zinc-800/80 text-neutral-500 border border-zinc-700/50">
-                                                +{project.tags.length - 3}
-                                            </span>
-                                        )}
                                     </div>
                                 </div>
                             </motion.div>

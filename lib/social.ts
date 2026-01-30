@@ -1,5 +1,5 @@
 import { SiLinkedin, SiGithub, SiInstagram, SiFacebook } from "react-icons/si"
-import { FaPenNib } from "react-icons/fa"
+
 
 export const socialLinks = [
     {

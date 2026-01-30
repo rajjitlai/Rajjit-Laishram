@@ -48,9 +48,9 @@ export function Testimonials() {
     }, []);
 
     if (loading) return (
-        <div className="py-20 p-5 sm:p-0 font-merriweather relative" id="review">
+        <div className="py-20 p-5 sm:p-0 font-outfit relative" id="review">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-mine/5 blur-[120px] rounded-full -z-10" />
-            <Title text="What people say?" className="flex flex-col items-center justify-center cursor-pointer mb-10" />
+            <Title text="Feedback" className="flex flex-col items-center justify-center cursor-pointer mb-10" />
             <div className="max-w-5xl mx-auto px-4 md:px-8 lg:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                     <Skeleton className="h-72 w-72 mx-auto md:ml-auto md:mr-0 rounded-3xl" />
@@ -72,11 +72,11 @@ export function Testimonials() {
     );
 
     return (
-        <div className="py-20 p-5 sm:p-0 font-merriweather relative overflow-hidden" id="review">
+        <div className="py-20 p-5 sm:p-0 font-outfit relative overflow-hidden" id="review">
             {/* Ambient Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-hers/5 blur-[150px] rounded-full -z-10" />
 
-            <Title text="What people say?" className="flex flex-col items-center justify-center cursor-pointer mb-5" />
+            <Title text="Feedback" className="flex flex-col items-center justify-center cursor-pointer mb-5" />
 
             <AnimatedTestimonials testimonials={testimonials} autoplay={true} />
 

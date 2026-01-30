@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import Title from "@/components/Title";
 import { addMessage } from "@/lib/addMessage";
-import { IconCheck, IconCopy, IconMail, IconSend } from "@tabler/icons-react";
+import { IconCopy, IconMail, IconSend } from "@tabler/icons-react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -49,7 +49,7 @@ export function Contact() {
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-mine/5 blur-[120px] rounded-full -z-10" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-hers/5 blur-[120px] rounded-full -z-10" />
 
-            <Title text="Get in Touch" className="flex flex-col items-center justify-center cursor-pointer mb-20" />
+            <Title text="Uplink" className="flex flex-col items-center justify-center cursor-pointer mb-20" />
 
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
                 {/* Left Side: Info */}

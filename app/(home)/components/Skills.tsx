@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { FaGitSquare, FaDocker, FaRaspberryPi } from 'react-icons/fa'
 import {
-    SiAppwrite, SiC, SiCplusplus, SiDjango, SiFastapi, SiMongodb,
+    SiAppwrite, SiCplusplus, SiFastapi,
     SiNextdotjs, SiNodedotjs, SiOpencv, SiPostgresql,
     SiPytorch, SiTailwindcss, SiTensorflow, SiTypescript
 } from 'react-icons/si'
@@ -19,7 +19,7 @@ function Skills() {
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prev) => prev + 1);
-        }, 1500);
+        }, 3000);
         return () => clearInterval(interval);
     }, []);
 
@@ -29,31 +29,45 @@ function Skills() {
             ? 'rgba(56, 255, 66, 0.4)' // green
             : 'rgba(0, 253, 234, 0.4)'; // cyan
 
-        const borderColor = color === 'mine' ? 'border-mine/50' : 'border-hers/50';
+        const borderColor = color === 'mine' ? 'border-mine/30' : 'border-hers/30';
         const textColor = color === 'mine' ? 'text-mine' : 'text-hers';
 
         return (
             <motion.div
-                whileHover={{ y: -5, scale: 1.05, rotateX: 10, rotateY: 10 }}
-                className={`flex flex-col items-center gap-3 p-4 bg-zinc-900/40 backdrop-blur-sm border transition-all duration-500 cursor-pointer group rounded-xl ${isGlowing
-                    ? `${borderColor} shadow-[0_0_20px_${glowColor}]`
-                    : `border-zinc-800/50 hover:border-white/20 hover:shadow-2xl`
+                whileHover={{ y: -5, scale: 1.05 }}
+                className={`relative flex flex-col items-center gap-3 p-5 bg-zinc-950 border transition-all duration-700 cursor-pointer group rounded-xl overflow-hidden ${isGlowing
+                    ? `${borderColor} shadow-[0_0_30px_${glowColor}] border-opacity-100`
+                    : `border-white/5 hover:border-white/20`
                     }`}
             >
-                <div className={`p-2 rounded-lg transition-colors duration-300 ${isGlowing ? 'bg-white/5' : 'bg-transparent group-hover:bg-white/5'}`}>
-                    <Icon className={`w-6 h-6 transition-all duration-300 ${isGlowing ? textColor : `text-zinc-500 group-hover:text-white`
+                {/* Corner Brackets */}
+                <div className="absolute top-1 left-1 w-2 h-2 border-t border-l border-white/10 group-hover:border-mine/50 transition-colors" />
+                <div className="absolute bottom-1 right-1 w-2 h-2 border-b border-r border-white/10 group-hover:border-mine/50 transition-colors" />
+
+                <div className={`p-2 rounded-lg transition-all duration-500 ${isGlowing ? 'bg-mine/5' : 'bg-transparent group-hover:bg-white/5'}`}>
+                    <Icon className={`w-8 h-8 transition-all duration-500 ${isGlowing ? textColor : `text-zinc-600 group-hover:text-white`
                         }`} />
                 </div>
-                <p className='text-[10px] uppercase tracking-widest font-bold text-zinc-500 transition-colors duration-300 group-hover:text-white'>
+                <p className='text-[9px] uppercase tracking-[0.2em] font-black text-zinc-600 transition-colors duration-500 group-hover:text-white'>
                     {text}
                 </p>
+
+                {/* Active Scanner Line */}
+                {isGlowing && (
+                    <motion.div
+                        initial={{ left: "-100%" }}
+                        animate={{ left: "200%" }}
+                        transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                        className="absolute top-0 bottom-0 w-1/2 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 pointer-events-none"
+                    />
+                )}
             </motion.div>
         );
     };
 
     const SkillsGrid = ({ items, color }: { items: { text: string; Icon: IconType }[]; color: string }) => {
         return (
-            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3'>
+            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 gap-4'>
                 {items.map((item, idx) => (
                     <SkillCard
                         key={idx}
@@ -84,7 +98,7 @@ function Skills() {
         { text: "Tailwind CSS", Icon: SiTailwindcss },
         { text: "Node.js", Icon: SiNodedotjs },
         { text: "FastAPI", Icon: SiFastapi },
-        { text: "PostgreSQL", Icon: SiPostgresql },
+        { text: "Postgres", Icon: SiPostgresql },
         { text: "Appwrite", Icon: SiAppwrite },
     ];
 
@@ -101,33 +115,69 @@ function Skills() {
         { text: "Git", Icon: FaGitSquare },
     ];
 
-    return (
-        <div className='max-w-7xl mx-auto px-8 font-merriweather relative' id='skills'>
-            <Title text='Skills' className='flex flex-col items-center justify-center cursor-pointer relative z-10' />
+    const circuitNodes = [
+        "M 0 50 L 100 50 M 50 0 L 50 100",
+        "M 10 10 L 90 90 M 90 10 L 10 90",
+        "M 0 0 Q 50 100 100 0",
+        "M 0 100 Q 50 0 100 100"
+    ];
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-16'>
-                <div>
-                    <h3 className='text-2xl font-bold text-center text-mine mb-4'>IoT & Embedded</h3>
+    return (
+        <div className='max-w-7xl mx-auto px-8 font-outfit relative mt-32' id='skills'>
+            {/* Background Logic Grid */}
+            <div className="absolute inset-0 -z-10 opacity-20 pointer-events-none">
+                <svg className="w-full h-full">
+                    <defs>
+                        <pattern id="logic-grid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                            <path d={circuitNodes[currentIndex % 4]} fill="none" stroke="currentColor" strokeWidth="0.5" className="text-zinc-800" />
+                            <circle cx="50" cy="50" r="1" className="text-zinc-700" fill="currentColor" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#logic-grid)" />
+                </svg>
+            </div>
+
+            <Title text='Arsenal' className='flex flex-col items-center justify-center cursor-pointer relative z-10' />
+
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 mt-24 relative'>
+                {/* Connection Line */}
+                <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-zinc-800 to-transparent -translate-x-1/2" />
+
+                <div className="space-y-8 relative">
+                    <div className="flex items-center gap-4 mb-2">
+                        <div className="w-12 h-px bg-mine/50"></div>
+                        <h3 className='text-[10px] uppercase tracking-[0.5em] font-black text-mine'>NODE_01 // EMBEDDED_SYSTEMS</h3>
+                    </div>
                     <SkillsGrid items={iotSkills} color='mine' />
                 </div>
-                <div>
-                    <h3 className='text-2xl font-bold text-center text-hers mb-4'>Full-Stack Development</h3>
+
+                <div className="space-y-8 relative">
+                    <div className="flex items-center gap-4 mb-2">
+                        <div className="w-12 h-px bg-hers/50"></div>
+                        <h3 className='text-[10px] uppercase tracking-[0.5em] font-black text-hers'>NODE_02 // FULL_STACK_ENGINEERING</h3>
+                    </div>
                     <SkillsGrid items={fullStackSkills} color='hers' />
                 </div>
             </div>
 
-            <div className='grid grid-cols-1 lg:grid-cols-2 gap-8 mt-12'>
-                <div>
-                    <h3 className='text-2xl font-bold text-center text-hers mb-4'>AI & Engineering</h3>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-16 mt-16'>
+                <div className="space-y-8 relative">
+                    <div className="flex items-center gap-4 mb-2">
+                        <div className="w-12 h-px bg-hers/50"></div>
+                        <h3 className='text-[10px] uppercase tracking-[0.5em] font-black text-hers'>NODE_03 // NEURAL_NETWORKS</h3>
+                    </div>
                     <SkillsGrid items={aiSkills} color='hers' />
                 </div>
-                <div>
-                    <h3 className='text-2xl font-bold text-center text-mine mb-4'>DevOps & Tools</h3>
+                <div className="space-y-8 relative">
+                    <div className="flex items-center gap-4 mb-2">
+                        <div className="w-12 h-px bg-mine/50"></div>
+                        <h3 className='text-[10px] uppercase tracking-[0.5em] font-black text-mine'>NODE_04 // DEPLOYMENT_PROTOCOLS</h3>
+                    </div>
                     <SkillsGrid items={devOpsSkills} color='mine' />
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Skills
+export default Skills;

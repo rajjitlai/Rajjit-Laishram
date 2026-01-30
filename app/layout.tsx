@@ -106,6 +106,8 @@ const jsonLd = {
   }
 };
 
+import { GlobalClientComponents } from "@/components/GlobalClientComponents";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -144,6 +146,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>
+            <GlobalClientComponents />
             {children}
             <BackToTop />
           </AuthProvider>

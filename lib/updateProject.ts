@@ -25,7 +25,7 @@ export const updateProject = async (
             throw new Error("Database ID or Project Collection ID is not defined");
         }
 
-        const updateData: any = { ...data };
+        const updateData: ProjectUpdateData = { ...data };
 
         // If a new image is provided, upload it
         if (imageFile && config.profileImagesBucketId) {
