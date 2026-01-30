@@ -18,6 +18,8 @@ export default function Page() {
     const [description, setDescription] = useState("");
     const [rating, setRating] = useState(0);
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
     const handleProfileUpload = (files: File[]) => {
         if (files.length > 0) {
             setFile(files[0]);
@@ -26,6 +28,8 @@ export default function Page() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (isSubmitting) return;
 
         if (!file) {
             alert("Please upload a profile image.");
@@ -36,6 +40,8 @@ export default function Page() {
             alert("Please select a rating.");
             return;
         }
+
+        setIsSubmitting(true);
 
         try {
             await addReview({
@@ -54,6 +60,9 @@ export default function Page() {
             router.push('/');
         } catch (error) {
             console.error("Error adding review", error);
+            alert("An error occurred while submitting your review. Please try again.");
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -83,6 +92,7 @@ export default function Page() {
                             type="text"
                             value={fullname}
                             onChange={(e) => setFullname(e.target.value)}
+                            disabled={isSubmitting}
                         />
                     </LabelInputContainer>
                     <LabelInputContainer>
@@ -93,6 +103,7 @@ export default function Page() {
                             type="text"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
+                            disabled={isSubmitting}
                         />
                     </LabelInputContainer>
                 </div>
@@ -117,16 +128,23 @@ export default function Page() {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
+                        disabled={isSubmitting}
                     />
                 </LabelInputContainer>
 
                 <MagneticButton className="w-full">
                     <button
-                        className="mt-5 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+                        className={cn(
+                            "mt-5 bg-gradient-to-br relative group/btn block w-full text-white h-10 font-medium transition-all duration-200",
+                            isSubmitting
+                                ? "from-zinc-800 to-zinc-900 cursor-not-allowed opacity-70"
+                                : "from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 dark:bg-zinc-800"
+                        )}
                         type="submit"
+                        disabled={isSubmitting}
                     >
-                        Add &rarr;
-                        <BottomGradient />
+                        {isSubmitting ? "Submitting..." : "Add →"}
+                        {!isSubmitting && <BottomGradient />}
                     </button>
                 </MagneticButton>
                 <div className="pb-10"></div>
