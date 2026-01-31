@@ -51,7 +51,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
     // Core Simulation State
     const [isAuto, setIsAuto] = useState(false);
     const [collisionWarning, setCollisionWarning] = useState(false);
-    const [isMuted, setIsMuted] = useState(false);
+    const [isMuted, setIsMuted] = useState(true);
 
     // Unit State
     const [aceState, setAceState] = useState({ pos: { x: 5, y: 5 }, battery: 100, trace: [] as TracePoint[] });
