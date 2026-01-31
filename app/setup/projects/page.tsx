@@ -355,6 +355,7 @@ export default function ProjectsPage() {
                                             alt={project.title}
                                             fill
                                             className="object-cover rounded"
+                                            unoptimized
                                         />
                                     </div>
                                     <h3 className="text-lg font-bold text-mine mb-2 flex items-center flex-wrap gap-2">

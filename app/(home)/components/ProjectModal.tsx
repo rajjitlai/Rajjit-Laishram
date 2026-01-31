@@ -107,15 +107,10 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                                     <div className="grid grid-cols-1 md:grid-cols-2">
                                         {/* Visual Node */}
                                         <div className="relative aspect-video md:aspect-auto min-h-[300px] bg-zinc-900 overflow-hidden border-r border-white/5">
-                                            <motion.div
-                                                animate={{
-                                                    filter: isSchematic ? "invert(1) hue-rotate(180deg) brightness(0.6) contrast(1.5) saturate(0)" : "none"
-                                                }}
-                                                className="absolute inset-0"
-                                            >
-                                                <Image src={project.url} alt={project.title} fill className="object-cover object-top opacity-70" priority />
+                                            <div className="absolute inset-0">
+                                                <Image src={project.url} alt={project.title} fill className="object-cover object-top opacity-70" priority unoptimized />
                                                 {isSchematic && <div className="absolute inset-0 bg-[linear-gradient(rgba(0,102,255,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,102,255,0.1)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />}
-                                            </motion.div>
+                                            </div>
                                             <div className="absolute top-4 left-4 font-mono text-[8px] text-white/20">CAM_01 // VISUAL_ARRAY</div>
                                         </div>
 

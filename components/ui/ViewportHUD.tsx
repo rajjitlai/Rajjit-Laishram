@@ -136,7 +136,7 @@ export const ViewportHUD = () => {
             {/* Bottom Left: Sidebar & Audio (Always Visible) */}
             <div className="absolute bottom-24 md:bottom-32 left-6 md:left-8 flex flex-col gap-4 py-8 border-l border-white/5">
                 <span className="[writing-mode:vertical-rl] text-hers/30 text-[10px] md:text-xs">ꯔꯖ꯭ꯖꯤꯠ ꯂꯥꯏꯁ꯭ꯔꯝ</span>
-                <span className="hidden sm:block [writing-mode:vertical-rl] text-mine/30 text-xs font-black">INTERFACE_V2.0</span>
+                <span className="hidden sm:block [writing-mode:vertical-rl] text-mine/30 text-xs font-black">INTERFACE_V2.6</span>
 
                 {/* Audio Toggle (Essential) */}
                 <button

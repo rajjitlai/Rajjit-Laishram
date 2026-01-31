@@ -117,7 +117,8 @@ const Projects = () => {
                                         src={project.url}
                                         alt={project.title}
                                         fill
-                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-1000 ease-out opacity-80 group-hover:opacity-100"
+                                        className="object-cover object-top opacity-80 group-hover:opacity-100"
+                                        unoptimized
                                     />
 
                                     {/* Scanning Line Effect */}

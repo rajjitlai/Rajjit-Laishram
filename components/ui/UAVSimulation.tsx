@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plane, Crosshair, X, CheckCircle2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Battery, AlertTriangle, Map as MapIcon } from "lucide-react";
+import { Plane, Crosshair, X, CheckCircle2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Battery, AlertTriangle, Map as MapIcon, Volume2, VolumeX } from "lucide-react";
 import { triggerSystemSignal } from "./SystemToaster";
 
 // --- Sub-Components ---
@@ -51,6 +51,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
     // Core Simulation State
     const [isAuto, setIsAuto] = useState(false);
     const [collisionWarning, setCollisionWarning] = useState(false);
+    const [isMuted, setIsMuted] = useState(false);
 
     // Unit State
     const [aceState, setAceState] = useState({ pos: { x: 5, y: 5 }, battery: 100, trace: [] as TracePoint[] });
@@ -67,15 +68,15 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
     const patternState = useRef({ xDir: 1, yTarget: 5, mode: "horizontal" as "horizontal" | "turning" });
 
     // --- Audio Engineering ---
-    const initAudio = () => {
+    const initAudio = useCallback(() => {
         if (!audioCtx.current) {
             audioCtx.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
         }
         if (audioCtx.current.state === "suspended") audioCtx.current.resume();
-    };
+    }, []);
 
-    const playDroneHum = (id: string, frequency: number, volume: number) => {
-        if (!audioCtx.current) return;
+    const playDroneHum = useCallback((id: string, frequency: number, volume: number) => {
+        if (!audioCtx.current || isMuted) return;
         if (!oscillators.current[id]) {
             const osc = audioCtx.current.createOscillator();
             const gain = audioCtx.current.createGain();
@@ -90,13 +91,13 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         const { osc, gain } = oscillators.current[id];
         osc.frequency.setTargetAtTime(frequency, audioCtx.current.currentTime, 0.1);
         gain.gain.setTargetAtTime(volume * 0.05, audioCtx.current.currentTime, 0.1);
-    };
+    }, [isMuted]);
 
-    const stopAudio = () => {
+    const stopAudio = useCallback(() => {
         Object.values(oscillators.current).forEach((node: { osc: OscillatorNode, gain: GainNode }) => {
             node.gain.gain.setTargetAtTime(0, audioCtx.current?.currentTime || 0, 0.1);
         });
-    };
+    }, []);
 
     // --- Mechanics ---
     const moveUnit = useCallback((id: 'ACE' | 'INF', dir: string) => {
@@ -130,7 +131,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         }));
 
         playDroneHum(id, 80 + (dir === 'up' || dir === 'down' ? 40 : 20), 1);
-    }, []);
+    }, [initAudio, playDroneHum]);
 
     // --- Main Simulation Loop ---
     useEffect(() => {
@@ -138,7 +139,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
             stopAudio();
             return;
         }
-        initAudio();
+        if (!isMuted) initAudio();
 
         const interval = setInterval(() => {
             // 1. ACE Lawnmower Movement
@@ -209,7 +210,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
             }
         }, 60);
         return () => { clearInterval(interval); stopAudio(); };
-    }, [isAuto]);
+    }, [isAuto, isMuted, initAudio, playDroneHum, stopAudio]);
 
     // Cleanup effects
     useEffect(() => {
@@ -220,6 +221,10 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         }, 1200);
         return () => clearInterval(int);
     }, []);
+
+    useEffect(() => {
+        if (isMuted) stopAudio();
+    }, [isMuted, stopAudio]);
 
     // Desktop Key Listeners
     useEffect(() => {
@@ -257,6 +262,13 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         </div>
                     )}
                     <div className="flex items-center gap-2">
+                        <button
+                            onClick={() => setIsMuted(!isMuted)}
+                            className={`p-2 rounded-full border transition-all ${isMuted ? 'text-white/40 border-white/10 hover:text-white' : 'text-mine border-mine shadow-[0_0_15px_rgba(56,255,66,0.2)]'}`}
+                            title={isMuted ? "Unmute" : "Mute"}
+                        >
+                            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+                        </button>
                         <button onClick={() => setIsAuto(!isAuto)} className={`px-4 py-1.5 rounded-full border text-[10px] font-black transition-all ${isAuto ? 'bg-mine border-mine text-black' : 'bg-white/5 border-white/10 text-white'}`}>
                             {isAuto ? 'TERMINATE_AUTO' : 'ENGAGE_AUTO'}
                         </button>
@@ -290,7 +302,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     </motion.div>
 
                     {/* Mini-Map */}
-                    <div className="absolute top-6 left-6 p-2 bg-black/80 border border-white/10 rounded-lg backdrop-blur-xl hidden sm:block">
+                    <div className="absolute top-6 left-6 p-2 bg-black/80 border border-white/10 rounded-lg backdrop-blur-xl">
                         <div className="flex items-center gap-2 mb-2 border-b border-white/5 pb-1">
                             <MapIcon size={10} className="text-mine" />
                             <span className="text-[8px] font-black text-white/60">TACTICAL_POSITIONING</span>
