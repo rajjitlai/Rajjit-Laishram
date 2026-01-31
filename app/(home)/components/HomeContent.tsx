@@ -31,7 +31,7 @@ const UAVSimulation = dynamic(() => import("@/components/ui/UAVSimulation").then
 
 export default function HomeContent() {
     const [isLoading, setIsLoading] = useState(true);
-    const [isSimOpen, setIsSimOpen] = useState(true);
+    const [isSimOpen, setIsSimOpen] = useState(false);
 
     useEffect(() => {
         const handleLaunchSim = () => setIsSimOpen(true);
