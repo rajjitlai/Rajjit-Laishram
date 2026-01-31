@@ -36,7 +36,7 @@ export const Terminal = ({ className }: TerminalProps) => {
                 ]);
                 return;
             }
-            triggerUAVCommand(mode as any);
+            triggerUAVCommand(mode as "patrol" | "scan" | "return" | "stealth");
             setHistory(prev => [...prev, `> UAV_PROTOCOL_SYNC: ${mode.toUpperCase()} // STATUS: OK`]);
             triggerSystemSignal(`UAV_SYNC_${mode.toUpperCase()}`, "info");
         },

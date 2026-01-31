@@ -19,8 +19,9 @@ export const ViewportHUD = () => {
     const [uavMode, setUavMode] = useState("PATROL");
 
     useEffect(() => {
-        const handleCommand = (e: any) => {
-            if (e.detail?.mode) setUavMode(e.detail.mode.toUpperCase());
+        const handleCommand = (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (detail?.mode) setUavMode(detail.mode.toUpperCase());
         };
         window.addEventListener("UAV_COMMAND", handleCommand);
         return () => window.removeEventListener("UAV_COMMAND", handleCommand);

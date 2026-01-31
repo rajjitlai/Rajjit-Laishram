@@ -1,0 +1,17 @@
+
+> rajjitlaishram@2.6.10 build
+> next build
+
+   Γû▓ Next.js 15.5.9
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 3.0s
+   Linting and checking validity of types ...
+
+Failed to compile.
+
+./components/ui/UAVSimulation.tsx
+72:82  Error: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/app/api-reference/config/eslint#disabling-rules

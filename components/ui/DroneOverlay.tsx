@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { Plane } from "lucide-react";
 
 type UAVMode = "patrol" | "return" | "scan" | "stealth";
 
-const Drone = ({ id, delay, mode }: { id: string; delay: number; mode: UAVMode }) => {
+const Drone = ({ id, mode }: { id: string; mode: UAVMode }) => {
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
     const controls = useAnimation();
 
@@ -107,8 +107,9 @@ export const DroneOverlay = () => {
     const [mode, setMode] = useState<UAVMode>("patrol");
 
     useEffect(() => {
-        const handleCommand = (e: any) => {
-            if (e.detail?.mode) setMode(e.detail.mode);
+        const handleCommand = (e: Event) => {
+            const detail = (e as CustomEvent).detail;
+            if (detail?.mode) setMode(detail.mode);
         };
         window.addEventListener("UAV_COMMAND", handleCommand);
         return () => window.removeEventListener("UAV_COMMAND", handleCommand);
@@ -116,9 +117,9 @@ export const DroneOverlay = () => {
 
     return (
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-[50]">
-            <Drone id="UAV_ALPHA" delay={0} mode={mode} />
-            <Drone id="UAV_BRAVO" delay={5} mode={mode} />
-            <Drone id="UAV_CHARLIE" delay={10} mode={mode} />
+            <Drone id="UAV_ALPHA" mode={mode} />
+            <Drone id="UAV_BRAVO" mode={mode} />
+            <Drone id="UAV_CHARLIE" mode={mode} />
         </div>
     );
 };
