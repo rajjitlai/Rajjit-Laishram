@@ -37,14 +37,19 @@ const Footer = () => {
                     <div className='space-y-6'>
                         <h3 className='text-sm uppercase tracking-[0.2em] font-bold text-zinc-500'>Navigation</h3>
                         <ul className='space-y-4'>
-                            {['Skills', 'Projects', 'Chronicles', 'Contact'].map((item) => (
-                                <li key={item}>
+                            {[
+                                { name: 'Arsenal', id: 'skills' },
+                                { name: 'Missions', id: 'projects' },
+                                { name: 'Chronicles', id: 'exp' },
+                                { name: 'Uplink', id: 'contact' }
+                            ].map((item) => (
+                                <li key={item.id}>
                                     <Link
-                                        href={`#${item.toLowerCase()}`}
+                                        href={`#${item.id}`}
                                         className='text-zinc-400 hover:text-white transition-colors flex items-center gap-2 group'
                                     >
                                         <span className='h-px w-0 bg-mine group-hover:w-4 transition-all duration-300'></span>
-                                        {item}
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}

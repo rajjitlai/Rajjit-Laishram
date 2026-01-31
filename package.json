@@ -1,6 +1,6 @@
 {
   "name": "rajjitlaishram",
-  "version": "2.0.10",
+  "version": "2.6.10",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",

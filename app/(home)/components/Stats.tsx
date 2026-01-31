@@ -56,8 +56,8 @@ export const Stats = () => {
     return (
         <div className="max-w-7xl mx-auto px-8 py-20 font-outfit" id="stats">
             <Title text="Metrics" className="flex flex-col items-center justify-center cursor-pointer mb-20" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <StatItem value={200} label="Drone Flights" suffix="+" />
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                <StatItem value={200} label="Autonomous Drone Flights" suffix="+" />
                 <StatItem value={10} label="IoT Projects" suffix="+" />
                 <StatItem value={5} label="Years Experience" suffix="+" />
                 <StatItem value={2} label="Team Lead" suffix="+" />

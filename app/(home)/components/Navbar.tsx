@@ -9,7 +9,7 @@ const Navbar = ({ className }: { className?: string }) => {
     return (
         <nav className={cn('py-10 flex justify-between items-center font-outfit animate-move-down', className)}>
             <div className='group'>
-                <Link href="/" className="text-2xl font-black inline-flex items-center gap-2 hover:opacity-80 transition-opacity whitespace-nowrap">
+                <Link href="/" className="text-xl sm:text-2xl font-black inline-flex items-center gap-2 hover:opacity-80 transition-opacity whitespace-nowrap">
                     Rajjit Laishram <TbSparkles className='w-5 h-5 text-mine animate-pulse' />
                 </Link>
                 <div className="h-0.5 w-0 group-hover:w-full bg-mine transition-all duration-300" />

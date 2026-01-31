@@ -38,7 +38,7 @@ export const SystemLog = () => {
     }, []);
 
     return (
-        <div className="w-full bg-black/80 border-t border-white/5 py-1 px-4 flex items-center gap-6 overflow-hidden select-none pointer-events-none">
+        <div className="hidden md:flex w-full bg-black/80 border-t border-white/5 py-1 px-4 items-center gap-6 overflow-hidden select-none pointer-events-none">
             <div className="flex items-center gap-2 whitespace-nowrap">
                 <div className="w-1.5 h-1.5 rounded-full bg-mine animate-pulse" />
                 <span className="text-[9px] font-mono text-mine/60 uppercase tracking-widest font-bold">Live_Activity_Log:</span>

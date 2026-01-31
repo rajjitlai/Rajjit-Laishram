@@ -7,8 +7,8 @@ import { motion } from "framer-motion";
 
 export function BlogHighlight() {
     return (
-        <div className="py-20 font-outfit" id="blog">
-            <div className="max-w-5xl mx-auto p-12 rounded-[2rem] bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 relative overflow-hidden group shadow-2xl">
+        <div className="py-10 md:py-20 font-outfit" id="blog">
+            <div className="max-w-5xl mx-auto p-6 md:p-12 rounded-[2rem] bg-zinc-900/30 backdrop-blur-xl border border-zinc-800/50 relative overflow-hidden group shadow-2xl">
                 {/* Background Glows */}
                 <div className="absolute -top-20 -right-20 w-80 h-80 bg-hers/20 blur-[120px] -z-10 group-hover:bg-hers/30 transition-colors duration-1000" />
                 <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-mine/20 blur-[120px] -z-10 group-hover:bg-mine/30 transition-colors duration-1000" />

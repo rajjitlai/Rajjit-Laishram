@@ -124,6 +124,10 @@ export default {
 						transform: "translateY(-10px)",
 					},
 				},
+				"shimmer": {
+					"0%": { transform: "translateX(-100%)" },
+					"100%": { transform: "translateX(200%)" },
+				},
 			},
 			animation: {
 				"move-up": "move-up 1s linear forwards",
@@ -132,6 +136,7 @@ export default {
 				"tilt": "tilt 4s ease-in-out infinite",
 				"tilt-reverse": "tilt-reverse 4s ease-in-out infinite",
 				"float": "float 5s ease-in-out infinite",
+				"shimmer": "shimmer 2s linear infinite",
 			},
 		}
 	},

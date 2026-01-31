@@ -103,6 +103,7 @@ const Projects = () => {
                                 whileHover={{ y: -10 }}
                                 transition={{ delay: idx * 0.1 }}
                                 onClick={() => setSelectedProject(project)}
+                                data-cursor-text="PROJECT_SCAN"
                                 className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-[2rem] overflow-hidden hover:border-mine/50 transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.1)]"
                             >
                                 {/* Technical ID Label */}

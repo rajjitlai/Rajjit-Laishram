@@ -1,42 +1,12 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const SECTIONS = [
-    { id: "hero", label: "01 // INIT" },
-    { id: "stats", label: "02 // METRICS" },
-    { id: "skills", label: "03 // ARSENAL" },
-    { id: "projects", label: "04 // MISSIONS" },
-    { id: "exp", label: "05 // CHRONICLES" },
-    { id: "review", label: "06 // FEEDBACK" },
-    { id: "contact", label: "07 // UPLINK" }
-];
+import { SECTIONS } from "@/lib/constants";
+import { useActiveSection } from "@/lib/hooks/useActiveSection";
 
 export const HUDIndex = () => {
-    const [activeSection, setActiveSection] = useState("hero");
-
-    useEffect(() => {
-        const observerOptions = {
-            root: null,
-            rootMargin: "-20% 0px -70% 0px",
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveSection(entry.target.id);
-                }
-            });
-        }, observerOptions);
-
-        SECTIONS.forEach((section) => {
-            const el = document.getElementById(section.id);
-            if (el) observer.observe(el);
-        });
-
-        return () => observer.disconnect();
-    }, []);
+    const activeSection = useActiveSection();
 
     const scrollTo = (id: string) => {
         document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });

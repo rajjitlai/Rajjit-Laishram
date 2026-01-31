@@ -60,7 +60,7 @@ export const FloatingNav = ({
                 {/* Decorative End Bracket */}
                 <div className="absolute -left-1 top-2 bottom-2 w-px bg-mine/30" />
 
-                <div className="flex items-center gap-4 sm:gap-6">
+                <div className="flex items-center gap-3 sm:gap-6 overflow-x-auto scrollbar-hide max-w-[85vw] sm:max-w-none px-2">
                     {navItems.map((navItem, idx) => (
                         <Link
                             key={`link=${idx}`}

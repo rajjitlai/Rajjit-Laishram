@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
 import { AuthProvider } from "@/context/AuthContext";
-import { BackToTop } from "@/components/BackToTop";
 
 const playwrite = Playwrite_IT_Moderna({
   variable: "--font-playwrite",
@@ -148,7 +147,6 @@ export default function RootLayout({
           <AuthProvider>
             <GlobalClientComponents />
             {children}
-            <BackToTop />
           </AuthProvider>
         </ThemeProvider>
       </body>

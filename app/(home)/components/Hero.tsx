@@ -29,7 +29,7 @@ const Hero = () => {
     ];
 
     return (
-        <div className='mt-10 md:mt-20 min-h-[70vh] flex flex-col-reverse gap-14 lg:gap-0 lg:flex-row items-center justify-between animate-move-up'>
+        <div className='mt-10 md:mt-20 min-h-[70vh] flex flex-col-reverse gap-10 lg:gap-0 lg:flex-row items-center justify-between animate-move-up'>
             <div className='flex-1 space-y-8 text-left lg:pr-10'>
                 <div className="space-y-4">
                     <motion.div
@@ -54,7 +54,7 @@ const Hero = () => {
                     {"An IoT Developer based in Manipur, I specialize in bridging the gap between hardware and software through sophisticated autonomous systems."}
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-5 items-center">
+                <div className="flex flex-col sm:flex-row gap-5 items-center w-full">
                     <MagneticButton className='w-full sm:w-auto'>
                         <Link href="#contact" className='w-full sm:w-auto block'>
                             <HoverBorderGradient
@@ -62,13 +62,13 @@ const Hero = () => {
                                 as="button"
                                 className="dark:bg-white bg-black dark:text-black text-white flex items-center justify-center space-x-2 w-full py-4 px-8 font-bold"
                             >
-                                <span className='font-outfit flex items-center gap-2'>Work with me <FaEnvelope /></span>
+                                <span className='font-outfit flex items-center gap-2 text-sm md:text-base'>Work with me <FaEnvelope /></span>
                             </HoverBorderGradient>
                         </Link>
                     </MagneticButton>
                     <button
                         onClick={handleDownload}
-                        className='font-outfit flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group px-4 py-2'
+                        className='font-outfit flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group px-4 py-2 text-sm md:text-base'
                     >
                         <FaFileDownload className="group-hover:-translate-y-1 transition-transform" />
                         Get Resume
@@ -76,9 +76,9 @@ const Hero = () => {
                 </div>
             </div>
 
-            <div className='mt-24 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4 relative'>
+            <div className='mt-12 lg:mt-1 mx-auto font-meitei flex flex-col justify-center items-center gap-4 relative scale-90 md:scale-100'>
                 <Tooltip text="ꯔꯖ꯭ꯖꯤꯠ ꯂꯥꯏꯁ꯭ꯔꯝ">
-                    <div className="w-auto h-72 relative flex justify-center items-center mx-auto cursor-pointer group">
+                    <div className="w-auto h-64 md:h-72 relative flex justify-center items-center mx-auto cursor-pointer group">
                         {/* HUD Brackets */}
                         <div className="absolute -inset-4 pointer-events-none">
                             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-mine/50 rounded-tl-lg group-hover:border-mine transition-colors duration-500" />
@@ -92,12 +92,17 @@ const Hero = () => {
                             {floatingIcons.map((item, index) => (
                                 <motion.div
                                     key={index}
-                                    className={`absolute ${item.color} text-4xl md:text-5xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000`}
+                                    className={`absolute ${item.color} text-3xl md:text-5xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000`}
                                     initial={{ x: item.initialX, y: item.initialY, scale: 0.8 }}
                                     animate={{
                                         x: [item.initialX, item.initialX + 15, item.initialX - 15, item.initialX],
                                         y: [item.initialY - 20, item.initialY + 20, item.initialY - 20],
                                         scale: [0.8, 1.1, 0.8],
+                                    }}
+                                    style={{
+                                        // Reduce orbit on mobile
+                                        x: typeof window !== 'undefined' && window.innerWidth < 768 ? item.initialX * 0.6 : item.initialX,
+                                        y: typeof window !== 'undefined' && window.innerWidth < 768 ? item.initialY * 0.6 : item.initialY,
                                     }}
                                     transition={{
                                         duration: 4 + Math.random() * 2,
@@ -111,7 +116,7 @@ const Hero = () => {
                             ))}
                         </div>
 
-                        <div className="relative w-72 h-72 flex justify-center items-center p-2">
+                        <div className="relative w-64 h-64 md:w-72 md:h-72 flex justify-center items-center p-2">
                             {/* Inner Circuit Background */}
                             <div className="absolute inset-0 bg-gradient-to-br from-mine/20 via-transparent to-hers/20 rounded-3xl animate-pulse" />
                             <div className="absolute inset-[2px] bg-black rounded-[22px] overflow-hidden">
@@ -129,13 +134,13 @@ const Hero = () => {
                         </div>
                     </div>
                     {/* Progress bars transformed into tech stripes */}
-                    <div className="flex flex-col gap-1 w-full max-w-[200px] mt-8 group-hover:scale-110 transition-transform">
+                    <div className="flex flex-col gap-1 w-full max-w-[150px] md:max-w-[200px] mt-8 group-hover:scale-110 transition-transform">
                         <div className='w-full h-1 bg-gradient-to-r from-hers/50 via-hers to-hers/50 rounded-full shadow-[0_0_10px_rgba(0,253,190,0.5)]'></div>
                         <div className='w-3/4 h-1 bg-gradient-to-r from-mine/50 via-mine to-mine/50 rounded-full shadow-[0_0_10px_rgba(56,255,66,0.5)] translate-x-4'></div>
                     </div>
                 </Tooltip>
             </div>
-        </div >
+        </div>
     )
 }
 

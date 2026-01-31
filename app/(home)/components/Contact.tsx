@@ -8,6 +8,7 @@ import { addMessage } from "@/lib/addMessage";
 import { IconCopy, IconMail, IconSend } from "@tabler/icons-react";
 import { MagneticButton } from "@/components/ui/magnetic-button";
 import { motion, AnimatePresence } from "framer-motion";
+import { triggerSystemSignal } from "@/components/ui/SystemToaster";
 
 export function Contact() {
     const [firstname, setFirstname] = useState("");
@@ -30,14 +31,14 @@ export function Contact() {
         setIsSubmitting(true);
         try {
             await addMessage({ firstname, lastname, email, message });
-            alert("Message sent successfully!");
+            triggerSystemSignal("UPLINK_TRANSMISSION_COMPLETE", "success");
             setFirstname("");
             setLastname("");
             setEmail("");
             setMessage("");
         } catch (error) {
             console.error("Error sending message", error);
-            alert("Failed to send message. Please try again.");
+            triggerSystemSignal("UPLINK_FAILURE_RETRY", "error");
         } finally {
             setIsSubmitting(false);
         }
@@ -108,6 +109,7 @@ export function Contact() {
                                         placeholder="Tomba"
                                         className="bg-black/50 border-zinc-800 focus:border-mine transition-colors h-12"
                                         required
+                                        data-cursor-text="BUFFER_ID: 0x01"
                                     />
                                 </LabelInputContainer>
                                 <LabelInputContainer>
@@ -120,6 +122,7 @@ export function Contact() {
                                         placeholder="Laishram"
                                         className="bg-black/50 border-zinc-800 focus:border-mine transition-colors h-12"
                                         required
+                                        data-cursor-text="BUFFER_ID: 0x02"
                                     />
                                 </LabelInputContainer>
                             </div>
@@ -135,6 +138,7 @@ export function Contact() {
                                     type="email"
                                     className="bg-black/50 border-zinc-800 focus:border-mine transition-colors h-12"
                                     required
+                                    data-cursor-text="UPLINK_CHANNEL: SMTP"
                                 />
                             </LabelInputContainer>
 
@@ -149,6 +153,7 @@ export function Contact() {
                                     rows={4}
                                     className="bg-black/50 border border-zinc-800 rounded-lg px-4 py-3 focus:outline-none focus:ring-1 focus:ring-mine focus:border-mine transition-all resize-none text-sm text-white"
                                     required
+                                    data-cursor-text="DATA_PACKET_QUEUE"
                                 />
                             </LabelInputContainer>
 

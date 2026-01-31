@@ -35,6 +35,7 @@ function Skills() {
         return (
             <motion.div
                 whileHover={{ y: -5, scale: 1.05 }}
+                data-cursor-text="SKILL_NODE_ACTIVE"
                 className={`relative flex flex-col items-center gap-3 p-5 bg-zinc-950 border transition-all duration-700 cursor-pointer group rounded-xl overflow-hidden ${isGlowing
                     ? `${borderColor} shadow-[0_0_30px_${glowColor}] border-opacity-100`
                     : `border-white/5 hover:border-white/20`
@@ -67,7 +68,7 @@ function Skills() {
 
     const SkillsGrid = ({ items, color }: { items: { text: string; Icon: IconType }[]; color: string }) => {
         return (
-            <div className='grid grid-cols-3 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 gap-4'>
+            <div className='grid grid-cols-2 sm:grid-cols-4 md:grid-cols-3 xl:grid-cols-4 gap-4'>
                 {items.map((item, idx) => (
                     <SkillCard
                         key={idx}
