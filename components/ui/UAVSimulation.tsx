@@ -28,11 +28,11 @@ const MobilePad = ({ onMove, color, label }: { onMove: (dir: string) => void, co
             <span className="text-[7px] font-mono mb-1 font-black" style={{ color }}>{label}</span>
             <div className="grid grid-cols-3 gap-1">
                 <div />
-                <button onPointerDown={(e) => { e.preventDefault(); onMove('up'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronUp size={20} /></button>
+                <button suppressHydrationWarning onPointerDown={(e) => { e.preventDefault(); onMove('up'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronUp size={20} /></button>
                 <div />
-                <button onPointerDown={(e) => { e.preventDefault(); onMove('left'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronLeft size={20} /></button>
-                <button onPointerDown={(e) => { e.preventDefault(); onMove('down'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronDown size={20} /></button>
-                <button onPointerDown={(e) => { e.preventDefault(); onMove('right'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronRight size={20} /></button>
+                <button suppressHydrationWarning onPointerDown={(e) => { e.preventDefault(); onMove('left'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronLeft size={20} /></button>
+                <button suppressHydrationWarning onPointerDown={(e) => { e.preventDefault(); onMove('down'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronDown size={20} /></button>
+                <button suppressHydrationWarning onPointerDown={(e) => { e.preventDefault(); onMove('right'); }} className="w-10 h-10 flex items-center justify-center bg-white/10 border border-white/20 rounded-lg active:bg-white/30 backdrop-blur-md"><ChevronRight size={20} /></button>
             </div>
         </div>
     );
@@ -43,19 +43,27 @@ const MobilePad = ({ onMove, color, label }: { onMove: (dir: string) => void, co
 interface TracePoint { x: number; y: number; id: number; timestamp: number; }
 interface Waypoint { id: number; x: number; y: number; status: "pending" | "completed"; }
 
-export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
     const viewportRef = useRef<HTMLDivElement>(null);
     const audioCtx = useRef<AudioContext | null>(null);
     const oscillators = useRef<Record<string, { osc: OscillatorNode, gain: GainNode }>>({});
 
-    // Core Simulation State
+    // Optimization: Refs for direct DOM manipulation
+    const aceDroneRef = useRef<HTMLDivElement>(null);
+    const infDroneRef = useRef<HTMLDivElement>(null);
+    const acePolylineRef = useRef<SVGPolylineElement>(null);
+    const infPolylineRef = useRef<SVGPolylineElement>(null);
+    const aceTraceRef = useRef<TracePoint[]>([]);
+    const infTraceRef = useRef<TracePoint[]>([]);
+
+    // Core Simulation State (kept for non-frequency updates or triggers)
     const [isAuto, setIsAuto] = useState(false);
     const [collisionWarning, setCollisionWarning] = useState(false);
     const [isMuted, setIsMuted] = useState(true);
+    const [aceStats, setAceStats] = useState({ battery: 100 });
+    const [infStats, setInfStats] = useState({ battery: 100 });
+    const [completedCount, setCompletedCount] = useState(0);
 
-    // Unit State
-    const [aceState, setAceState] = useState({ pos: { x: 5, y: 5 }, battery: 100, trace: [] as TracePoint[] });
-    const [infState, setInfState] = useState({ pos: { x: 95, y: 95 }, battery: 100, trace: [] as TracePoint[] });
     const aceRef = useRef({ x: 5, y: 5, battery: 100 });
     const infRef = useRef({ x: 95, y: 95, battery: 100 });
     const aceTraceId = useRef(0);
@@ -99,13 +107,31 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         });
     }, []);
 
+    // Helper to update DOM nodes directly
+    const updateUnitDOM = useCallback((id: 'ACE' | 'INF', x: number, y: number) => {
+        const drone = id === 'ACE' ? aceDroneRef.current : infDroneRef.current;
+        const polyline = id === 'ACE' ? acePolylineRef.current : infPolylineRef.current;
+        const trace = id === 'ACE' ? aceTraceRef.current : infTraceRef.current;
+
+        if (drone) {
+            drone.style.left = `${x}%`;
+            drone.style.top = `${y}%`;
+        }
+        if (polyline) {
+            const newPoint = { x, y, id: id === 'ACE' ? aceTraceId.current++ : infTraceId.current++, timestamp: Date.now() };
+            trace.push(newPoint);
+            // Limit trace length for performance
+            if (trace.length > 200) trace.shift();
+            polyline.setAttribute('points', trace.map(p => `${p.x},${p.y}`).join(' '));
+        }
+    }, []);
+
     // --- Mechanics ---
     const moveUnit = useCallback((id: 'ACE' | 'INF', dir: string) => {
         initAudio();
         const step = 3;
         const ref = id === 'ACE' ? aceRef : infRef;
-        const setState = id === 'ACE' ? setAceState : setInfState;
-        const tid = id === 'ACE' ? aceTraceId : infTraceId;
+        const setStats = id === 'ACE' ? setAceStats : setInfStats;
 
         if (ref.current.battery <= 0) {
             triggerSystemSignal(`${id}_UNIT POWER_DEPLETED`, "warning");
@@ -118,20 +144,15 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
         if (dir === 'left') x = Math.max(0, x - step);
         if (dir === 'right') x = Math.min(100, x + step);
 
-        const newPos = { x, y };
         ref.current.x = x;
         ref.current.y = y;
         ref.current.battery = Math.max(0, ref.current.battery - 0.1);
 
-        setState(prev => ({
-            ...prev,
-            pos: newPos,
-            battery: ref.current.battery,
-            trace: [...prev.trace, { ...newPos, id: tid.current++, timestamp: Date.now() }]
-        }));
+        updateUnitDOM(id, x, y);
+        setStats({ battery: ref.current.battery });
 
         playDroneHum(id, 80 + (dir === 'up' || dir === 'down' ? 40 : 20), 1);
-    }, [initAudio, playDroneHum]);
+    }, [initAudio, playDroneHum, updateUnitDOM]);
 
     // --- Main Simulation Loop ---
     useEffect(() => {
@@ -160,7 +181,8 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                 }
                 aBat = Math.max(0, aBat - 0.05);
                 aceRef.current = { x, y, battery: aBat };
-                setAceState(prev => ({ ...prev, pos: { x, y }, battery: aBat, trace: [...prev.trace, { x, y, id: aceTraceId.current++, timestamp: Date.now() }] }));
+                updateUnitDOM('ACE', x, y);
+                setAceStats({ battery: aBat });
                 playDroneHum("ACE", 100 + (Math.abs(step) * 20), 0.8);
             }
 
@@ -184,12 +206,15 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             const iStep = 1.6; ix += (iDx / iDist) * iStep; iy += (iDy / iDist) * iStep;
                             iBat = Math.max(0, iBat - 0.08);
                             infRef.current = { x: ix, y: iy, battery: iBat };
-                            setInfState(prev => ({ ...prev, pos: { x: ix, y: iy }, battery: iBat, trace: [...prev.trace, { x: ix, y: iy, id: infTraceId.current++, timestamp: Date.now() }] }));
+                            updateUnitDOM('INF', ix, iy);
+                            setInfStats({ battery: iBat });
                             playDroneHum("INF", 120 + (iDist / 5), 0.8);
                             return currentWps;
                         } else {
                             completedId = nextTarget.id;
-                            return currentWps.map(wp => wp.id === nextTarget.id ? { ...wp, status: "completed" } : wp);
+                            const newWps = currentWps.map(wp => wp.id === nextTarget.id ? { ...wp, status: "completed" as const } : wp);
+                            setCompletedCount(newWps.filter(w => w.status === 'completed').length);
+                            return newWps;
                         }
                     }
                     return currentWps;
@@ -210,14 +235,14 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
             }
         }, 60);
         return () => { clearInterval(interval); stopAudio(); };
-    }, [isAuto, isMuted, initAudio, playDroneHum, stopAudio]);
+    }, [isAuto, isMuted, initAudio, playDroneHum, stopAudio, updateUnitDOM]);
 
-    // Cleanup effects
+    // Trace Cleanup effect
     useEffect(() => {
         const int = setInterval(() => {
             const now = Date.now();
-            setAceState(s => ({ ...s, trace: s.trace.filter(t => now - t.timestamp < 10000) }));
-            setInfState(s => ({ ...s, trace: s.trace.filter(t => now - t.timestamp < 10000) }));
+            aceTraceRef.current = aceTraceRef.current.filter(t => now - t.timestamp < 10000);
+            infTraceRef.current = infTraceRef.current.filter(t => now - t.timestamp < 10000);
         }, 1200);
         return () => clearInterval(int);
     }, []);
@@ -243,7 +268,7 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
     return (
         <AnimatePresence>
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="fixed inset-0 md:inset-8 z-[2000] bg-black/98 backdrop-blur-2xl md:border md:border-white/10 md:rounded-2xl overflow-hidden flex flex-col">
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="fixed inset-0 md:inset-8 z-[2000] bg-black/98 backdrop-blur-2xl md:border md:border-white/10 md:rounded-2xl overflow-hidden flex flex-col will-change-transform">
                 {/* Header */}
                 <div className="px-4 py-3 md:px-6 md:py-4 border-b border-white/5 flex items-center justify-between bg-zinc-900/50">
                     <div className="flex items-center gap-3 font-mono">
@@ -251,8 +276,8 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         <div>
                             <span className="text-xs font-black text-white tracking-widest">PROJECT_NEBULA_V4.0</span>
                             <div className="flex gap-4 text-[7px] text-white/40">
-                                <span className={aceState.battery < 20 ? "text-red-500 animate-pulse" : ""}>ACE_BAT: {Math.round(aceState.battery)}%</span>
-                                <span className={infState.battery < 20 ? "text-red-500 animate-pulse" : ""}>INF_BAT: {Math.round(infState.battery)}%</span>
+                                <span className={aceStats.battery < 20 ? "text-red-500 animate-pulse" : ""}>ACE_BAT: {Math.round(aceStats.battery)}%</span>
+                                <span className={infStats.battery < 20 ? "text-red-500 animate-pulse" : ""}>INF_BAT: {Math.round(infStats.battery)}%</span>
                             </div>
                         </div>
                     </div>
@@ -264,15 +289,16 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     <div className="flex items-center gap-2">
                         <button
                             onClick={() => setIsMuted(!isMuted)}
+                            suppressHydrationWarning
                             className={`p-2 rounded-full border transition-all ${isMuted ? 'text-white/40 border-white/10 hover:text-white' : 'text-mine border-mine shadow-[0_0_15px_rgba(56,255,66,0.2)]'}`}
                             title={isMuted ? "Unmute" : "Mute"}
                         >
                             {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
                         </button>
-                        <button onClick={() => setIsAuto(!isAuto)} className={`px-4 py-1.5 rounded-full border text-[10px] font-black transition-all ${isAuto ? 'bg-mine border-mine text-black' : 'bg-white/5 border-white/10 text-white'}`}>
+                        <button suppressHydrationWarning onClick={() => setIsAuto(!isAuto)} className={`px-4 py-1.5 rounded-full border text-[10px] font-black transition-all ${isAuto ? 'bg-mine border-mine text-black' : 'bg-white/5 border-white/10 text-white'}`}>
                             {isAuto ? 'TERMINATE_AUTO' : 'ENGAGE_AUTO'}
                         </button>
-                        <button onClick={onClose} className="p-1.5 text-white/40 hover:text-white transition-colors"><X size={20} /></button>
+                        <button suppressHydrationWarning onClick={onClose} className="p-1.5 text-white/40 hover:text-white transition-colors"><X size={20} /></button>
                     </div>
                 </div>
 
@@ -282,8 +308,8 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
                     {/* Render Content */}
                     <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
-                        <polyline points={aceState.trace.map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="#38b6ff" strokeWidth="0.4" opacity="0.4" />
-                        <polyline points={infState.trace.map(p => `${p.x},${p.y}`).join(' ')} fill="none" stroke="#38ff42" strokeWidth="0.4" opacity="0.4" />
+                        <polyline ref={acePolylineRef} points="" fill="none" stroke="#38b6ff" strokeWidth="0.4" opacity="0.4" />
+                        <polyline ref={infPolylineRef} points="" fill="none" stroke="#38ff42" strokeWidth="0.4" opacity="0.4" />
                     </svg>
 
                     {waypoints.map(wp => (
@@ -294,12 +320,12 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                     ))}
 
                     {/* Drones */}
-                    <motion.div style={{ left: `${aceState.pos.x}%`, top: `${aceState.pos.y}%` }} className="absolute -ml-5 -mt-5 md:-ml-8 md:-mt-8 z-20">
+                    <div ref={aceDroneRef} style={{ left: `5%`, top: `5%` }} className="absolute -ml-5 -mt-5 md:-ml-8 md:-mt-8 z-20 will-change-[left,top]">
                         <DroneVisual color="#38b6ff" isWarning={collisionWarning} />
-                    </motion.div>
-                    <motion.div style={{ left: `${infState.pos.x}%`, top: `${infState.pos.y}%` }} className="absolute -ml-5 -mt-5 md:-ml-8 md:-mt-8 z-20">
+                    </div>
+                    <div ref={infDroneRef} style={{ left: `95%`, top: `95%` }} className="absolute -ml-5 -mt-5 md:-ml-8 md:-mt-8 z-20 will-change-[left,top]">
                         <DroneVisual color="#38ff42" isWarning={collisionWarning} />
-                    </motion.div>
+                    </div>
 
                     {/* Mini-Map */}
                     <div className="absolute top-6 left-6 p-2 bg-black/80 border border-white/10 rounded-lg backdrop-blur-xl">
@@ -308,8 +334,9 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                             <span className="text-[8px] font-black text-white/60">TACTICAL_POSITIONING</span>
                         </div>
                         <div className="w-24 h-24 bg-zinc-900 overflow-hidden relative border border-white/5">
-                            <div style={{ left: `${aceState.pos.x}%`, top: `${aceState.pos.y}%` }} className="absolute w-1 h-1 bg-blue-400 rounded-full" />
-                            <div style={{ left: `${infState.pos.x}%`, top: `${infState.pos.y}%` }} className="absolute w-1 h-1 bg-mine rounded-full" />
+                            {/* Minimap points still using state/refs combo effectively here since it's small */}
+                            <div style={{ left: `${aceRef.current.x}%`, top: `${aceRef.current.y}%` }} className="absolute w-1 h-1 bg-blue-400 rounded-full" />
+                            <div style={{ left: `${infRef.current.x}%`, top: `${infRef.current.y}%` }} className="absolute w-1 h-1 bg-mine rounded-full" />
                             {waypoints.map(wp => (
                                 <div key={`map-${wp.id}`} style={{ left: `${wp.x}%`, top: `${wp.y}%` }} className={`absolute w-0.5 h-0.5 rounded-full ${wp.status === 'completed' ? 'bg-mine/40' : 'bg-white/10'}`} />
                             ))}
@@ -326,8 +353,8 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
 
                     {/* Legend */}
                     <div className="hidden lg:flex absolute bottom-6 right-6 flex-col gap-3 p-4 bg-black/90 border border-white/10 rounded-xl font-mono">
-                        <div className="flex items-center gap-3"><Battery className="text-blue-400" size={14} /> <span className="text-[10px] text-white">ACE_SURVEYOR: {Math.round(aceState.battery)}%</span></div>
-                        <div className="flex items-center gap-3"><Battery className="text-mine" size={14} /> <span className="text-[10px] text-white">INF_VALIDATOR: {Math.round(infState.battery)}%</span></div>
+                        <div className="flex items-center gap-3"><Battery className="text-blue-400" size={14} /> <span className="text-[10px] text-white">ACE_SURVEYOR: {Math.round(aceStats.battery)}%</span></div>
+                        <div className="flex items-center gap-3"><Battery className="text-mine" size={14} /> <span className="text-[10px] text-white">INF_VALIDATOR: {Math.round(infStats.battery)}%</span></div>
                         <div className="pt-2 border-t border-white/5 space-y-1">
                             <div className="flex items-center gap-2 text-[8px] text-white/30 truncate max-w-[150px]">LATEST_UPLINK: ...SECURE</div>
                             <div className="flex items-center gap-2 text-[8px] text-white/30 truncate max-w-[150px]">ENVIRONMENT: NOMINAL</div>
@@ -341,9 +368,9 @@ export const UAVSimulation = ({ isOpen, onClose }: { isOpen: boolean; onClose: (
                         <span>SIGNAL_STRENGTH: 98%</span>
                         <span className="hidden sm:inline">LATENCY: 12ms</span>
                     </div>
-                    <span>WAYPOINTS_CLEARANCE: {waypoints.filter(w => w.status === 'completed').length}/{waypoints.length}</span>
+                    <span>WAYPOINTS_CLEARANCE: {completedCount}/{waypoints.length}</span>
                 </div>
             </motion.div>
         </AnimatePresence>
     );
-};
+});

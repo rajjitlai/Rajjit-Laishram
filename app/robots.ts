@@ -20,6 +20,18 @@ export default function robots(): MetadataRoute.Robots {
                 userAgent: 'OAI-SearchBot',
                 allow: '/',
             },
+            {
+                userAgent: 'Anthropic-ai',
+                allow: '/',
+            },
+            {
+                userAgent: 'CCBot',
+                allow: '/',
+            },
+            {
+                userAgent: 'PerplexityBot',
+                allow: '/',
+            },
         ],
         sitemap: 'https://rajjitlaishram.netlify.app/sitemap.xml',
     }

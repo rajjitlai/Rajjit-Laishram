@@ -12,7 +12,13 @@ import { MagneticButton } from '@/components/ui/magnetic-button'
 import { motion } from 'framer-motion'
 import { getResume } from '@/lib/getResume'
 
-const Hero = () => {
+const Hero = React.memo(function Hero() {
+    const [hasMounted, setHasMounted] = React.useState(false);
+
+    React.useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
     const handleDownload = () => {
         const url = getResume();
         window.open(url, "_blank");
@@ -59,7 +65,7 @@ const Hero = () => {
                         <Link href="#contact" className='w-full sm:w-auto block'>
                             <HoverBorderGradient
                                 containerClassName="w-full sm:w-auto"
-                                as="button"
+                                as="div"
                                 className="dark:bg-white bg-black dark:text-black text-white flex items-center justify-center space-x-2 w-full py-4 px-8 font-bold"
                             >
                                 <span className='font-outfit flex items-center gap-2 text-sm md:text-base'>Work with me <FaEnvelope /></span>
@@ -68,6 +74,7 @@ const Hero = () => {
                     </MagneticButton>
                     <button
                         onClick={handleDownload}
+                        suppressHydrationWarning
                         className='font-outfit flex items-center gap-2 text-zinc-400 hover:text-white transition-colors group px-4 py-2 text-sm md:text-base'
                     >
                         <FaFileDownload className="group-hover:-translate-y-1 transition-transform" />
@@ -92,7 +99,7 @@ const Hero = () => {
                             {floatingIcons.map((item, index) => (
                                 <motion.div
                                     key={index}
-                                    className={`absolute ${item.color} text-3xl md:text-5xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000`}
+                                    className={`absolute ${item.color} text-3xl md:text-5xl opacity-20 group-hover:opacity-40 transition-opacity duration-1000 will-change-transform transform-gpu`}
                                     initial={{ x: item.initialX, y: item.initialY, scale: 0.8 }}
                                     animate={{
                                         x: [item.initialX, item.initialX + 15, item.initialX - 15, item.initialX],
@@ -100,12 +107,12 @@ const Hero = () => {
                                         scale: [0.8, 1.1, 0.8],
                                     }}
                                     style={{
-                                        // Reduce orbit on mobile
-                                        x: typeof window !== 'undefined' && window.innerWidth < 768 ? item.initialX * 0.6 : item.initialX,
-                                        y: typeof window !== 'undefined' && window.innerWidth < 768 ? item.initialY * 0.6 : item.initialY,
+                                        // Reduce orbit on mobile - Adjusted for hydration
+                                        x: (hasMounted && window.innerWidth < 768) ? item.initialX * 0.6 : item.initialX,
+                                        y: (hasMounted && window.innerWidth < 768) ? item.initialY * 0.6 : item.initialY,
                                     }}
                                     transition={{
-                                        duration: 4 + Math.random() * 2,
+                                        duration: hasMounted ? 4 + Math.random() * 2 : 5,
                                         repeat: Infinity,
                                         ease: "easeInOut",
                                         delay: item.delay
@@ -120,21 +127,29 @@ const Hero = () => {
                             {/* Inner Circuit Background */}
                             <div className="absolute inset-0 bg-gradient-to-br from-mine/20 via-transparent to-hers/20 rounded-3xl animate-pulse" />
                             <div className="absolute inset-[2px] bg-black rounded-[22px] overflow-hidden">
-                                {/* Scanline Effect */}
-                                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%]" />
+                                {/* Scanline Effect - Optimized */}
+                                <div
+                                    className="absolute inset-0 pointer-events-none opacity-[0.05] will-change-transform transform-gpu"
+                                    style={{
+                                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2h4M2 0v4' stroke='%23fff' fill='none' fill-opacity='.1'/%3E%3C/svg%3E")`
+                                    }}
+                                />
                             </div>
 
+                            {/* GPU Optimized Glow */}
+                            <div className="absolute inset-4 bg-mine/20 blur-[40px] rounded-full animate-pulse will-change-transform" />
+
                             <motion.div
-                                className="relative z-30 transform hover:scale-110 transition-transform duration-500"
+                                className="relative z-30 transform hover:scale-110 transition-transform duration-500 will-change-transform"
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                             >
-                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="280" height="280" className='object-contain drop-shadow-[0_0_30px_rgba(56,255,66,0.3)]' priority unoptimized />
+                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="280" height="280" className='object-contain' priority />
                             </motion.div>
                         </div>
                     </div>
                     {/* Progress bars transformed into tech stripes */}
-                    <div className="flex flex-col gap-1 w-full max-w-[150px] md:max-w-[200px] mt-8 group-hover:scale-110 transition-transform">
+                    <div className="flex flex-col gap-1 w-full max-w-[150px] md:max-w-[200px] mt-8 group-hover:scale-110 transition-transform will-change-transform">
                         <div className='w-full h-1 bg-gradient-to-r from-hers/50 via-hers to-hers/50 rounded-full shadow-[0_0_10px_rgba(0,253,190,0.5)]'></div>
                         <div className='w-3/4 h-1 bg-gradient-to-r from-mine/50 via-mine to-mine/50 rounded-full shadow-[0_0_10px_rgba(56,255,66,0.5)] translate-x-4'></div>
                     </div>
@@ -142,6 +157,6 @@ const Hero = () => {
             </div>
         </div>
     )
-}
+});
 
 export default Hero;

@@ -86,7 +86,7 @@ export function Testimonials() {
                         <Link href="/review">
                             <HoverBorderGradient
                                 containerClassName="rounded-xl"
-                                as="button"
+                                as="div"
                                 className="dark:bg-zinc-900 bg-white text-black dark:text-white flex items-center justify-center space-x-2 px-6 py-2.5 text-sm font-medium transition-all group"
                             >
                                 <span className="flex items-center gap-2">

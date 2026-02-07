@@ -61,7 +61,10 @@ const Footer = () => {
                         <h3 className='text-sm uppercase tracking-[0.2em] font-bold text-zinc-500'>Let&apos;s talk</h3>
                         <p className='text-zinc-400'>Have an interesting project?</p>
                         <Link href="#contact" className="w-full">
-                            <button className="bg-white text-black font-bold py-4 px-8 rounded-xl w-full hover:bg-mine transition-colors flex items-center justify-center gap-2 group">
+                            <button
+                                suppressHydrationWarning
+                                className="bg-white text-black font-bold py-4 px-8 rounded-xl w-full hover:bg-mine transition-colors flex items-center justify-center gap-2 group"
+                            >
                                 Start a Conversation
                                 <span className="group-hover:translate-x-1 transition-transform">→</span>
                             </button>

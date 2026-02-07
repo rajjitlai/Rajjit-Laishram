@@ -146,6 +146,7 @@ export function Contact() {
                                 <Label htmlFor="message" className="text-xs uppercase tracking-widest text-zinc-500 font-bold mb-2">Your Message</Label>
                                 <textarea
                                     id="message"
+                                    suppressHydrationWarning
                                     disabled={isSubmitting}
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
@@ -160,6 +161,7 @@ export function Contact() {
                             <MagneticButton className="w-full">
                                 <button
                                     disabled={isSubmitting}
+                                    suppressHydrationWarning
                                     className={cn(
                                         "w-full h-14 rounded-xl font-bold flex items-center justify-center gap-2 transition-all duration-300",
                                         isSubmitting

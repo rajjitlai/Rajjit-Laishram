@@ -1,16 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, useScroll, useVelocity, useTransform, MotionValue } from "framer-motion";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 
-export const LogicFlux = () => {
-    const { scrollY } = useScroll();
-    const scrollVelocity = useVelocity(scrollY);
+export const LogicFlux = React.memo(function LogicFlux() {
+    const [hasMounted, setHasMounted] = React.useState(false);
 
-    // Transform velocity into animation speed (System Load)
-    const fluxSpeed = useTransform(scrollVelocity, [-2000, 2000], [5, 0.5], { clamp: true });
+    React.useEffect(() => {
+        setHasMounted(true);
+    }, []);
+
+    if (!hasMounted) return null;
 
     return (
-        <div className="fixed inset-0 pointer-events-none -z-20 overflow-hidden opacity-30">
+        <div className="fixed inset-0 pointer-events-none -z-20 overflow-hidden opacity-30 will-change-transform">
             {/* Base Logic Grid */}
             <div
                 className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:100px_100px]"
@@ -19,10 +21,10 @@ export const LogicFlux = () => {
                 }}
             />
 
-            {/* Pulsing Intersections */}
+            {/* Pulsing Intersections - Fixed count and simpler motion */}
             <div className="absolute inset-0">
-                {[...Array(20)].map((_, i) => (
-                    <DataPacket key={i} speed={fluxSpeed} />
+                {[...Array(12)].map((_, i) => (
+                    <DataPacket key={i} />
                 ))}
             </div>
 
@@ -33,45 +35,42 @@ export const LogicFlux = () => {
                     opacity: [0.05, 0.1, 0.05]
                 }}
                 transition={{
-                    duration: 8,
+                    duration: 10,
                     repeat: Infinity,
                     ease: "linear"
                 }}
-                className="absolute inset-0 h-1 bg-gradient-to-r from-transparent via-mine/20 to-transparent"
+                className="absolute inset-0 h-px bg-gradient-to-r from-transparent via-mine/20 to-transparent transform-gpu"
             />
         </div>
     );
-};
+});
 
-const DataPacket = ({ speed }: { speed: MotionValue<number> }) => {
-    const [pos, setPos] = useState({ x: 0, y: 0, vertical: false });
 
-    useEffect(() => {
-        setPos({
-            x: Math.floor(Math.random() * 20) * 100,
-            y: Math.floor(Math.random() * 20) * 100,
-            vertical: Math.random() > 0.5
-        });
-    }, []);
+const DataPacket = () => {
+    const [config] = useState(() => ({
+        x: Math.floor(Math.random() * 20) * 100,
+        y: Math.floor(Math.random() * 20) * 100,
+        vertical: Math.random() > 0.5,
+        delay: Math.random() * 5,
+        duration: 3 + Math.random() * 2
+    }));
 
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{
-                x: pos.vertical ? pos.x : [pos.x, pos.x + 300],
-                y: pos.vertical ? [pos.y, pos.y + 300] : pos.y,
+                x: config.vertical ? config.x : [config.x, config.x + 300],
+                y: config.vertical ? [config.y, config.y + 300] : config.y,
                 opacity: [0, 1, 0]
             }}
-            style={{
-                transitionDuration: `${speed.get()}s`
-            }}
             transition={{
-                duration: 3,
+                duration: config.duration,
                 repeat: Infinity,
                 ease: "linear",
-                delay: Math.random() * 5
+                delay: config.delay
             }}
-            className={`absolute ${pos.vertical ? "w-[1px] h-12" : "w-12 h-[1px]"} bg-gradient-to-r from-transparent via-mine to-transparent shadow-[0_0_10px_#38ff42]`}
+            className={`absolute ${config.vertical ? "w-[0.5px] h-12" : "w-12 h-[0.5px]"} bg-gradient-to-r from-transparent via-mine to-transparent shadow-[0_0_8px_#38ff42] will-change-transform`}
         />
     );
 };
+

@@ -1,0 +1,39 @@
+
+> rajjitlaishram@2.6.10 build
+> next build
+
+   Γû▓ Next.js 15.5.9
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully in 15.0s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/13) ...
+   Generating static pages (3/13) 
+   Generating static pages (6/13) 
+   Generating static pages (9/13) 
+ Γ£ô Generating static pages (13/13)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+Γöî Γùï /                                    43.6 kB         215 kB
+Γö£ Γùï /_not-found                            138 B         103 kB
+Γö£ Γùï /login                               4.54 kB         163 kB
+Γö£ Γùï /review                                23 kB         181 kB
+Γö£ Γùï /robots.txt                            138 B         103 kB
+Γö£ Γùï /setup                               4.65 kB         163 kB
+Γö£ Γùï /setup/messages                       3.6 kB         162 kB
+Γö£ Γùï /setup/projects                      7.53 kB         171 kB
+Γö£ Γùï /setup/resume                        5.02 kB         168 kB
+Γö£ Γùï /setup/testimonials                  4.18 kB         168 kB
+Γöö Γùï /sitemap.xml                           138 B         103 kB
++ First Load JS shared by all             102 kB
+  Γö£ chunks/1255-9494d7e861e97d68.js      45.9 kB
+  Γö£ chunks/4bd1b696-f785427dddbba9fb.js  54.2 kB
+  Γöö other shared chunks (total)          2.29 kB
+
+
+Γùï  (Static)  prerendered as static content
+

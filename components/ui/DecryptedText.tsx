@@ -12,6 +12,7 @@ const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#
 
 export const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className, speed = 50, delay = 0 }) => {
     const [displayText, setDisplayText] = useState("");
+    const [hasMounted, setHasMounted] = useState(false);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
     const startAnimation = useCallback(() => {
@@ -41,6 +42,7 @@ export const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className, s
     }, [text, speed]);
 
     useEffect(() => {
+        setHasMounted(true);
         const timeout = setTimeout(() => {
             startAnimation();
         }, delay);
@@ -51,5 +53,5 @@ export const DecryptedText: React.FC<DecryptedTextProps> = ({ text, className, s
         };
     }, [delay, startAnimation]);
 
-    return <span className={className}>{displayText || text.split("").map(() => " ").join("")}</span>;
+    return <span className={className}>{(!hasMounted) ? text : (displayText || text.split("").map(() => " ").join(""))}</span>;
 };

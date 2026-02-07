@@ -47,9 +47,13 @@ const getTagColor = (tag: string): string => {
 
 
 
-const Projects = () => {
-    const [projects, setProjects] = useState<Project[]>([]);
-    const [loading, setLoading] = useState(true);
+interface ProjectsProps {
+    initialProjects?: Project[];
+}
+
+const Projects = React.memo(function Projects({ initialProjects = [] }: ProjectsProps) {
+    const [projects, setProjects] = useState<Project[]>(initialProjects);
+    const [loading, setLoading] = useState(initialProjects.length === 0);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
     useEffect(() => {
@@ -104,7 +108,7 @@ const Projects = () => {
                                 transition={{ delay: idx * 0.1 }}
                                 onClick={() => setSelectedProject(project)}
                                 data-cursor-text="PROJECT_SCAN"
-                                className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-[2rem] overflow-hidden hover:border-mine/50 transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.1)]"
+                                className="group relative bg-zinc-900/30 backdrop-blur-md border border-zinc-800/50 rounded-[2rem] overflow-hidden hover:border-mine/50 transition-all duration-500 cursor-pointer flex flex-col h-full shadow-2xl hover:shadow-[0_0_50px_rgba(56,255,66,0.1)] will-change-transform"
                             >
                                 {/* Technical ID Label */}
                                 <div className="absolute top-4 right-4 z-20 font-mono text-[8px] text-zinc-600 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -118,15 +122,14 @@ const Projects = () => {
                                         alt={project.title}
                                         fill
                                         className="object-cover object-top opacity-80 group-hover:opacity-100"
-                                        unoptimized
                                     />
 
-                                    {/* Scanning Line Effect */}
+                                    {/* Scanning Line Effect - Optimized with Y transform */}
                                     <motion.div
-                                        initial={{ top: "-10%" }}
-                                        whileHover={{ top: "110%" }}
+                                        initial={{ y: "-100%" }}
+                                        whileHover={{ y: "1000%" }}
                                         transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                                        className="absolute left-0 right-0 h-[2px] bg-mine/50 shadow-[0_0_15px_#38ff42] z-10 pointer-events-none hidden group-hover:block"
+                                        className="absolute top-0 left-0 right-0 h-[2px] bg-mine/50 shadow-[0_0_15px_#38ff42] z-10 pointer-events-none hidden group-hover:block will-change-transform"
                                     />
 
                                     <div className="absolute inset-0 bg-black/60 backdrop-blur-md opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center z-30">
@@ -197,6 +200,7 @@ const Projects = () => {
             />
         </div>
     );
-};
+});
+
 
 export default Projects;

@@ -8,8 +8,13 @@ import Title from "@/components/Title";
 
 const StatItem = ({ value, label, suffix = "" }: { value: number, label: string, suffix?: string }) => {
     const [count, setCount] = useState(0)
+    const [hasMounted, setHasMounted] = useState(false)
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true })
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
 
     useEffect(() => {
         if (isInView) {
@@ -42,7 +47,7 @@ const StatItem = ({ value, label, suffix = "" }: { value: number, label: string,
             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-mine/5 blur-3xl rounded-full group-hover:bg-mine/10 transition-colors" />
 
             <h4 className="text-5xl md:text-6xl font-black text-white mb-3 font-outfit tracking-tighter transition-transform duration-500 group-hover:scale-110">
-                {count}{suffix}
+                {hasMounted ? count : value}{suffix}
             </h4>
             <div className="h-px w-8 bg-zinc-800 mb-4 group-hover:w-16 group-hover:bg-mine/50 transition-all duration-500" />
             <p className="text-zinc-500 text-[10px] uppercase tracking-[0.3em] font-black group-hover:text-white transition-colors">

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+
 
 import { useActiveSection } from "@/lib/hooks/useActiveSection";
 import { SECTIONS } from "@/lib/constants";
@@ -8,15 +8,19 @@ import { SECTIONS } from "@/lib/constants";
 import { Terminal as TerminalIcon, Volume2, VolumeX, Plane } from "lucide-react";
 import { audioSystem } from "@/lib/audio";
 
-export const ViewportHUD = () => {
+export const ViewportHUD = React.memo(function ViewportHUD() {
     const activeSection = useActiveSection();
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-    const [scrollPos, setScrollPos] = useState(0);
     const [currentTime, setCurrentTime] = useState("");
     const [ping, setPing] = useState(24);
     const [telemetry, setTelemetry] = useState({ pwr: 98, cpu: 12, mem: 45 });
     const [isMuted, setIsMuted] = useState(true);
     const [uavMode, setUavMode] = useState("PATROL");
+
+    // Optimization: Use refs for high-frequency DOM updates to skip React re-renders
+    const posXRef = React.useRef<HTMLSpanElement>(null);
+    const posYRef = React.useRef<HTMLSpanElement>(null);
+    const scrollBarRef = React.useRef<HTMLDivElement>(null);
+    const scrollTextRef = React.useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
         const handleCommand = (e: Event) => {
@@ -39,14 +43,29 @@ export const ViewportHUD = () => {
     };
 
     useEffect(() => {
+        let rafMouseMove: number;
+        let rafScroll: number;
+
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({ x: e.clientX, y: e.clientY });
+            cancelAnimationFrame(rafMouseMove);
+            rafMouseMove = requestAnimationFrame(() => {
+                if (posXRef.current) posXRef.current.textContent = e.clientX.toString().padStart(4, '0');
+                if (posYRef.current) posYRef.current.textContent = e.clientY.toString().padStart(4, '0');
+            });
         };
+
         const handleScroll = () => {
-            const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = (window.scrollY / totalHeight) * 100;
-            setScrollPos(Math.round(progress));
+            cancelAnimationFrame(rafScroll);
+            rafScroll = requestAnimationFrame(() => {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (window.scrollY / totalHeight) * 100;
+                const roundedProgress = Math.round(progress);
+
+                if (scrollBarRef.current) scrollBarRef.current.style.width = `${progress}%`;
+                if (scrollTextRef.current) scrollTextRef.current.textContent = `${roundedProgress}%`;
+            });
         };
+
         const updateTime = () => {
             const now = new Date();
             setCurrentTime(now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }));
@@ -74,6 +93,8 @@ export const ViewportHUD = () => {
         }, 2000);
 
         updateTime();
+        // Initial call for scroll position
+        handleScroll();
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
@@ -87,7 +108,7 @@ export const ViewportHUD = () => {
     const activeProtocol = SECTIONS.find(s => s.id === activeSection)?.protocol || "SYSTEM_STANDBY";
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-[999] font-mono text-[10px] text-mine/40 uppercase tracking-widest">
+        <div className="fixed inset-0 pointer-events-none z-[999] font-mono text-[10px] text-mine/40 uppercase tracking-widest will-change-transform">
             {/* Top Left: Protocol Status (Always Visible) */}
             <div className="absolute top-6 md:top-8 left-6 md:left-8 flex flex-col gap-1">
                 <div className="flex items-center gap-2">
@@ -124,11 +145,11 @@ export const ViewportHUD = () => {
                 <div className="flex gap-4 mt-2">
                     <div className="flex flex-col">
                         <span className="text-[7px] opacity-40">POS_X</span>
-                        <span className="text-white/40">{mousePos.x.toString().padStart(4, '0')}</span>
+                        <span ref={posXRef} className="text-white/40">0000</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-[7px] opacity-40">POS_Y</span>
-                        <span className="text-white/40">{mousePos.y.toString().padStart(4, '0')}</span>
+                        <span ref={posYRef} className="text-white/40">0000</span>
                     </div>
                 </div>
             </div>
@@ -170,13 +191,14 @@ export const ViewportHUD = () => {
                 </div>
                 <div className="flex items-center gap-3">
                     <div className="w-32 h-[2px] bg-zinc-900 relative overflow-hidden">
-                        <motion.div
+                        <div
+                            ref={scrollBarRef}
                             className="absolute inset-0 bg-mine/50"
-                            style={{ width: `${scrollPos}%` }}
+                            style={{ width: `0%` }}
                         />
                         <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent,rgba(56,255,66,0.5),transparent)] w-1/2 animate-shimmer" />
                     </div>
-                    <span className="text-white/60">{scrollPos}%</span>
+                    <span ref={scrollTextRef} className="text-white/60">0%</span>
                 </div>
                 <span className="text-[8px] mt-1">SIGNAL_STRENGTH: NOMINAL {"//"} PING: {ping}MS</span>
             </div>
@@ -188,4 +210,5 @@ export const ViewportHUD = () => {
             <div className="absolute bottom-4 right-4 w-4 h-4 border-b border-r border-white/5 md:border-white/10" />
         </div>
     );
-};
+});
+

@@ -37,10 +37,10 @@ export const CustomCursor = () => {
     }, [cursorX, cursorY]);
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-[99999] hidden md:block">
+        <div className="fixed inset-0 pointer-events-none z-[99999] hidden md:block will-change-transform transform-gpu">
             {/* Target Locking Brackets */}
             <motion.div
-                className="absolute w-8 h-8 flex items-center justify-center"
+                className="absolute w-8 h-8 flex items-center justify-center will-change-transform"
                 style={{
                     left: mainX,
                     top: mainY,
@@ -61,7 +61,7 @@ export const CustomCursor = () => {
 
             {/* Direct Crosshair Brackets (Static inner) */}
             <motion.div
-                className="absolute w-4 h-4"
+                className="absolute w-4 h-4 will-change-transform"
                 style={{
                     left: mainX,
                     top: mainY,
@@ -84,7 +84,7 @@ export const CustomCursor = () => {
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 35 }}
                         exit={{ opacity: 0, x: 20 }}
-                        className="absolute flex flex-col gap-0.5"
+                        className="absolute flex flex-col gap-0.5 will-change-transform"
                         style={{
                             left: mainX,
                             top: mainY,
@@ -111,7 +111,7 @@ export const CustomCursor = () => {
 
             {/* Sharp Inner Point */}
             <motion.div
-                className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_12px_#fff]"
+                className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_12px_#fff] will-change-transform"
                 style={{
                     left: mainX,
                     top: mainY,
@@ -121,4 +121,5 @@ export const CustomCursor = () => {
             />
         </div>
     );
+
 };

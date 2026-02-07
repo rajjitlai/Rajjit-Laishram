@@ -84,6 +84,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                                 <div className="flex items-center gap-3">
                                     <button
                                         onClick={() => setIsSchematic(!isSchematic)}
+                                        suppressHydrationWarning
                                         className={cn(
                                             "px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-widest border transition-all",
                                             isSchematic ? "bg-mine text-black border-mine" : "bg-black/40 text-zinc-500 border-zinc-800 hover:text-white"
@@ -93,6 +94,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
                                     </button>
                                     <button
                                         onClick={onClose}
+                                        suppressHydrationWarning
                                         className="p-2.5 bg-zinc-900/80 hover:bg-zinc-800 rounded-xl text-white border border-zinc-800 transition-all group"
                                     >
                                         <X size={18} className="group-hover:rotate-90 transition-transform" />
@@ -133,7 +135,7 @@ export const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) =>
 
                                             {project.link && (
                                                 <Link href={project.link} target="_blank">
-                                                    <button className="flex items-center gap-3 px-6 py-3 bg-white text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-mine transition-all group shadow-[0_10px_20px_rgba(0,0,0,0.2)]">
+                                                    <button suppressHydrationWarning className="flex items-center gap-3 px-6 py-3 bg-white text-black font-black text-[11px] uppercase tracking-widest rounded-xl hover:bg-mine transition-all group shadow-[0_10px_20px_rgba(0,0,0,0.2)]">
                                                         UPLINK_DEPLOY <ExternalLink size={14} className="group-hover:translate-x-1 transition-transform" />
                                                     </button>
                                                 </Link>

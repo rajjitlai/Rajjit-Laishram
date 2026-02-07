@@ -1,18 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const AtmosphericPulse = () => {
+export const AtmosphericPulse = React.memo(function AtmosphericPulse() {
     const [pulses, setPulses] = useState<{ id: number; x: number; y: number }[]>([]);
-    const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+    const lastMousePos = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            setMousePos({ x: e.clientX, y: e.clientY });
+            lastMousePos.current = { x: e.clientX, y: e.clientY };
         };
 
         const createPulse = () => {
-            setPulses(prev => [...prev, { id: Date.now(), x: mousePos.x, y: mousePos.y }]);
+            setPulses(prev => [...prev, { id: Date.now(), x: lastMousePos.current.x, y: lastMousePos.current.y }]);
             // Cleanup old pulses
             setTimeout(() => {
                 setPulses(prev => prev.slice(1));
@@ -26,7 +26,7 @@ export const AtmosphericPulse = () => {
             window.removeEventListener("mousemove", handleMouseMove);
             clearInterval(interval);
         };
-    }, [mousePos]);
+    }, []);
 
     return (
         <div className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
@@ -48,7 +48,7 @@ export const AtmosphericPulse = () => {
                             duration: 4,
                             ease: "easeOut"
                         }}
-                        className="absolute w-40 h-40 -translate-x-1/2 -translate-y-1/2 border-[2px] border-mine/20 rounded-full"
+                        className="absolute w-40 h-40 -translate-x-1/2 -translate-y-1/2 border-[2px] border-mine/20 rounded-full will-change-transform"
                         style={{
                             boxShadow: "0 0 50px rgba(56, 255, 66, 0.1)"
                         }}
@@ -57,4 +57,6 @@ export const AtmosphericPulse = () => {
             </AnimatePresence>
         </div>
     );
-};
+});
+
+
