@@ -117,14 +117,14 @@ export default function RootLayout({
       <head>
         <Script
           strategy="afterInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-J2FMJLG89T"
+          src="https://www.googletagmanager.com/gtag/js?id=G-BX29NE2TKJ"
         />
         <Script id="gtag-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', 'G-J2FMJLG89T', {
+            gtag('config', 'G-BX29NE2TKJ', {
               page_path: window.location.pathname,
             });
           `}

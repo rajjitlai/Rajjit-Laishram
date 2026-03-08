@@ -1,11 +1,12 @@
-import { SiLinkedin, SiGithub, SiInstagram, SiFacebook } from "react-icons/si"
+import { SiGithub, SiInstagram, SiFacebook } from "react-icons/si"
+import { FaLinkedin } from "react-icons/fa"
 
 
 export const socialLinks = [
     {
         link: "https://www.linkedin.com/in/rajjitlaishram/",
         label: "LinkedIn",
-        Icon: SiLinkedin
+        Icon: FaLinkedin
     },
     {
         link: "https://github.com/rajjitlai/",

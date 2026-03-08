@@ -1,4 +1,3 @@
-'use client';
 
 import { Client, Databases, Storage, Account } from "appwrite"
 
