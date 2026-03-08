@@ -144,7 +144,7 @@ const Hero = React.memo(function Hero() {
                                 animate={{ y: [0, -10, 0] }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                             >
-                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="280" height="280" className='object-contain' priority />
+                                <Image src="/rajjitlaishram.png" alt="rajjit laishram" width="280" height="280" className='object-contain' unoptimized priority />
                             </motion.div>
                         </div>
                     </div>
