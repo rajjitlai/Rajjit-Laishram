@@ -1,0 +1,26 @@
+{
+  "basics": {
+    "name": "Rajjit Laishram",
+    "role": "IoT Software Developer & Hardware Integrator",
+    "location": "Manipur, India",
+    "bio": "Building smart homes, innovative IoT solutions, and modern web applications with Next.js and MQTT. He is specialized in bridging the gap between hardware and software."
+  },
+  "contact": {
+    "email": "rajjit@mail.com",
+    "github": "https://github.com/rajjitlai",
+    "linkedin": "https://linkedin.com/in/rajjitlaishram"
+  },
+  "skills": {
+    "languages": ["TypeScript", "JavaScript", "Python", "C++"],
+    "frontend": ["React", "Next.js", "Tailwind CSS", "Framer Motion"],
+    "backend": ["Node.js", "Express", "Appwrite", "Firebase"],
+    "iot": ["MQTT", "ESP32", "Arduino", "Raspberry Pi", "Home Assistant"]
+  },
+  "experience": [
+    {
+      "role": "IoT Developer",
+      "company": "Freelance",
+      "projects": "200+ Autonomous Drone Flights, 10+ IoT Projects"
+    }
+  ]
+}
