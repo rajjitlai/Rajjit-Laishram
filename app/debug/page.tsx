@@ -30,8 +30,9 @@ const ViewportHUD = dynamic(() => import("@/components/ui/ViewportHUD").then(mod
 const HUDIndex = dynamic(() => import("@/components/ui/HUDIndex").then(mod => mod.HUDIndex), { ssr: false });
 
 export default function DebugPage() {
-    const [env, setEnv] = useState<any>({});
+    const [env, setEnv] = useState<Record<string, string | undefined>>({});
     const [testComponents, setTestComponents] = useState(false);
+    const [uavOpen, setUavOpen] = useState(false);
 
     useEffect(() => {
         setEnv({
@@ -57,7 +58,7 @@ export default function DebugPage() {
                 {Object.entries(env).map(([key, value]) => (
                     <div key={key} className="flex gap-4">
                         <span className="text-zinc-500">{key}:</span>
-                        <span>{value ? (value as string) : "UNDEFINED"}</span>
+                        <span>{value ? String(value) : "UNDEFINED"}</span>
                     </div>
                 ))}
             </div>
@@ -125,6 +126,11 @@ export default function DebugPage() {
                         <section>
                             <h3 className="text-mine mb-4">DRONE_OVERLAY_NODE</h3>
                             <DroneOverlay />
+                        </section>
+                        <section>
+                            <h3 className="text-hers mb-4">UAV_SIMULATION_NODE</h3>
+                            <button onClick={() => setUavOpen(true)} className="px-4 py-2 border border-mine text-mine">OPEN_UAV_SIM</button>
+                            <UAVSimulation isOpen={uavOpen} onClose={() => setUavOpen(false)} />
                         </section>
                         <section>
                             <h3 className="text-hers mb-4">SCROLL_TO_TOP_NODE</h3>

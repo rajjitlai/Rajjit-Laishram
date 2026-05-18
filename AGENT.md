@@ -10,8 +10,8 @@ The application is built as a high-density, performance-optimized, and premium d
 
 | Component Layer | Technology | Details |
 | :--- | :--- | :--- |
-| **Core Framework** | Next.js 16.2.6 (App Router) | Utilizing React 19.0.0, TypeScript, and Server/Client Component splitting. |
-| **Styling & UI** | Tailwind CSS `^3.4.1` | Tailored with sleek HSL colors, neon drop shadows, glassmorphism layers, and custom webkit scrollbars. |
+| Core Framework | Next.js 15.x (App Router) | Utilizing React 19.0.0, TypeScript, and Server/Client Component splitting. |
+| **Styling & UI** | Tailwind CSS `^3.4.1` | Tailored with sleek HSL colors, neon drop shadows, glassmorphism layers, and custom webkit scrollbars. (Migration to v4 pending) |
 | **Animations** | Framer Motion `motion ^12.5.0` | Custom UI micro-animations, transitions, and hardware-accelerated movement. |
 | **Backend / DB** | Appwrite Core | Configured with `appwrite` (Client SDK) and `node-appwrite` (Server SDK) for handling database collections and file storage buckets. |
 | **Deployment** | Netlify | Managed through `netlify.toml` leveraging `@netlify/plugin-nextjs`. |

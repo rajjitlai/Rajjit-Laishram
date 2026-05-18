@@ -14,7 +14,12 @@ export const config = {
 }
 
 const client = new Client();
-client.setEndpoint(config.endpoint!).setProject(config.projectId!);
+if (config.endpoint) {
+    client.setEndpoint(config.endpoint);
+}
+if (config.projectId) {
+    client.setProject(config.projectId);
+}
 
 export const databases = new Databases(client);
 export const imageBucket = new Storage(client);
