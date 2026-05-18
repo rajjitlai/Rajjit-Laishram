@@ -1,21 +1,27 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
+import React, { useEffect, useRef } from "react";
 
 export const CustomCursor = () => {
-    const [isHovering, setIsHovering] = useState(false);
-    const [cursorText, setCursorText] = useState("");
-    const cursorX = useMotionValue(-100);
-    const cursorY = useMotionValue(-100);
-
-    const springConfig = { damping: 25, stiffness: 200 };
-    const mainX = useSpring(cursorX, springConfig);
-    const mainY = useSpring(cursorY, springConfig);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const labelRef = useRef<HTMLDivElement | null>(null);
+    const isFirstMove = useRef(true);
 
     useEffect(() => {
-        const moveCursor = (e: MouseEvent) => {
-            cursorX.set(e.clientX);
-            cursorY.set(e.clientY);
+        const container = containerRef.current;
+        if (!container) return;
+
+        // Instantly write coordinates to compositor CSS Custom Variables
+        const handleMouseMove = (e: MouseEvent) => {
+            if (isFirstMove.current) {
+                // Instantly snap cursor to first cursor coord to prevent entrance rubber-banding
+                container.style.setProperty("--cursor-x", `${e.clientX}px`);
+                container.style.setProperty("--cursor-y", `${e.clientY}px`);
+                container.classList.remove("hidden-offscreen");
+                isFirstMove.current = false;
+            } else {
+                container.style.setProperty("--cursor-x", `${e.clientX}px`);
+                container.style.setProperty("--cursor-y", `${e.clientY}px`);
+            }
         };
 
         const handleMouseOver = (e: MouseEvent) => {
@@ -23,103 +29,102 @@ export const CustomCursor = () => {
             const interactive = target.closest('a, button, [role="button"], .cursor-pointer');
             const technicalLabel = target.closest('[data-cursor-text]')?.getAttribute('data-cursor-text');
 
-            setIsHovering(!!interactive);
-            setCursorText(technicalLabel || (interactive ? "TARGET_LOCKED" : ""));
+            if (interactive) {
+                container.classList.add("hovering");
+                if (labelRef.current) {
+                    labelRef.current.innerText = technicalLabel || "TARGET_LOCK";
+                }
+            } else {
+                container.classList.remove("hovering");
+            }
         };
 
-        window.addEventListener("mousemove", moveCursor);
-        window.addEventListener("mouseover", handleMouseOver);
+        // Initialize state hidden offscreen until first movement
+        container.classList.add("hidden-offscreen");
+
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
         return () => {
-            window.removeEventListener("mousemove", moveCursor);
+            window.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("mouseover", handleMouseOver);
         };
-    }, [cursorX, cursorY]);
+    }, []);
 
     return (
-        <div className="fixed inset-0 pointer-events-none z-[99999] hidden md:block will-change-transform transform-gpu">
-            {/* Target Locking Brackets */}
-            <motion.div
-                className="absolute w-8 h-8 flex items-center justify-center will-change-transform"
+        <div
+            ref={containerRef}
+            className="fixed inset-0 pointer-events-none z-[99999] hidden md:block select-none transform-gpu"
+        >
+            {/* 1. Outer Ring - Smooth, 100% native compositor trailing layout */}
+            <div
+                className="absolute w-5 h-5 rounded-full border border-mine/50 flex items-center justify-center will-change-transform transform-gpu"
                 style={{
-                    left: mainX,
-                    top: mainY,
-                    x: "-50%",
-                    y: "-50%",
-                }}
-                animate={{
-                    scale: isHovering ? 1.5 : 1,
-                    rotate: isHovering ? 90 : 0,
+                    transform: "translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%)",
+                    transition: "transform 0.08s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.2s ease, width 0.2s ease, height 0.2s ease, box-shadow 0.2s ease"
                 }}
             >
-                {/* 4 Corner Brackets */}
-                <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-mine/60" />
-                <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-mine/60" />
-                <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-mine/60" />
-                <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-mine/60" />
-            </motion.div>
+                {/* 4 Micro Telemetry Ticks inside outer ring */}
+                <div className="absolute top-0 w-0.5 h-0.5 bg-mine/30 rounded-full" />
+                <div className="absolute bottom-0 w-0.5 h-0.5 bg-mine/30 rounded-full" />
+                <div className="absolute left-0 w-0.5 h-0.5 bg-mine/30 rounded-full" />
+                <div className="absolute right-0 w-0.5 h-0.5 bg-mine/30 rounded-full" />
+            </div>
 
-            {/* Direct Crosshair Brackets (Static inner) */}
-            <motion.div
-                className="absolute w-4 h-4 will-change-transform"
+            {/* 2. Inner Dot - Snaps instantly (no CSS transition) for perfect zero-lag aim precision */}
+            <div
+                className="absolute w-1.5 h-1.5 bg-mine rounded-full shadow-[0_0_8px_#38ff42] will-change-transform transform-gpu"
                 style={{
-                    left: mainX,
-                    top: mainY,
-                    x: "-50%",
-                    y: "-50%",
-                }}
-                animate={{
-                    rotate: isHovering ? -45 : 0
-                }}
-            >
-                <div className="absolute top-0 left-0 w-1 h-0.5 bg-mine shadow-[0_0_8px_#38ff42]" />
-                <div className="absolute bottom-0 right-0 w-1 h-0.5 bg-mine shadow-[0_0_8px_#38ff42]" />
-            </motion.div>
-
-            {/* Subsystem Metadata Label */}
-            <AnimatePresence mode="wait">
-                {cursorText && (
-                    <motion.div
-                        key="cursor-label"
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 35 }}
-                        exit={{ opacity: 0, x: 20 }}
-                        className="absolute flex flex-col gap-0.5 will-change-transform"
-                        style={{
-                            left: mainX,
-                            top: mainY,
-                            y: "-50%",
-                        }}
-                    >
-                        <div className="flex items-center gap-2">
-                            <div className="h-px w-6 bg-mine/40" />
-                            <span className="text-[8px] font-mono font-black text-white bg-mine/20 backdrop-blur-md px-1.5 py-0.5 tracking-[0.2em] uppercase border border-mine/30 rounded-sm">
-                                {cursorText}
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-1.5 pl-8">
-                            <motion.div
-                                animate={{ opacity: [0.2, 1, 0.2] }}
-                                transition={{ repeat: Infinity, duration: 1 }}
-                                className="w-1 h-1 bg-hers rounded-full shadow-[0_0_5px_#00fdea]"
-                            />
-                            <span className="text-[6px] font-mono text-hers/80 tracking-widest uppercase">Subsystem_Uplink...</span>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-
-            {/* Sharp Inner Point */}
-            <motion.div
-                className="absolute w-1 h-1 bg-white rounded-full shadow-[0_0_12px_#fff] will-change-transform"
-                style={{
-                    left: mainX,
-                    top: mainY,
-                    x: "-50%",
-                    y: "-50%",
+                    transform: "translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, -50%)",
+                    transition: "width 0.2s ease, height 0.2s ease, background-color 0.2s ease, opacity 0.2s ease"
                 }}
             />
+
+            {/* 3. Micro Label tag underneath outer ring */}
+            <div
+                ref={labelRef}
+                className="absolute text-[7px] font-mono font-black tracking-[0.2em] text-hers bg-black/80 backdrop-blur-md border border-hers/20 px-1.5 py-0.5 rounded-sm opacity-0 scale-90 will-change-transform transform-gpu uppercase"
+                style={{
+                    transform: "translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, 15px)",
+                    transition: "transform 0.08s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.2s ease, scale 0.2s ease, color 0.2s ease, border-color 0.2s ease"
+                }}
+            >
+                TARGET_LOCK
+            </div>
+
+            {/* Premium HUD Toggles when hovering over interactive components */}
+            <style jsx global>{`
+                .hidden-offscreen {
+                    display: none !important;
+                }
+                
+                /* 1. Outer Ring Hover States */
+                .hovering > div:nth-child(1) {
+                    border-color: #00fdea !important;
+                    width: 30px !important;
+                    height: 30px !important;
+                    box-shadow: 0 0 10px rgba(0, 253, 234, 0.25) !important;
+                }
+                
+                /* Micro crosshair ticks change colors */
+                .hovering > div:nth-child(1) > div {
+                    background-color: rgba(0, 253, 234, 0.4) !important;
+                }
+
+                /* 2. Inner Dot Hover States */
+                .hovering > div:nth-child(2) {
+                    width: 0px !important;
+                    height: 0px !important;
+                    opacity: 0 !important;
+                }
+
+                /* 3. Dynamic Tag Hover States */
+                .hovering > div:nth-child(3) {
+                    opacity: 1 !important;
+                    scale: 1 !important;
+                    transform: translate3d(var(--cursor-x, -100px), var(--cursor-y, -100px), 0) translate(-50%, 20px) !important;
+                }
+            `}</style>
         </div>
     );
-
 };

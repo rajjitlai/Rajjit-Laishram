@@ -18,6 +18,7 @@
   font-family: var(--font-meitei), serif;
 }
 
+
 @media (min-width: 768px) {
   * {
     cursor: none !important;

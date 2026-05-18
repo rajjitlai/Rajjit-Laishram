@@ -23,8 +23,12 @@ export async function getCurrentUser() {
     try {
         const user = await account.get();
         return user;
-    } catch (error) {
-        console.error("Get User Error:", error);
+    } catch (error: any) {
+        // Appwrite returns a 401 code when there is no active logged-in session.
+        // We silently suppress this standard guest state exception to keep your logs completely clean.
+        if (error?.code !== 401) {
+            console.error("Get User Error:", error);
+        }
         return null; // Return null if not logged in
     }
 }

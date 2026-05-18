@@ -57,10 +57,10 @@ export default function HomeContent({ initialProjects = [] }: { initialProjects?
             </AnimatePresence>
 
             <motion.div
-                initial={{ opacity: 1 }}
-                animate={{ opacity: (hasMounted && isLoading) ? 0 : 1 }}
-                transition={{ duration: 1 }}
-                className={(hasMounted && isLoading) ? "h-screen overflow-hidden" : "min-h-screen"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: (hasMounted && !isLoading) ? 1 : 0 }}
+                transition={{ duration: 1, ease: "easeInOut" }}
+                className={(!hasMounted || isLoading) ? "h-screen overflow-hidden" : "min-h-screen"}
             >
                 <BackgroundBeams />
                 <AtmosphericPulse />
