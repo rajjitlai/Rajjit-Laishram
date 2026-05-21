@@ -37,15 +37,15 @@ export const Terminal = ({ className }: TerminalProps) => {
         },
         "/uav": (args) => {
             const mode = args?.[0]?.toLowerCase();
-            if (!mode || !["patrol", "scan", "return", "stealth"].includes(mode)) {
+            if (!mode || !["patrol", "scan", "return", "stealth", "manual", "escort", "intercept"].includes(mode)) {
                 setHistory(prev => [
                     ...prev,
                     "> UAV_SUBSYSTEM_ROOT:",
-                    "> Protocols: /uav patrol, /uav scan, /uav return, /uav stealth"
+                    "> Protocols: /uav patrol, /uav scan, /uav return, /uav stealth, /uav manual, /uav escort, /uav intercept"
                 ]);
                 return;
             }
-            triggerUAVCommand(mode as "patrol" | "scan" | "return" | "stealth");
+            triggerUAVCommand(mode as "patrol" | "scan" | "return" | "stealth" | "manual" | "escort" | "intercept");
             setHistory(prev => [...prev, `> UAV_PROTOCOL_SYNC: ${mode.toUpperCase()} // STATUS: OK`]);
             triggerSystemSignal(`UAV_SYNC_${mode.toUpperCase()}`, "info");
         },
@@ -276,7 +276,7 @@ export const Terminal = ({ className }: TerminalProps) => {
                         </div>
 
                         <div className="px-3 py-1 border-t border-white/5 bg-zinc-900/40 flex gap-2 overflow-x-auto scrollbar-hide">
-                            {["Who is Rajjit?", "/help", "/uav scan", "/sim", "/systems", "/neofetch", "/resume", "/clear"].map(cmd => (
+                            {["Who is Rajjit?", "/help", "/uav intercept", "/uav manual", "/uav escort", "/sim", "/systems", "/neofetch", "/resume", "/clear"].map(cmd => (
                                 <button
                                     key={cmd}
                                     onClick={() => executeCommand(cmd)}
