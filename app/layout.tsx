@@ -38,15 +38,15 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "Rajjit Laishram | IoT Software Developer",
+    default: "Rajjit Laishram | IoT & Autonomous Systems Developer",
     template: "%s | Rajjit Laishram"
   },
-  description: "IoT Software Developer & Hardware Integrator based in Manipur. Building smart homes, innovative IoT solutions, and modern web applications with Next.js and MQTT.",
+  description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
   keywords: [
-    "Rajjit Laishram", "IoT Developer", "Software Engineer",
-    "React", "Next.js", "Node.js", "Appwrite", "Firebase",
-    "IoT", "MQTT", "ESP32", "Arduino", "Smart Home",
-    "Manipur", "India", "Web Development"
+    "Rajjit Laishram", "IoT Developer", "Autonomous Systems",
+    "Edge AI", "LoRaWAN", "DroneKit", "MAVLink", "OpenCV",
+    "YOLO", "Hailo AI", "MCP", "Ollama", "Raspberry Pi",
+    "ESP32", "Manipur", "India", "NIDAR"
   ],
   authors: [{ name: "Rajjit Laishram", url: "https://rajjitlaishram.netlify.app" }],
   creator: "Rajjit Laishram",
@@ -54,8 +54,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://rajjitlaishram.netlify.app",
-    title: "Rajjit Laishram | IoT Software Developer",
-    description: "Building the future of smart living through code. Expert in IoT integrations, modern web apps, and hardware communication.",
+    title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
+    description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
     siteName: "Rajjit Laishram Portfolio",
     images: [
       {
@@ -68,8 +68,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rajjit Laishram | IoT Software Developer",
-    description: "IoT Software Developer & Hardware Integrator based in Manipur. Building smart homes and innovative IoT solutions.",
+    title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
+    description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
     images: ["/og.png"],
     creator: "@rajjitlai",
   },

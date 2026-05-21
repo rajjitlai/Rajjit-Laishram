@@ -51,13 +51,13 @@ const Hero = React.memo(function Hero() {
                     </motion.div>
                     <h1 className='text-4xl lg:text-6xl font-black font-outfit leading-tight'>
                         <DecryptedText text="I'm Rajjit" />
-                        {", and I build machines that "}
+                        {", and I write the code that makes machines "}
                         <span className='text-transparent bg-clip-text bg-gradient-to-r from-mine to-hers contrast-125'>think.</span>
                     </h1>
                 </div>
 
                 <p className='max-w-xl text-lg text-zinc-400 font-outfit leading-relaxed'>
-                    {"An IoT Developer based in Manipur, I specialize in bridging the gap between hardware and software through sophisticated autonomous systems."}
+                    {"An IoT Software Developer based in Manipur, I specialize in building the software layer between physical hardware and intelligent decision systems — from embedded edge devices to autonomous drone systems and AI-driven IoT platforms."}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-5 items-center w-full">

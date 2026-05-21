@@ -3,8 +3,8 @@ import HomeContent from "./components/HomeContent";
 import { getProjects } from "@/lib/getProjects";
 
 export const metadata: Metadata = {
-  title: "Rajjit Laishram | IoT Software Developer",
-  description: "IoT Software Developer & Hardware Integrator based in Manipur. Building smart homes, innovative IoT solutions, and modern web applications with Next.js and MQTT.",
+  title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
+  description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
 };
 
 export default async function page() {

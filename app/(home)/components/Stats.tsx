@@ -29,7 +29,7 @@ const StatItem = ({ value, label, suffix = "" }: { value: number, label: string,
                     setCount(end)
                     clearInterval(timer)
                 } else {
-                    setCount(Math.floor(start))
+                    setCount(Number.isInteger(value) ? Math.floor(start) : Number(start.toFixed(1)))
                 }
             }, 16)
             return () => clearInterval(timer)
@@ -62,10 +62,10 @@ export const Stats = () => {
         <div className="max-w-7xl mx-auto px-8 py-20 font-outfit" id="stats">
             <Title text="Metrics" className="flex flex-col items-center justify-center cursor-pointer mb-20" />
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                <StatItem value={200} label="Autonomous Drone Flights" suffix="+" />
-                <StatItem value={10} label="IoT Projects" suffix="+" />
-                <StatItem value={5} label="Years Experience" suffix="+" />
-                <StatItem value={2} label="Team Lead" suffix="+" />
+                <StatItem value={215} label="Real-World Drone Flights" suffix="+" />
+                <StatItem value={3} label="Production IoT Systems" suffix="+" />
+                <StatItem value={9.3} label="BCA CGPA — NIELIT Imphal" suffix="" />
+                <StatItem value={2} label="Teams Led" suffix="+" />
             </div>
         </div>
     )

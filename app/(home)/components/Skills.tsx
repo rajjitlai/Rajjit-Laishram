@@ -7,10 +7,11 @@ import { FaGitSquare, FaDocker, FaRaspberryPi } from 'react-icons/fa'
 import {
     SiAppwrite, SiCplusplus, SiFastapi,
     SiNextdotjs, SiNodedotjs, SiOpencv, SiPostgresql,
-    SiPytorch, SiTailwindcss, SiTensorflow, SiTypescript
+    SiPytorch, SiTailwindcss, SiTensorflow, SiTypescript,
+    SiOllama, SiGooglecloud, SiElectron
 } from 'react-icons/si'
-import { TbBrandReactNative, TbBrain, TbCloudComputing, TbCpu, TbNetwork } from 'react-icons/tb'
-import { BiChip } from 'react-icons/bi'
+import { TbBrandReactNative, TbBrain, TbCloudComputing, TbCpu, TbNetwork, TbSatellite, TbBrandAzure, TbBroadcast, TbCamera, TbAntenna, TbTopologyStar, TbPlugConnected } from 'react-icons/tb'
+import { BiChip, BiMicrochip } from 'react-icons/bi'
 import { IconType } from 'react-icons'
 
 function Skills() {
@@ -90,6 +91,9 @@ function Skills() {
         { text: "MQTT & CoAP", Icon: TbNetwork },
         { text: "Embedded Linux", Icon: TbCpu },
         { text: "Edge Computing", Icon: TbCpu },
+        { text: "LoRaWAN", Icon: TbAntenna },
+        { text: "Satellite Comm", Icon: TbSatellite },
+        { text: "Meshtastic", Icon: TbTopologyStar },
     ];
 
     const fullStackSkills = [
@@ -108,12 +112,20 @@ function Skills() {
         { text: "PyTorch", Icon: SiPytorch },
         { text: "OpenCV", Icon: SiOpencv },
         { text: "YOLO", Icon: TbBrain },
+        { text: "Hailo AI", Icon: BiMicrochip },
+        { text: "RTSP", Icon: TbBroadcast },
+        { text: "MJPEG", Icon: TbCamera },
     ];
 
     const devOpsSkills = [
         { text: "Docker", Icon: FaDocker },
         { text: "AWS IoT", Icon: TbCloudComputing },
+        { text: "Azure IoT", Icon: TbBrandAzure },
+        { text: "GCP", Icon: SiGooglecloud },
         { text: "Git", Icon: FaGitSquare },
+        { text: "Ollama", Icon: SiOllama },
+        { text: "MCP", Icon: TbPlugConnected },
+        { text: "Electron", Icon: SiElectron },
     ];
 
     const circuitNodes = [
