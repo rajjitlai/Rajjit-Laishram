@@ -19,7 +19,7 @@ export function Contact() {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleCopyEmail = () => {
-        navigator.clipboard.writeText("rajjitlai@mail.com");
+        navigator.clipboard.writeText("20rajjit@gmail.com");
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
     };
@@ -70,7 +70,7 @@ export function Contact() {
                             <div>
                                 <p className="text-xs uppercase tracking-widest text-zinc-500 font-bold">Email Me</p>
                                 <div className="flex items-center gap-2">
-                                    <p className="text-white font-medium">rajjitlai@mail.com</p>
+                                    <p className="text-white font-medium">20rajjit@gmail.com</p>
                                     <AnimatePresence mode="wait">
                                         {copied ? (
                                             <motion.span

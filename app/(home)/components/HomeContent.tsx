@@ -14,6 +14,7 @@ import { Contact } from "./Contact";
 import { Experience } from "./Experience";
 import { Testimonials } from "./Testimonials";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Systems } from "./Systems";
 
 const BackgroundBeams = dynamic(() => import("@/components/ui/background-beams").then(mod => mod.BackgroundBeams), { ssr: false });
 const FloatNav = dynamic(() => import("./FloatNav").then(mod => mod.FloatNav), { ssr: false });
@@ -101,6 +102,9 @@ export default function HomeContent({ initialProjects = [] }: { initialProjects?
                         <div id="skills">
                             <Skills />
                         </div>
+                    </ScrollReveal>
+                    <ScrollReveal>
+                        <Systems />
                     </ScrollReveal>
                     <ScrollReveal>
                         <div id="projects">

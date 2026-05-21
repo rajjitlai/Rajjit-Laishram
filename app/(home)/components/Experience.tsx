@@ -23,9 +23,11 @@ export function Experience() {
                         <p className="text-neutral-400 font-semibold mb-3">Nibiaa • Imphal, Manipur</p>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Scaleable IoT solutions for enterprise warehouse management.",
-                                "Advanced real-time monitoring systems with edge processing.",
-                                "Full-stack architectural oversight for cloud-hardware communication."
+                                "Prototyped hybrid LoRaWAN/Satellite asset tracking system — simulated dashboard demo for enterprise equipment rental client.",
+                                "Built custom AI alerting app with geofencing and anomaly detection integrated into IoT platform.",
+                                "Developed MCP + Ollama connectivity for offline AI inference inside IoT platforms — fully on-premise.",
+                                "Customized proprietary IoT mobile app for client-facing device monitoring.",
+                                "Mentored intern on AI and MCP tool integration in IoT."
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-mine mt-1.5 h-1.5 w-1.5 rounded-full bg-mine shrink-0" />
@@ -57,9 +59,10 @@ export function Experience() {
                         </div>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Successfully led team to NIDAR Drone Competition finals.",
-                                "Architected custom GCS with real-time survivor detection (OpenCV).",
-                                "Engineered multi-drone autonomous coordination for delivery operations."
+                                "Built complete autonomous drone software stack from scratch.",
+                                "Custom Electron GCS · YOLO + Hailo AI detection · RTSP/MJPEG streaming · Multi-drone coordination.",
+                                "215+ real-world flight tests · ~80% detection accuracy.",
+                                "NIDAR Disaster Management Competition Finalist. Won the Exceptional NIDAR Journey showcase award"
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-hers mt-1.5 h-1.5 w-1.5 rounded-full bg-hers shrink-0" />
@@ -145,7 +148,7 @@ export function Experience() {
                     <div className="bg-gradient-to-br from-mine/10 to-transparent p-6 border border-mine/20 rounded-2xl">
                         <h5 className="text-white font-bold mb-2">Developed RJ&apos;s BLOG.</h5>
                         <p className="text-neutral-400 text-sm leading-relaxed mb-4">
-                            Launched a full-featured blogging platform built with React.js and Appwrite, reaching users at rjsblog.in.
+                            Launched a full-featured blogging platform built with React.js and Appwrite, reaching users at <a href="https://rjsblog.in" target="_blank" rel="noopener noreferrer" className="text-mine hover:underline">rjsblog.in</a>.
                         </p>
                         <div className="flex gap-3">
                             <span className="text-[10px] bg-mine/20 text-mine px-2 py-0.5 rounded border border-mine/30">NEXTJS</span>

@@ -7,6 +7,7 @@ export function FloatNav() {
         { name: "Init", link: "#hero" },
         { name: "Metrics", link: "#stats" },
         { name: "Arsenal", link: "#skills" },
+        { name: "Systems", link: "#systems" },
         { name: "Missions", link: "#projects" },
         { name: "Chronicles", link: "#exp" },
         { name: "Feedback", link: "#review" },

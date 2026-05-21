@@ -26,7 +26,7 @@ export const Terminal = ({ className }: TerminalProps) => {
             setHistory(prev => [
                 ...prev, 
                 "> ACE is active. You can chat with me about Rajjit's skills, experience, and projects.",
-                "> Protocols: /init, /metrics, /arsenal, /missions, /chronicles, /feedback, /uplink, /resume, /uav, /sim, /neofetch, /whoami, /clear"
+                "> Protocols: /init, /metrics, /arsenal, /systems, /missions, /chronicles, /feedback, /uplink, /resume, /uav, /sim, /neofetch, /whoami, /clear"
             ]);
             triggerSystemSignal("MANIFEST_FETCHED", "info");
         },
@@ -90,6 +90,12 @@ export const Terminal = ({ className }: TerminalProps) => {
             triggerSystemSignal("SECTOR_TRANSITION: ARSENAL", "info");
         },
         "/skills": () => commands["/arsenal"](),
+        "/systems": () => {
+            document.getElementById("systems")?.scrollIntoView({ behavior: "smooth" });
+            setHistory(prev => [...prev, "> Accessing Sector: SYSTEMS..."]);
+            triggerSystemSignal("SECTOR_TRANSITION: SYSTEMS", "info");
+        },
+        "/sys": () => commands["/systems"](),
         "/chronicles": () => {
             document.getElementById("exp")?.scrollIntoView({ behavior: "smooth" });
             setHistory(prev => [...prev, "> Accessing Timeline: CHRONICLES..."]);
@@ -270,7 +276,7 @@ export const Terminal = ({ className }: TerminalProps) => {
                         </div>
 
                         <div className="px-3 py-1 border-t border-white/5 bg-zinc-900/40 flex gap-2 overflow-x-auto scrollbar-hide">
-                            {["Who is Rajjit?", "/help", "/uav scan", "/sim", "/neofetch", "/resume", "/clear"].map(cmd => (
+                            {["Who is Rajjit?", "/help", "/uav scan", "/sim", "/systems", "/neofetch", "/resume", "/clear"].map(cmd => (
                                 <button
                                     key={cmd}
                                     onClick={() => executeCommand(cmd)}

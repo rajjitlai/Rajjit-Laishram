@@ -13,7 +13,7 @@ const Footer = () => {
                             Rajjit <span className='text-mine'>.</span>
                         </h2>
                         <p className='text-zinc-400 leading-relaxed max-w-xs'>
-                            Building the future of smart living through code. Expert in IoT integrations and modern autonomous systems.
+                            Writing the code that makes machines think. Expert in IoT integrations and modern autonomous systems.
                         </p>
                         <div className='flex items-center gap-4'>
                             {socialLinks.map((social, index) => {
@@ -39,6 +39,7 @@ const Footer = () => {
                         <ul className='space-y-4'>
                             {[
                                 { name: 'Arsenal', id: 'skills' },
+                                { name: 'Systems', id: 'systems' },
                                 { name: 'Missions', id: 'projects' },
                                 { name: 'Chronicles', id: 'exp' },
                                 { name: 'Uplink', id: 'contact' }

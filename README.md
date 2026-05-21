@@ -115,7 +115,7 @@ Designed and implemented an IoT system for precision agriculture, monitoring soi
 
 If you're interested in collaborating, discussing projects, or just want to say hi, feel free to reach out!
 
-📧 **Email:** [rajjitlai@mail.com](mailto:rajjitlai@mail.com)  
+📧 **Email:** [20rajjit@gmail.com](mailto:20rajjit@gmail.com)  
 🌐 **Website:** [rajjitlaishram.netlify.app](https://rajjitlaishram.netlify.app/)  
 💬 **Socials:** [LinkedIn](https://in.linkedin.com/in/rajjit-laishram-a03a02255) | [Instagram](https://www.instagram.com/rajjitlaishram/) | [Facebook](https://www.facebook.com/rajjitlaishram/) | [YouTube](https://www.youtube.com/@rjinstitute.rajjit)
 
