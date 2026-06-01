@@ -7,7 +7,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface CarouselImage {
     src: string;
     alt: string;
-    caption: string;
 }
 
 interface ImageCarouselProps {
