@@ -1,11 +1,16 @@
 "use client"
-import React from 'react'
+import React, { useState } from 'react'
 import Title from '@/components/Title'
 import { motion } from 'framer-motion'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 import Link from 'next/link'
+import { ImageCarousel } from './ImageCarousel'
+import { VideoDemo } from './VideoDemo'
+import { nawaImages } from '@/lib/systemworks'
 
 export function Systems() {
+    const [activeTab, setActiveTab] = useState<'carousel' | 'video'>('carousel');
+
     return (
         <div className="py-20 p-5 sm:p-0 font-outfit mt-10" id="systems">
             <Title
@@ -28,7 +33,7 @@ export function Systems() {
                     
                     <p className="text-zinc-300 font-semibold mb-4">Complete autonomous drone software stack built from scratch.</p>
                     
-                    <ul className="space-y-3 mb-8 flex-1">
+                    <ul className="space-y-3 mb-6">
                         {[
                             "Custom Electron desktop GCS (React + Tailwind CSS)",
                             "YOLO + Hailo AI survivor detection (~80% accuracy)",
@@ -43,6 +48,44 @@ export function Systems() {
                             </li>
                         ))}
                     </ul>
+
+                    {/* Media Tabs Section */}
+                    <div className="mb-6 border border-zinc-800/80 rounded-2xl overflow-hidden bg-zinc-950/40 relative z-10">
+                        {/* Tab Headers */}
+                        <div className="flex border-b border-zinc-800 bg-zinc-950/60 p-1">
+                            <button
+                                onClick={() => setActiveTab('carousel')}
+                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${
+                                    activeTab === 'carousel'
+                                        ? 'bg-zinc-900 text-mine shadow-[0_0_15px_rgba(56,255,66,0.15)] border border-mine/20'
+                                        : 'text-zinc-400 hover:text-zinc-200'
+                                }`}
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                [ IMAGES ]
+                            </button>
+                            <button
+                                onClick={() => setActiveTab('video')}
+                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${
+                                    activeTab === 'video'
+                                        ? 'bg-zinc-900 text-mine shadow-[0_0_15px_rgba(56,255,66,0.15)] border border-mine/20'
+                                        : 'text-zinc-400 hover:text-zinc-200'
+                                }`}
+                            >
+                                <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
+                                [ VIDEO_FEED ]
+                            </button>
+                        </div>
+
+                        {/* Tab Content */}
+                        <div className="p-3">
+                            {activeTab === 'carousel' ? (
+                                <ImageCarousel images={nawaImages} />
+                            ) : (
+                                <VideoDemo />
+                            )}
+                        </div>
+                    </div>
 
                     <div className="flex flex-col gap-3 mt-auto relative z-10">
                         <Link href="https://instagram.com/nawa.drone.wing" target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 hover:border-mine/50 hover:text-mine text-zinc-400 transition-colors text-sm font-mono">

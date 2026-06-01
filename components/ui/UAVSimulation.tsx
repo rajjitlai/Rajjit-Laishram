@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plane, Crosshair, X, CheckCircle2, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, Battery, AlertTriangle, Map as MapIcon, Volume2, VolumeX, Eye, Camera } from "lucide-react";
+import { Plane, Crosshair, X, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, AlertTriangle, Map as MapIcon, Volume2, VolumeX, Eye, Camera } from "lucide-react";
 import { triggerSystemSignal } from "./SystemToaster";
 
 // --- Sub-Components ---
@@ -84,10 +84,9 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
     // For rendering HUD data (updated less frequently than 60fps)
     const [aceStats, setAceStats] = useState({ battery: 100 });
     const [infStats, setInfStats] = useState({ battery: 100 });
-    const [completedCount, setCompletedCount] = useState(0);
 
     // Mission State
-    const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+    const [, setWaypoints] = useState<Waypoint[]>([]);
     const nextWaypointId = useRef(0);
     const lastMarkedPos = useRef({ x: 5, y: 5 });
     const patternState = useRef({ xDir: 1, yTarget: 5, mode: "horizontal" as "horizontal" | "turning" });
@@ -157,12 +156,9 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
         if (!isOpen) return;
 
         let animationFrameId: number;
-        let lastTime = performance.now();
         let frameCount = 0;
 
-        const loop = (time: number) => {
-            const dt = (time - lastTime) / 1000; // seconds
-            lastTime = time;
+        const loop = () => {
             frameCount++;
 
             // Physics constants
@@ -344,7 +340,6 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                             } else {
                                 completedId = nextTarget.id;
                                 const newWps = currentWps.map(wp => wp.id === nextTarget.id ? { ...wp, status: "completed" as const } : wp);
-                                setCompletedCount(newWps.filter(w => w.status === 'completed').length);
                                 return newWps;
                             }
                         } else {
@@ -532,7 +527,7 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
             cancelAnimationFrame(animationFrameId);
             stopAudio();
         };
-    }, [isOpen, missionMode, isMuted, playDroneHum, stopAudio, playCrashSound, showFPV]);
+    }, [isOpen, missionMode, isMuted, playDroneHum, stopAudio, playCrashSound, showFPV, initAudio]);
 
     // Keyboard Input Listeners
     useEffect(() => {

@@ -151,7 +151,7 @@ export function Experience() {
                             Launched a full-featured blogging platform built with React.js and Appwrite, reaching users at <a href="https://rjsblog.in" target="_blank" rel="noopener noreferrer" className="text-mine hover:underline">rjsblog.in</a>.
                         </p>
                         <div className="flex gap-3">
-                            <span className="text-[10px] bg-mine/20 text-mine px-2 py-0.5 rounded border border-mine/30">NEXTJS</span>
+                            <span className="text-[10px] bg-mine/20 text-mine px-2 py-0.5 rounded border border-mine/30">ReactJS</span>
                             <span className="text-[10px] bg-mine/20 text-mine px-2 py-0.5 rounded border border-mine/30">APPWRITE</span>
                         </div>
                     </div>
