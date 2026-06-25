@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { ImageCarousel } from './ImageCarousel'
 import { VideoDemo } from './VideoDemo'
 import { nawaImages } from '@/lib/systemworks'
+import { ConfidentialMedia } from './ConfidentialMedia'
 
 export function Systems() {
     const [activeTab, setActiveTab] = useState<'carousel' | 'video'>('carousel');
@@ -92,6 +93,10 @@ export function Systems() {
                             <span>[ View Field Documentation ]</span>
                             <FaExternalLinkAlt className="w-3 h-3" />
                         </Link>
+                        <Link href="https://nawagcs-sample.rjsblog.in/" target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 hover:border-mine/50 hover:text-mine text-zinc-400 transition-colors text-sm font-mono">
+                            <span>[ Launch Simulated GCS ]</span>
+                            <FaExternalLinkAlt className="w-3 h-3" />
+                        </Link>
                         <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 text-zinc-600 text-sm font-mono cursor-not-allowed">
                             <span>[ Read Case Study - Coming Soon ]</span>
                         </div>
@@ -113,7 +118,7 @@ export function Systems() {
                     
                     <p className="text-zinc-300 font-semibold mb-4">Enterprise IoT platform with hybrid indoor/outdoor coverage.</p>
                     
-                    <ul className="space-y-3 mb-8 flex-1">
+                    <ul className="space-y-3 mb-6">
                         {[
                             "Hybrid LoRaWAN + Satellite asset tracking prototype",
                             "AI-powered geofencing and restricted zone alerting",
@@ -129,9 +134,18 @@ export function Systems() {
                         ))}
                     </ul>
 
+                    {/* Media Tabs Section (Confidential Overlay) */}
+                    <div className="mb-6">
+                        <ConfidentialMedia />
+                    </div>
+
                     <div className="flex flex-col gap-3 mt-auto relative z-10">
                         <Link href="https://nibiaa.com" target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 hover:border-hers/50 hover:text-hers text-zinc-400 transition-colors text-sm font-mono">
                             <span>[ View Company ]</span>
+                            <FaExternalLinkAlt className="w-3 h-3" />
+                        </Link>
+                        <Link href="https://iot-dashboards.rjsblog.in/" target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 hover:border-hers/50 hover:text-hers text-zinc-400 transition-colors text-sm font-mono">
+                            <span>[ Launch Simulated Monitoring System ]</span>
                             <FaExternalLinkAlt className="w-3 h-3" />
                         </Link>
                     </div>

@@ -116,7 +116,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
+    <html lang="en" data-scroll-behavior="smooth" className="relative" suppressHydrationWarning>
       <head>
         <Script
           strategy="afterInteractive"
@@ -134,7 +134,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body
-        className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} ${outfit.variable} antialiased`}
+        className={`${playwrite.variable} ${merriweather.variable} ${meitei.variable} ${outfit.variable} antialiased relative`}
         suppressHydrationWarning
       >
         <script
