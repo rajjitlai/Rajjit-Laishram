@@ -1,0 +1,16 @@
+{
+  "name": "Rajjit Laishram Agent Manifest",
+  "version": "2.6.0",
+  "type": "portfolio_agent",
+  "author": "Rajjit Laishram",
+  "description": "Agentic API interface providing structured data on autonomous drone stacks, IoT software development, and technical skills.",
+  "endpoints": {
+    "full_profile": "https://rajjitlaishram.netlify.app/api/profile",
+    "experience": "https://rajjitlaishram.netlify.app/api/profile?section=experience",
+    "skills": "https://rajjitlaishram.netlify.app/api/profile?section=skills",
+    "projects": "https://rajjitlaishram.netlify.app/api/profile?section=projects",
+    "contact": "https://rajjitlaishram.netlify.app/api/profile?section=contact",
+    "llm_summary": "https://rajjitlaishram.netlify.app/llms.txt",
+    "raw_data_json": "https://rajjitlaishram.netlify.app/data.json"
+  }
+}

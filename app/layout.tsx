@@ -38,12 +38,13 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "Rajjit Laishram | IoT & Autonomous Systems Developer",
+    default: "Rajjit Laishram | Drone & Autonomous Systems Developer",
     template: "%s | Rajjit Laishram"
   },
-  description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
+  description: "Project Assistant at NIELIT Imphal (Drone Electronics Lab) & Autonomous Systems Developer based in Manipur. Building drone software stacks, custom GCS, AI integration pipelines, and intelligent IoT platforms.",
   keywords: [
-    "Rajjit Laishram", "IoT Developer", "Autonomous Systems",
+    "Rajjit Laishram", "Project Assistant", "NIELIT Imphal", "Drone Electronics Lab",
+    "Autonomous Systems", "GCS Software", "Drone Scripting", "AI Pipelines",
     "Edge AI", "LoRaWAN", "DroneKit", "MAVLink", "OpenCV",
     "YOLO", "Hailo AI", "MCP", "Ollama", "Raspberry Pi",
     "ESP32", "Manipur", "India", "NIDAR"
@@ -54,22 +55,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://rajjitlaishram.netlify.app",
-    title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
-    description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
+    title: "Rajjit Laishram | Drone & Autonomous Systems Developer",
+    description: "Project Assistant at NIELIT Imphal (Drone Electronics Lab) & Autonomous Systems Developer based in Manipur. Building drone software stacks, custom GCS, AI integration pipelines, and intelligent IoT platforms.",
     siteName: "Rajjit Laishram Portfolio",
     images: [
       {
         url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "Rajjit Laishram - IoT Developer",
+        alt: "Rajjit Laishram - Drone & Autonomous Systems Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
-    description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
+    title: "Rajjit Laishram | Drone & Autonomous Systems Developer",
+    description: "Project Assistant at NIELIT Imphal (Drone Electronics Lab) & Autonomous Systems Developer based in Manipur. Building drone software stacks, custom GCS, AI integration pipelines, and intelligent IoT platforms.",
     images: ["/og.png"],
     creator: "@rajjitlai",
   },
@@ -91,21 +92,101 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Rajjit Laishram",
-  "url": "https://rajjitlaishram.netlify.app",
-  "jobTitle": "IoT Software Developer",
-  "sameAs": [
-    "https://www.linkedin.com/in/rajjitlaishram/",
-    "https://github.com/rajjitlai/",
-    "https://instagram.com/rajjitlaishram",
-    "https://facebook.com/rajjitlaishram"
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Manipur",
-    "addressCountry": "IN"
-  }
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://rajjitlaishram.netlify.app/#person",
+      "name": "Rajjit Laishram",
+      "url": "https://rajjitlaishram.netlify.app",
+      "jobTitle": "Project Assistant",
+      "description": "Project Assistant at NIELIT Imphal (Drone Electronics Lab) and Autonomous Systems Engineer specializing in drone software stacks, custom GCS, AI integration pipelines, and intelligent IoT architectures.",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "NIELIT Imphal",
+        "department": "Drone Electronics Lab"
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "NIELIT Imphal"
+      },
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Bachelor of Computer Applications (BCA)",
+          "credentialCategory": "degree",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "NIELIT Imphal"
+          }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Cyber Security Certification",
+          "recognizedBy": {
+            "@type": "EducationalOrganization",
+            "name": "NIELIT Imphal"
+          }
+        }
+      ],
+      "knowsAbout": [
+        "Drone Software Stacks",
+        "Ground Control Station (GCS) Development",
+        "Autonomous Flight Routines",
+        "AI Integration Pipelines",
+        "LoRaWAN & Satellite IoT",
+        "Edge AI & Computer Vision",
+        "MAVLink & DroneKit",
+        "Next.js & TypeScript",
+        "Embedded Systems & ESP32"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/rajjitlaishram/",
+        "https://github.com/rajjitlai/",
+        "https://instagram.com/rajjitlaishram",
+        "https://facebook.com/rajjitlaishram"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Imphal, Manipur",
+        "addressCountry": "IN"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Autonomous Drone System & Custom GCS (NAWA)",
+      "applicationCategory": "FlightControlSoftware",
+      "operatingSystem": "Linux, Embedded, Windows",
+      "author": { "@id": "https://rajjitlaishram.netlify.app/#person" },
+      "description": "Complete autonomous drone software stack from scratch featuring custom Electron GCS, YOLO AI survivor detection, RTSP/MJPEG streaming, and multi-drone coordination."
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://rajjitlaishram.netlify.app/#webpage",
+      "url": "https://rajjitlaishram.netlify.app",
+      "name": "Rajjit Laishram | Project Assistant & Autonomous Systems Developer",
+      "mainEntity": { "@id": "https://rajjitlaishram.netlify.app/#person" },
+      "hasPart": [
+        {
+          "@type": "DigitalDocument",
+          "name": "Profile Raw Data JSON",
+          "url": "https://rajjitlaishram.netlify.app/data.json",
+          "encodingFormat": "application/json"
+        },
+        {
+          "@type": "DigitalDocument",
+          "name": "LLM Summary Specification",
+          "url": "https://rajjitlaishram.netlify.app/llms.txt",
+          "encodingFormat": "text/plain"
+        },
+        {
+          "@type": "DigitalDocument",
+          "name": "AI Agent Discovery Manifest",
+          "url": "https://rajjitlaishram.netlify.app/.well-known/agent.json",
+          "encodingFormat": "application/json"
+        }
+      ]
+    }
+  ]
 };
 
 import { GlobalClientComponents } from "@/components/GlobalClientComponents";

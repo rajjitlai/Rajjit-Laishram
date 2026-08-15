@@ -1,0 +1,53 @@
+# Rajjit Laishram
+
+> Project Assistant at NIELIT Imphal (Drone Electronics Lab) & IoT / Autonomous Systems Developer based in Manipur, India.
+
+## Overview & Bio
+Rajjit Laishram is a systems and software developer specializing in drone software stacks, custom Ground Control Station (GCS) software, autonomous flight routines, and AI integration pipelines. His experience spans embedded systems, edge AI, LoRaWAN/Satellite IoT networks, and full-stack web applications.
+
+- Website: https://rajjitlaishram.netlify.app/
+- Raw JSON Data: https://rajjitlaishram.netlify.app/data.json
+- Contact Email: 20rajjit@gmail.com
+- GitHub: https://github.com/rajjitlai
+- LinkedIn: https://linkedin.com/in/rajjitlaishram
+- Location: Manipur, India
+
+## Current Role
+- **Position**: Project Assistant
+- **Organization**: NIELIT Imphal (Drone Electronics Lab)
+- **Period**: July 2026 – Present
+- **Key Responsibilities & Achievements**:
+  - Developing drone software stacks including custom Ground Control Station (GCS) software, drone scripting, and autonomous flight routines.
+  - Engineering AI integration pipelines and automation logic for intelligent drone operations.
+  - Providing technical project support and software development for drone electronics lab initiatives.
+
+## Experience & Career History
+- **Project Assistant** — NIELIT Imphal (Drone Electronics Lab) (July 2026 – Present)
+  - Developing drone software stacks including custom Ground Control Station (GCS) software, drone scripting, and autonomous flight routines.
+  - Engineering AI integration pipelines and automation logic for intelligent drone operations.
+  - Providing technical project support and software development for drone electronics lab initiatives.
+- **IoT Software Developer** — Nibiaa (July 2025 – July 2026)
+  - Prototyped hybrid LoRaWAN/Satellite asset tracking system with enterprise dashboard.
+  - Built custom AI alerting app with geofencing and anomaly detection integrated into IoT platform.
+  - Developed MCP + Ollama connectivity for offline AI inference inside IoT platforms — fully on-premise.
+  - Customized proprietary IoT mobile app for client-facing device monitoring.
+  - Mentored intern on AI and MCP tool integration in IoT.
+- **Lead Software Engineer** — Nongin Aerial Wings Aid (NAWA) (Mar 2025 – Jan 2026)
+  - Built complete autonomous drone software stack from scratch.
+  - Custom Electron desktop GCS (React + Tailwind CSS), YOLO + Hailo AI survivor detection (~80% accuracy), switchable RTSP/MJPEG video streaming at runtime, and multi-drone coordination.
+  - Completed 215+ real-world flight tests; NIDAR Disaster Management Competition Finalist and Exceptional Journey award winner.
+- **Cybrella • NIELIT Imphal** — Head Developer (Oct 2024 – Nov 2024)
+  - Led development of full-stack web solutions integrating creative design with robust security.
+- **Independent Journey / Freelance** — Full-Stack Developer (2021 – 2025)
+  - Built TreatPath Global (Healthcare platform), SoundiBeat (Music distribution), Cyano Bact (VS Code theme), and RJ's BLOG.
+
+## Core Technical Arsenal & Skills
+- **Languages**: TypeScript, JavaScript, Python, C++, SQL, Bash
+- **Frontend**: Next.js, React, Tailwind CSS, Framer Motion, HTML5/CSS3
+- **Backend**: Node.js, Express, Appwrite, Firebase, REST APIs, WebSockets
+- **IoT & Autonomous Systems**: MAVLink, DroneKit, Edge AI, YOLO, Hailo AI, ESP32, Arduino, Raspberry Pi, MQTT, LoRaWAN, Home Assistant, ROS
+
+## Agentic Access & Endpoints
+- Profile JSON Endpoint: https://rajjitlaishram.netlify.app/data.json
+- Sitemap: https://rajjitlaishram.netlify.app/sitemap.xml
+- LLM Summary: https://rajjitlaishram.netlify.app/llms.txt

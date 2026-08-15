@@ -1,0 +1,11 @@
+/* TEAM */
+Developer: Rajjit Laishram
+Role: Project Assistant & Autonomous Systems Engineer
+Location: Imphal, Manipur, India
+Contact: 20rajjit@gmail.com
+GitHub: https://github.com/rajjitlai
+LinkedIn: https://linkedin.com/in/rajjitlaishram
+
+/* SITE */
+Standards: HTML5, CSS3, ESNext, TypeScript, Next.js, Framer Motion, Tailwind CSS
+Agentic Protocols: llms.txt, OpenGraph Dynamic Image, Schema.org Graph JSON-LD, ai-plugin.json

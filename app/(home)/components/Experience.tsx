@@ -12,22 +12,20 @@ export function Experience() {
                     <div>
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
                             <h4 className="text-xl font-bold text-mine flex items-center gap-2">
-                                IoT Software Developer
+                                Project Assistant
                                 <span className="flex h-2 w-2">
                                     <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-mine opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-mine"></span>
                                 </span>
                             </h4>
-                            <span className="text-sm text-neutral-500 font-mono">July 2025 - Present</span>
+                            <span className="text-sm text-neutral-500 font-mono">July 2026 – Present</span>
                         </div>
-                        <p className="text-neutral-400 font-semibold mb-3">Nibiaa • Imphal, Manipur</p>
+                        <p className="text-neutral-400 font-semibold mb-3">NIELIT Imphal (Drone Electronics Lab)</p>
                         <ul className="space-y-2 list-none">
                             {[
-                                "Prototyped hybrid LoRaWAN/Satellite asset tracking system — simulated dashboard demo for enterprise equipment rental client.",
-                                "Built custom AI alerting app with geofencing and anomaly detection integrated into IoT platform.",
-                                "Developed MCP + Ollama connectivity for offline AI inference inside IoT platforms — fully on-premise.",
-                                "Customized proprietary IoT mobile app for client-facing device monitoring.",
-                                "Mentored intern on AI and MCP tool integration in IoT."
+                                "Developing drone software stacks including custom Ground Control Station (GCS) software, drone scripting, and autonomous flight routines.",
+                                "Engineering AI integration pipelines and automation logic for intelligent drone operations.",
+                                "Providing technical project support and software development for drone electronics lab initiatives."
                             ].map((bullet, i) => (
                                 <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
                                     <span className="text-mine mt-1.5 h-1.5 w-1.5 rounded-full bg-mine shrink-0" />
@@ -39,7 +37,29 @@ export function Experience() {
 
                     <div className="pt-6 border-t border-zinc-800">
                         <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                            <h4 className="text-xl font-bold text-hers">Lead Software Engineer</h4>
+                            <h4 className="text-xl font-bold text-hers">IoT Software Developer</h4>
+                            <span className="text-sm text-neutral-500 font-mono">July 2025 – July 2026</span>
+                        </div>
+                        <p className="text-neutral-400 font-semibold mb-3">Nibiaa • Imphal, Manipur</p>
+                        <ul className="space-y-2 list-none">
+                            {[
+                                "Prototyped hybrid LoRaWAN/Satellite asset tracking system — simulated dashboard demo for enterprise equipment rental client.",
+                                "Built custom AI alerting app with geofencing and anomaly detection integrated into IoT platform.",
+                                "Developed MCP + Ollama connectivity for offline AI inference inside IoT platforms — fully on-premise.",
+                                "Customized proprietary IoT mobile app for client-facing device monitoring.",
+                                "Mentored intern on AI and MCP tool integration in IoT."
+                            ].map((bullet, i) => (
+                                <li key={i} className="flex gap-2 text-neutral-300 text-sm leading-relaxed">
+                                    <span className="text-hers mt-1.5 h-1.5 w-1.5 rounded-full bg-hers shrink-0" />
+                                    {bullet}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    <div className="pt-6 border-t border-zinc-800">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between mb-2">
+                            <h4 className="text-xl font-bold text-mine">Lead Software Engineer</h4>
                             <span className="text-sm text-neutral-500 font-mono">Mar 2025 - Jan 2026</span>
                         </div>
                         <p className="text-neutral-400 font-semibold mb-3">Nongin Aerial Wings Aid (NAWA)</p>

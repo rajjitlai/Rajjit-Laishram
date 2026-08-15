@@ -6,33 +6,31 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: '/setup/',
+                disallow: ['/setup/'],
             },
             {
-                userAgent: 'GPTBot',
-                allow: '/',
-            },
-            {
-                userAgent: 'ChatGPT-User',
-                allow: '/',
-            },
-            {
-                userAgent: 'OAI-SearchBot',
-                allow: '/',
-            },
-            {
-                userAgent: 'Anthropic-ai',
-                allow: '/',
-            },
-            {
-                userAgent: 'CCBot',
-                allow: '/',
-            },
-            {
-                userAgent: 'PerplexityBot',
-                allow: '/',
+                userAgent: [
+                    'GPTBot',
+                    'ChatGPT-User',
+                    'OAI-SearchBot',
+                    'Anthropic-ai',
+                    'ClaudeBot',
+                    'Claude-Web',
+                    'PerplexityBot',
+                    'Google-Extended',
+                    'Applebot-Extended',
+                    'Amazonbot',
+                    'ByteSpider',
+                    'CCBot',
+                    'cohere-ai',
+                    'Meta-ExternalAgent',
+                    'Diffbot',
+                ],
+                allow: ['/', '/data.json', '/llms.txt'],
+                disallow: ['/setup/'],
             },
         ],
         sitemap: 'https://rajjitlaishram.netlify.app/sitemap.xml',
     }
 }
+

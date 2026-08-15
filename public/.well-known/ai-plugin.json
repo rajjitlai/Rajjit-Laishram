@@ -1,0 +1,18 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Rajjit Laishram Portfolio Agent",
+  "name_for_model": "rajjit_portfolio",
+  "description_for_human": "Query information about Rajjit Laishram's drone engineering, IoT systems, skills, and portfolio.",
+  "description_for_model": "Plugin for accessing Rajjit Laishram's career history, drone software projects (GCS, MAVLink, Hailo AI), IoT architectures (LoRaWAN, MCP, Ollama), technical skills, and contact details.",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://rajjitlaishram.netlify.app/api/profile",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://rajjitlaishram.netlify.app/logo.svg",
+  "contact_email": "20rajjit@gmail.com",
+  "legal_info_url": "https://rajjitlaishram.netlify.app/"
+}

@@ -114,7 +114,7 @@ export function Systems() {
                         <h3 className='text-[10px] uppercase tracking-[0.5em] font-black text-hers'>SYS_02</h3>
                     </div>
                     <h4 className="text-2xl font-black text-white mb-2">IOT MONITORING INFRASTRUCTURE</h4>
-                    <p className="text-zinc-500 text-sm font-mono mb-6">Nibiaa · 2025 – Present</p>
+                    <p className="text-zinc-500 text-sm font-mono mb-6">Nibiaa · July 2025 – July 2026</p>
                     
                     <p className="text-zinc-300 font-semibold mb-4">Enterprise IoT platform with hybrid indoor/outdoor coverage.</p>
                     

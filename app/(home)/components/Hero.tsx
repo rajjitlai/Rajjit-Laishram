@@ -57,7 +57,7 @@ const Hero = React.memo(function Hero() {
                 </div>
 
                 <p className='max-w-xl text-lg text-zinc-400 font-outfit leading-relaxed'>
-                    {"An IoT Software Developer based in Manipur, I specialize in building the software layer between physical hardware and intelligent decision systems — from embedded edge devices to autonomous drone systems and AI-driven IoT platforms."}
+                    {"Project Assistant at NIELIT Imphal (Drone Electronics Lab) & Autonomous Systems Developer based in Manipur. I specialize in building the software layer between physical hardware and intelligent decision systems — from custom Ground Control Stations (GCS) and autonomous drone stacks to embedded edge devices and AI-driven IoT platforms."}
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-5 items-center w-full">

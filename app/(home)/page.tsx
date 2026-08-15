@@ -3,8 +3,8 @@ import HomeContent from "./components/HomeContent";
 import { getProjects } from "@/lib/getProjects";
 
 export const metadata: Metadata = {
-  title: "Rajjit Laishram | IoT & Autonomous Systems Developer",
-  description: "IoT Software Developer and Autonomous Systems Engineer based in Manipur. Building the software layer between hardware and intelligent decision systems — LoRaWAN, Edge AI, Drone Systems, MCP/Ollama.",
+  title: "Rajjit Laishram | Drone & Autonomous Systems Engineer",
+  description: "Project Assistant at NIELIT Imphal (Drone Electronics Lab) & Autonomous Systems Developer based in Manipur. Building drone software stacks, custom GCS, AI integration pipelines, and intelligent IoT platforms.",
 };
 
 export default async function page() {
