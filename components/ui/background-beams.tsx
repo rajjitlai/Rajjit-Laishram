@@ -87,25 +87,37 @@ export const BackgroundBeams = React.memo(
                         strokeWidth="0.5"
                     ></path>
 
+                    {/* Static Grid Layer (0 Animation Cost) */}
                     {paths.map((path, index) => (
-                        <motion.path
-                            key={`path-` + index}
+                        <path
+                            key={`static-path-` + index}
                             d={path}
                             stroke="url(#sharedLinearGradient)"
-                            strokeOpacity="0.15"
-                            strokeWidth="1"
-                            initial={{ pathLength: 0.1, pathOffset: -0.1 }}
+                            strokeOpacity="0.06"
+                            strokeWidth="0.5"
+                        />
+                    ))}
+
+                    {/* High-Performance Animated Tracers (6 active streams instead of 50) */}
+                    {[0, 8, 16, 24, 32, 40, 48].map((pathIndex, i) => (
+                        <motion.path
+                            key={`tracer-path-` + pathIndex}
+                            d={paths[pathIndex]}
+                            stroke="url(#sharedLinearGradient)"
+                            strokeOpacity="0.4"
+                            strokeWidth="1.2"
+                            initial={{ pathLength: 0.15, pathOffset: -0.1 }}
                             animate={{
                                 pathOffset: [0, 1.2],
                                 opacity: [0, 1, 1, 0]
                             }}
                             transition={{
-                                duration: Math.random() * 10 + 15,
+                                duration: 16 + i * 2,
                                 ease: "linear",
                                 repeat: Infinity,
-                                delay: Math.random() * 10,
+                                delay: i * 2.5,
                             }}
-                        ></motion.path>
+                        />
                     ))}
                     <defs>
                         <linearGradient id="sharedLinearGradient" x1="0%" y1="0%" x2="100%" y2="100%">

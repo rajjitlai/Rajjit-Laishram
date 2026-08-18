@@ -19,8 +19,8 @@ export const AtmosphericPulse = React.memo(function AtmosphericPulse() {
             }, 4000);
         };
 
-        window.addEventListener("mousemove", handleMouseMove);
-        const interval = setInterval(createPulse, 8000); // Pulse every 8 seconds
+        window.addEventListener("mousemove", handleMouseMove, { passive: true });
+        const interval = setInterval(createPulse, 9000); // Pulse every 9 seconds
 
         return () => {
             window.removeEventListener("mousemove", handleMouseMove);
@@ -41,17 +41,14 @@ export const AtmosphericPulse = React.memo(function AtmosphericPulse() {
                             opacity: 0
                         }}
                         animate={{
-                            scale: [0, 10],
-                            opacity: [0, 0.1, 0]
+                            scale: [0, 3.5],
+                            opacity: [0, 0.25, 0]
                         }}
                         transition={{
-                            duration: 4,
+                            duration: 3.5,
                             ease: "easeOut"
                         }}
-                        className="absolute w-40 h-40 -translate-x-1/2 -translate-y-1/2 border-[2px] border-mine/20 rounded-full will-change-transform"
-                        style={{
-                            boxShadow: "0 0 50px rgba(56, 255, 66, 0.1)"
-                        }}
+                        className="absolute w-32 h-32 -translate-x-1/2 -translate-y-1/2 border border-mine/30 rounded-full will-change-transform transform-gpu pointer-events-none"
                     />
                 ))}
             </AnimatePresence>

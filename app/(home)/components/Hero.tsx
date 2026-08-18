@@ -25,13 +25,13 @@ const Hero = React.memo(function Hero() {
     };
 
     const floatingIcons = [
-        { Icon: SiArduino, color: "text-[#00979D]", initialX: -160, initialY: -100, delay: 0 },
-        { Icon: SiRaspberrypi, color: "text-[#C51A4A]", initialX: 160, initialY: -80, delay: 0.5 },
-        { Icon: SiPython, color: "text-[#3776AB]", initialX: -140, initialY: 80, delay: 1 },
-        { Icon: SiReact, color: "text-[#61DAFB]", initialX: 180, initialY: 100, delay: 1.5 },
-        { Icon: SiNextdotjs, color: "text-white", initialX: 0, initialY: -160, delay: 2 },
-        { Icon: SiTypescript, color: "text-[#3178C6]", initialX: -180, initialY: 0, delay: 2.5 },
-        { Icon: SiCplusplus, color: "text-[#00599C]", initialX: 150, initialY: 20, delay: 3 },
+        { Icon: SiArduino, color: "text-[#00979D]", initialX: -160, initialY: -100, delay: 0, duration: 5 },
+        { Icon: SiRaspberrypi, color: "text-[#C51A4A]", initialX: 160, initialY: -80, delay: 0.5, duration: 6 },
+        { Icon: SiPython, color: "text-[#3776AB]", initialX: -140, initialY: 80, delay: 1, duration: 5.5 },
+        { Icon: SiReact, color: "text-[#61DAFB]", initialX: 180, initialY: 100, delay: 1.5, duration: 6.5 },
+        { Icon: SiNextdotjs, color: "text-white", initialX: 0, initialY: -160, delay: 2, duration: 5.2 },
+        { Icon: SiTypescript, color: "text-[#3178C6]", initialX: -180, initialY: 0, delay: 2.5, duration: 5.8 },
+        { Icon: SiCplusplus, color: "text-[#00599C]", initialX: 150, initialY: 20, delay: 3, duration: 6.2 },
     ];
 
     return (
@@ -112,7 +112,7 @@ const Hero = React.memo(function Hero() {
                                         y: (hasMounted && window.innerWidth < 768) ? item.initialY * 0.6 : item.initialY,
                                     }}
                                     transition={{
-                                        duration: hasMounted ? 4 + Math.random() * 2 : 5,
+                                        duration: item.duration,
                                         repeat: Infinity,
                                         ease: "easeInOut",
                                         delay: item.delay

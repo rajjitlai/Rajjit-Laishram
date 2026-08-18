@@ -48,21 +48,13 @@ const Drone = ({ id, index, mode, dimensions, mousePos, manualPos, anomalies, on
     // Battery display transforms
     const batteryWidth = useTransform(battery, [0, 100], ["0%", "100%"]);
     const batteryColor = useTransform(battery, [0, 20, 21, 100], ["#ef4444", "#ef4444", "#38ff42", "#38ff42"]); // Red below 20%, Green above
-    
-    // Local state just for conditional rendering (Lidar cone, text)
-    const [chargingState, setChargingState] = useState(false);
-    useEffect(() => {
-        return isRecharging.on("change", (v) => setChargingState(v));
-    }, [isRecharging]);
+    const planeColor = useTransform(battery, (v) => v < 20 ? "#ef4444" : "rgba(56, 255, 66, 0.7)");
+    const batteryShadow = useTransform(battery, (v) => v < 20 ? "0 0 5px #ef4444" : "0 0 5px #38ff42");
+    const chargingPadOpacity = useTransform(isRecharging, (v) => v ? 0.6 : 0);
 
-    const [isLowBattery, setIsLowBattery] = useState(false);
-    useEffect(() => {
-        return battery.on("change", (v) => setIsLowBattery(v < 20));
-    }, [battery]);
-
-    // Logic loop
+    // Logic loop - Zero React re-renders
     useAnimationFrame((t, delta) => {
-        if (!dimensions.width) return;
+        if (!dimensions.width || typeof document !== "undefined" && document.hidden) return;
         
         let targetX = x.get();
         let targetY = y.get();
@@ -204,20 +196,20 @@ const Drone = ({ id, index, mode, dimensions, mousePos, manualPos, anomalies, on
             }}
         >
             <div className="relative flex items-center justify-center w-12 h-12">
-                
                 {/* Landing Pad Effect when charging */}
-                {chargingState && (
-                    <motion.div 
-                        className="absolute inset-0 bg-mine/10 rounded-full border border-mine/30"
-                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0.2, 0.5] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                    />
-                )}
+                <motion.div 
+                    className="absolute inset-0 bg-mine/10 rounded-full border border-mine/30 pointer-events-none"
+                    style={{ opacity: chargingPadOpacity }}
+                    animate={{ scale: [1, 1.5, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                />
 
-                <Plane className={`w-8 h-8 md:w-10 md:h-10 transition-colors ${isLowBattery ? 'text-red-500' : 'text-mine/70'}`} />
+                <motion.div style={{ color: planeColor }}>
+                    <Plane className="w-8 h-8 md:w-10 md:h-10 transition-colors" />
+                </motion.div>
                 
                 {/* Lidar Cone in Scan mode */}
-                {mode === "scan" && !chargingState && (
+                {mode === "scan" && (
                     <motion.div 
                         className="absolute top-1/2 left-1/2 w-[200px] h-[200px] bg-gradient-to-b from-mine/10 to-transparent origin-top -translate-x-1/2 -z-10"
                         style={{ clipPath: 'polygon(50% 0, 0 100%, 100% 100%)' }}
@@ -227,7 +219,7 @@ const Drone = ({ id, index, mode, dimensions, mousePos, manualPos, anomalies, on
                 )}
 
                 {/* Engine Trail */}
-                {(mode === "intercept" || mode === "manual" || mode === "escort") && !chargingState && (
+                {(mode === "intercept" || mode === "manual" || mode === "escort") && (
                     <motion.div 
                         className="absolute w-2 h-2 rounded-full bg-mine/80 blur-[2px] -z-10"
                         animate={{ scale: [1, 0], opacity: [0.8, 0] }}
@@ -237,12 +229,16 @@ const Drone = ({ id, index, mode, dimensions, mousePos, manualPos, anomalies, on
 
                 <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
                     <span className="text-[8px] font-mono text-mine/90 bg-black/80 px-1.5 py-0.5 border border-mine/30 whitespace-nowrap backdrop-blur-md rounded-sm">
-                        {id} {chargingState ? "[CHG]" : ""}
+                        {id}
                     </span>
                     <div className="w-8 h-1 bg-black/80 border border-mine/30 rounded-full overflow-hidden">
                         <motion.div 
-                            className={`h-full ${isLowBattery ? 'shadow-[0_0_5px_red]' : 'shadow-[0_0_5px_#38ff42]'}`} 
-                            style={{ width: batteryWidth, backgroundColor: batteryColor }} 
+                            className="h-full"
+                            style={{ 
+                                width: batteryWidth, 
+                                backgroundColor: batteryColor,
+                                boxShadow: batteryShadow 
+                            }} 
                         />
                     </div>
                 </div>

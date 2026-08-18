@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plane, Crosshair, X, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, AlertTriangle, Map as MapIcon, Volume2, VolumeX, Eye, Camera } from "lucide-react";
+import { Plane, Crosshair, X, ChevronUp, ChevronDown, ChevronLeft, ChevronRight, AlertTriangle, Map as MapIcon, Volume2, VolumeX, Eye, Camera, RotateCcw } from "lucide-react";
 import { triggerSystemSignal } from "./SystemToaster";
 
 // --- Sub-Components ---
@@ -80,6 +80,17 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
     const [isCrashed, setIsCrashed] = useState(false);
     const crashedStateRef = useRef(false);
     const dogfightTimerRef = useRef(0);
+    const [dogfightWinner, setDogfightWinner] = useState<string | null>(null);
+    const [dogfightStatusText, setDogfightStatusText] = useState<string>("SCRAMBLE");
+    const dogfightStateRef = useRef<{
+        role: "INF_HUNTER" | "ACE_HUNTER" | "SCRAMBLE" | "ORBIT";
+        nextSwitchTime: number;
+        winner: string | null;
+    }>({
+        role: "SCRAMBLE",
+        nextSwitchTime: 0,
+        winner: null,
+    });
 
     // For rendering HUD data (updated less frequently than 60fps)
     const [aceStats, setAceStats] = useState({ battery: 100 });
@@ -142,12 +153,70 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
         osc.stop(audioCtx.current.currentTime + 0.3);
     }, [isMuted]);
 
+    // Comprehensive Simulation Restart Function
+    const handleRestartSimulation = useCallback(() => {
+        // Reset positions, velocity, rotation and 100% battery
+        aceRef.current = { x: 5, y: 5, vx: 0, vy: 0, rot: 0, battery: 100 };
+        infRef.current = { x: 95, y: 95, vx: 0, vy: 0, rot: 0, battery: 100 };
+        
+        // Reset traces
+        aceTraceRef.current = [];
+        infTraceRef.current = [];
+        if (acePolylineRef.current) acePolylineRef.current.setAttribute('points', '');
+        if (infPolylineRef.current) infPolylineRef.current.setAttribute('points', '');
+
+        // Reset Waypoints & patterns
+        setWaypoints([]);
+        lastMarkedPos.current = { x: 5, y: 5 };
+        patternState.current = { xDir: 1, yTarget: 5, mode: "horizontal" };
+        sweepTargets.current = { ace: { x: 20, y: 20 }, inf: { x: 80, y: 80 } };
+        
+        // Reset states
+        crashedStateRef.current = false;
+        dogfightTimerRef.current = 0;
+        dogfightStateRef.current = { role: "SCRAMBLE", nextSwitchTime: 0, winner: null };
+        setDogfightWinner(null);
+        setDogfightStatusText("SCRAMBLE");
+        setIsCrashed(false);
+        setCollisionWarning(false);
+        setAceStats({ battery: 100 });
+        setInfStats({ battery: 100 });
+        setFpvPos({ x: 5, y: 5 });
+        
+        // Update DOM positions immediately
+        if (aceDroneRef.current) {
+            aceDroneRef.current.style.left = '5%';
+            aceDroneRef.current.style.top = '5%';
+            const img = aceDroneRef.current.querySelector('img') || aceDroneRef.current.querySelector('svg');
+            if (img) img.style.transform = 'rotate(0deg)';
+        }
+        if (infDroneRef.current) {
+            infDroneRef.current.style.left = '95%';
+            infDroneRef.current.style.top = '95%';
+            const img = infDroneRef.current.querySelector('img') || infDroneRef.current.querySelector('svg');
+            if (img) img.style.transform = 'rotate(0deg)';
+        }
+
+        triggerSystemSignal("SIMULATION_RESTARTED: ALL_SYSTEMS_NOMINAL", "success");
+    }, []);
+
+    // Listen for external reset event
+    useEffect(() => {
+        const handleExternalReset = () => {
+            if (isOpen) handleRestartSimulation();
+        };
+        window.addEventListener("UAV_SIM_RESET", handleExternalReset);
+        return () => window.removeEventListener("UAV_SIM_RESET", handleExternalReset);
+    }, [isOpen, handleRestartSimulation]);
+
     // Reset crash state when changing modes
     useEffect(() => {
         if (missionMode !== "dogfight") {
             crashedStateRef.current = false;
             setIsCrashed(false);
             dogfightTimerRef.current = 0;
+            dogfightStateRef.current = { role: "SCRAMBLE", nextSwitchTime: 0, winner: null };
+            setDogfightWinner(null);
         }
     }, [missionMode]);
 
@@ -161,10 +230,10 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
         const loop = () => {
             frameCount++;
 
-            // Physics constants
-            const ACCEL = 0.3; // % per frame squared
-            const FRICTION = 0.92;
-            const MAX_SPEED = 2.0;
+            // Physics constants - Tuned for smooth, realistic, controllable flight
+            const ACCEL = 0.08; // % per frame squared (smooth progressive thrust)
+            const FRICTION = 0.95; // Aerodynamic smooth glide
+            const MAX_SPEED = 0.70; // Controllable realistic speed ceiling
 
             const handlePhysics = (id: 'ACE' | 'INF', droneRef: typeof aceRef, keyMap: { up: string, down: string, left: string, right: string }) => {
                 let { x, y, vx, vy, rot, battery } = droneRef.current;
@@ -257,8 +326,8 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
             } else if (missionMode === "survey") {
                 // 1. ACE Lawnmower Auto Patrol
                 let { x: ax, y: ay, vx: avx, vy: avy, rot: aRot, battery: aBat } = aceRef.current;
-                const step = 0.15; // Adjusted for 60fps
-
+                const step = 0.10; // Tuned for smooth, realistic scanning
+                
                 if (aBat > 0) {
                     if (patternState.current.mode === "horizontal") {
                         if (patternState.current.xDir === 1) {
@@ -317,7 +386,7 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                             const iDist = Math.sqrt(iDx * iDx + iDy * iDy);
 
                             if (iDist > 1.5) {
-                                const iStep = 0.25; // INF Speed
+                                const iStep = 0.14; // INF Speed tuned for smooth pacing
                                 ivx = (iDx / iDist) * iStep;
                                 ivy = (iDy / iDist) * iStep;
 
@@ -373,7 +442,7 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                             target.x = 5 + Math.random() * 90;
                             target.y = 5 + Math.random() * 90;
                         } else {
-                            const step = id === 'ACE' ? 0.35 : 0.45;
+                            const step = id === 'ACE' ? 0.18 : 0.22;
                             vx = (dx / dist) * step;
                             vy = (dy / dist) * step;
 
@@ -398,100 +467,192 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                 let { x: ax, y: ay, vx: avx, vy: avy, rot: aRot, battery: aBat } = aceRef.current;
                 let { x: ix, y: iy, vx: ivx, vy: ivy, rot: iRot, battery: iBat } = infRef.current;
 
-                const dist = Math.sqrt(Math.pow(ax - ix, 2) + Math.pow(ay - iy, 2));
+                const dx = ix - ax;
+                const dy = iy - ay;
+                const dist = Math.sqrt(dx * dx + dy * dy);
 
-                if (dist < 3 && !crashedStateRef.current) {
+                const now = Date.now();
+                if (dogfightTimerRef.current === 0) {
+                    dogfightTimerRef.current = now;
+                    dogfightStateRef.current = {
+                        role: Math.random() > 0.5 ? "INF_HUNTER" : "ACE_HUNTER",
+                        nextSwitchTime: now + 3500 + Math.random() * 3000,
+                        winner: null
+                    };
+                    setDogfightStatusText(dogfightStateRef.current.role === "INF_HUNTER" ? "INF LOCK ON ACE" : "ACE LOCK ON INF");
+                }
+
+                // Dynamic Role Reversals & Tactical Jousting
+                if (now > dogfightStateRef.current.nextSwitchTime && !crashedStateRef.current) {
+                    const roles = ["INF_HUNTER", "ACE_HUNTER", "SCRAMBLE", "ORBIT"] as const;
+                    const currentRole = dogfightStateRef.current.role;
+                    const availableRoles = roles.filter(r => r !== currentRole);
+                    const newRole = availableRoles[Math.floor(Math.random() * availableRoles.length)];
+
+                    dogfightStateRef.current.role = newRole;
+                    dogfightStateRef.current.nextSwitchTime = now + 4000 + Math.random() * 4500;
+                    
+                    if (newRole === "INF_HUNTER") setDogfightStatusText("TACTICAL SHIFT: INF PURSUIT");
+                    else if (newRole === "ACE_HUNTER") setDogfightStatusText("TACTICAL SHIFT: ACE PURSUIT");
+                    else if (newRole === "SCRAMBLE") setDogfightStatusText("TACTICAL JOUST // SCRAMBLE");
+                    else setDogfightStatusText("HIGH-G COMBAT SPIRAL");
+
+                    triggerSystemSignal(`DOGFIGHT: ${newRole}`, "info");
+                }
+
+                const currentRole = dogfightStateRef.current.role;
+
+                // Check for Intercept (Hunter must close in with tactical alignment)
+                if (dist < 3.2 && !crashedStateRef.current) {
                     crashedStateRef.current = true;
                     setIsCrashed(true);
-                    triggerSystemSignal("TARGET INTERCEPTED! DOGFIGHT ENDED", "error");
+                    
+                    const winner = currentRole === "INF_HUNTER" ? "INF" : currentRole === "ACE_HUNTER" ? "ACE" : (Math.random() > 0.5 ? "ACE" : "INF");
+                    setDogfightWinner(winner);
+                    dogfightStateRef.current.winner = winner;
+
+                    triggerSystemSignal(`INTERCEPT CONFIRMED: ${winner} WINS DOGFIGHT!`, "error");
                     playCrashSound();
                 } else if (!crashedStateRef.current) {
-                    if (aBat > 0) {
-                        // Dogfight Timing
-                        if (dogfightTimerRef.current === 0) dogfightTimerRef.current = Date.now();
-                        const elapsed = Date.now() - dogfightTimerRef.current;
-                        const isFatigued = elapsed > 10000; // After 10 seconds, ACE slows down
+                    const invDist = 1 / Math.max(dist, 0.5);
+                    const elapsed = now - dogfightTimerRef.current;
 
-                        // ACE Evasion AI (Dash, Zig-Zag, and Drag)
-                        const dx = ax - ix;
-                        const dy = ay - iy;
-                        const invDist = 1 / Math.max(dist, 1);
-                        
-                        // Base evasion (run away)
-                        avx += (dx * invDist) * 0.08; 
-                        avy += (dy * invDist) * 0.08;
+                    if (currentRole === "INF_HUNTER") {
+                        // INF chases ACE with lead-prediction
+                        const leadX = ax + avx * 6;
+                        const leadY = ay + avy * 6;
+                        const ldx = leadX - ix;
+                        const ldy = leadY - iy;
+                        const lDist = Math.sqrt(ldx * ldx + ldy * ldy) || 1;
 
-                        // Perpendicular Evasive Zig-Zag! (Cross product of dx,dy)
-                        const dodgePower = isFatigued ? 0.02 : 0.08;
-                        avx += (-dy * invDist) * Math.sin(elapsed / 250) * dodgePower;
-                        avy += (dx * invDist) * Math.sin(elapsed / 250) * dodgePower;
+                        ivx += (ldx / lDist) * 0.08;
+                        ivy += (ldy / lDist) * 0.08;
 
-                        // Seek center
-                        avx += (50 - ax) * 0.015;
-                        avy += (50 - ay) * 0.015;
-                        
-                        // Wall repulsion
-                        if (ax < 20) avx += 0.3; if (ax > 80) avx -= 0.3;
-                        if (ay < 20) avy += 0.3; if (ay > 80) avy -= 0.3;
-                        
-                        // Random high-speed DASH (~1.5 seconds), disabled if fatigued
-                        if (!isFatigued && Math.random() < 0.02) {
-                            avx += (dx * invDist) * 3.5; 
-                            avy += (dy * invDist) * 3.5;
+                        // ACE Evasive corkscrews and brake-maneuvers
+                        avx -= (dx * invDist) * 0.07;
+                        avy -= (dy * invDist) * 0.07;
+                        // Lateral weave
+                        avx += (-dy * invDist) * Math.sin(elapsed / 250) * 0.09;
+                        avy += (dx * invDist) * Math.sin(elapsed / 250) * 0.09;
+
+                        // Random ACE emergency air-brake / feint
+                        if (Math.random() < 0.015) {
+                            avx *= 0.3;
+                            avy *= 0.3;
+                            avx += (-dy * invDist) * 1.1;
+                            avy += (dx * invDist) * 1.1;
                         }
+                    } else if (currentRole === "ACE_HUNTER") {
+                        // ACE chases INF with lead-prediction
+                        const leadX = ix + ivx * 6;
+                        const leadY = iy + ivy * 6;
+                        const ldx = leadX - ax;
+                        const ldy = leadY - ay;
+                        const lDist = Math.sqrt(ldx * ldx + ldy * ldy) || 1;
 
-                        // Organic Drag (allows bursts of speed that naturally slow down)
-                        // If fatigued, drag becomes extremely high to slow ACE down
-                        avx *= isFatigued ? 0.80 : 0.90;
-                        avy *= isFatigued ? 0.80 : 0.90;
+                        avx += (ldx / lDist) * 0.08;
+                        avy += (ldy / lDist) * 0.08;
 
-                        ax += avx; ay += avy;
+                        // INF Evasive corkscrews
+                        ivx += (dx * invDist) * 0.07;
+                        ivy += (dy * invDist) * 0.07;
+                        // Lateral weave
+                        ivx += (-dy * invDist) * Math.sin(elapsed / 250) * 0.09;
+                        ivy += (dx * invDist) * Math.sin(elapsed / 250) * 0.09;
 
-                        // Prevent leaving bounds
-                        if (ax < 5) ax = 5; if (ax > 95) ax = 95;
-                        if (ay < 5) ay = 5; if (ay > 95) ay = 95;
-
-                        aRot = Math.atan2(avy, avx) * (180 / Math.PI) + 90;
-                        aBat = Math.max(0, aBat - 0.02);
-
-                        aceRef.current = { x: ax, y: ay, vx: avx, vy: avy, rot: aRot, battery: aBat };
-
-                        if (aceDroneRef.current) {
-                            aceDroneRef.current.style.left = `${ax}%`;
-                            aceDroneRef.current.style.top = `${ay}%`;
-                            const img = aceDroneRef.current.querySelector('img') || aceDroneRef.current.querySelector('svg');
-                            if (img) img.style.transform = `rotate(${aRot}deg)`;
+                        // Random INF emergency feint
+                        if (Math.random() < 0.015) {
+                            ivx *= 0.3;
+                            ivy *= 0.3;
+                            ivx += (-dy * invDist) * 1.1;
+                            ivy += (dx * invDist) * 1.1;
                         }
+                    } else if (currentRole === "SCRAMBLE") {
+                        // Jousting: Both rush each other then bank hard at the last second
+                        if (dist > 18) {
+                            avx += (dx * invDist) * 0.10;
+                            avy += (dy * invDist) * 0.10;
+                            ivx -= (dx * invDist) * 0.10;
+                            ivy -= (dy * invDist) * 0.10;
+                        } else {
+                            // Sudden near-miss banking
+                            avx += (-dy * invDist) * 0.18;
+                            avy += (dx * invDist) * 0.18;
+                            ivx -= (-dy * invDist) * 0.18;
+                            ivy -= (dx * invDist) * 0.18;
+                        }
+                    } else if (currentRole === "ORBIT") {
+                        // Combat Circle around dynamic centroid
+                        avx += (-dy * invDist) * 0.12 + (50 - ax) * 0.005;
+                        avy += (dx * invDist) * 0.12 + (50 - ay) * 0.005;
+                        ivx += (dy * invDist) * 0.12 + (50 - ix) * 0.005;
+                        ivy += (-dx * invDist) * 0.12 + (50 - iy) * 0.005;
                     }
 
-                    if (iBat > 0) {
-                        // INF Pursuit AI (Organic Acceleration)
-                        const dx = ax - ix;
-                        const dy = ay - iy;
+                    // Wall Repulsion for both drones
+                    const addWallForces = (x: number, y: number, vx: number, vy: number) => {
+                        let nvx = vx;
+                        let nvy = vy;
+                        if (x < 15) nvx += 0.15; if (x > 85) nvx -= 0.15;
+                        if (y < 15) nvy += 0.15; if (y > 85) nvy -= 0.15;
+                        return { vx: nvx, vy: nvy };
+                    };
 
-                        // Accelerate towards ACE
-                        ivx += (dx / dist) * 0.12;
-                        ivy += (dy / dist) * 0.12;
+                    const aceWalls = addWallForces(ax, ay, avx, avy);
+                    avx = aceWalls.vx; avy = aceWalls.vy;
 
-                        // Less drag than ACE, so INF has a higher steady top speed to catch up
-                        ivx *= 0.93;
-                        ivy *= 0.93;
+                    const infWalls = addWallForces(ix, iy, ivx, ivy);
+                    ivx = infWalls.vx; ivy = infWalls.vy;
 
-                        ix += ivx; iy += ivy;
-                        iRot = Math.atan2(ivy, ivx) * (180 / Math.PI) + 90;
-                        iBat = Math.max(0, iBat - 0.025);
-
-                        infRef.current = { x: ix, y: iy, vx: ivx, vy: ivy, rot: iRot, battery: iBat };
-
-                        if (infDroneRef.current) {
-                            infDroneRef.current.style.left = `${ix}%`;
-                            infDroneRef.current.style.top = `${iy}%`;
-                            const img = infDroneRef.current.querySelector('img') || infDroneRef.current.querySelector('svg');
-                            if (img) img.style.transform = `rotate(${iRot}deg)`;
+                    // Organic Drag & Controlled Speed Limits
+                    const MAX_DOGFIGHT_SPEED = 1.15;
+                    const limitSpeed = (vx: number, vy: number) => {
+                        const s = Math.sqrt(vx * vx + vy * vy);
+                        if (s > MAX_DOGFIGHT_SPEED) {
+                            return { vx: (vx / s) * MAX_DOGFIGHT_SPEED, vy: (vy / s) * MAX_DOGFIGHT_SPEED };
                         }
+                        return { vx: vx * 0.94, vy: vy * 0.94 };
+                    };
+
+                    const aceL = limitSpeed(avx, avy);
+                    avx = aceL.vx; avy = aceL.vy;
+
+                    const infL = limitSpeed(ivx, ivy);
+                    ivx = infL.vx; ivy = infL.vy;
+
+                    ax += avx; ay += avy;
+                    ix += ivx; iy += ivy;
+
+                    // Clamp to boundary
+                    ax = Math.max(5, Math.min(95, ax));
+                    ay = Math.max(5, Math.min(95, ay));
+                    ix = Math.max(5, Math.min(95, ix));
+                    iy = Math.max(5, Math.min(95, iy));
+
+                    aRot = Math.atan2(avy, avx) * (180 / Math.PI) + 90;
+                    iRot = Math.atan2(ivy, ivx) * (180 / Math.PI) + 90;
+
+                    aBat = Math.max(0, aBat - 0.015);
+                    iBat = Math.max(0, iBat - 0.015);
+
+                    aceRef.current = { x: ax, y: ay, vx: avx, vy: avy, rot: aRot, battery: aBat };
+                    infRef.current = { x: ix, y: iy, vx: ivx, vy: ivy, rot: iRot, battery: iBat };
+
+                    if (aceDroneRef.current) {
+                        aceDroneRef.current.style.left = `${ax}%`;
+                        aceDroneRef.current.style.top = `${ay}%`;
+                        const img = aceDroneRef.current.querySelector('img') || aceDroneRef.current.querySelector('svg');
+                        if (img) img.style.transform = `rotate(${aRot}deg)`;
                     }
-                    playDroneHum("ACE", 160, 0.8);
-                    playDroneHum("INF", 180, 0.8);
+                    if (infDroneRef.current) {
+                        infDroneRef.current.style.left = `${ix}%`;
+                        infDroneRef.current.style.top = `${iy}%`;
+                        const img = infDroneRef.current.querySelector('img') || infDroneRef.current.querySelector('svg');
+                        if (img) img.style.transform = `rotate(${iRot}deg)`;
+                    }
+
+                    playDroneHum("ACE", 150 + Math.sqrt(avx * avx + avy * avy) * 20, 0.7);
+                    playDroneHum("INF", 150 + Math.sqrt(ivx * ivx + ivy * ivy) * 20, 0.7);
                 }
             }
 
@@ -531,16 +692,28 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
 
     // Keyboard Input Listeners
     useEffect(() => {
-        if (missionMode !== "manual" || !isOpen) return;
-        const downHandler = (e: KeyboardEvent) => { keys.current[e.key.toLowerCase()] = true; };
-        const upHandler = (e: KeyboardEvent) => { keys.current[e.key.toLowerCase()] = false; };
+        if (!isOpen) return;
+        const downHandler = (e: KeyboardEvent) => {
+            if (e.key.toLowerCase() === 'r' && !e.ctrlKey && !e.metaKey) {
+                handleRestartSimulation();
+                return;
+            }
+            if (missionMode === "manual") {
+                keys.current[e.key.toLowerCase()] = true;
+            }
+        };
+        const upHandler = (e: KeyboardEvent) => {
+            if (missionMode === "manual") {
+                keys.current[e.key.toLowerCase()] = false;
+            }
+        };
         window.addEventListener('keydown', downHandler);
         window.addEventListener('keyup', upHandler);
         return () => {
             window.removeEventListener('keydown', downHandler);
             window.removeEventListener('keyup', upHandler);
         };
-    }, [missionMode, isOpen]);
+    }, [missionMode, isOpen, handleRestartSimulation]);
 
     // Trace Cleanup effect
     useEffect(() => {
@@ -581,7 +754,24 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                         </div>
                     )}
 
+                    {missionMode === "dogfight" && (
+                        <div className="hidden xl:flex items-center gap-2 px-3 py-1 bg-mine/10 border border-mine/30 rounded text-[9px] text-mine font-mono font-bold">
+                            <span className="w-1.5 h-1.5 rounded-full bg-mine animate-ping" />
+                            {dogfightStatusText}
+                        </div>
+                    )}
+
                     <div className="flex items-center gap-2">
+                        {/* Restart Simulation Button */}
+                        <button
+                            onClick={handleRestartSimulation}
+                            title="Restart Simulation (Hotkey: R)"
+                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 hover:border-mine text-white/70 hover:text-mine bg-zinc-800/60 hover:bg-mine/15 text-[10px] font-mono font-bold transition-all group"
+                        >
+                            <RotateCcw size={13} className="group-hover:-rotate-90 transition-transform duration-300" />
+                            <span className="hidden sm:inline">RESTART</span>
+                        </button>
+
                         {/* View Mode Toggle */}
                         <button
                             onClick={() => setViewMode(v => v === "normal" ? "night" : v === "night" ? "thermal" : "normal")}
@@ -645,22 +835,26 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
                         <DroneVisual color="#38ff42" isWarning={collisionWarning} />
                     </div>
 
-                    {/* Crash Restart Overlay */}
+                    {/* Crash / Victory Restart Overlay */}
                     {isCrashed && missionMode === "dogfight" && (
-                        <div className="absolute inset-0 flex items-center justify-center z-[100] bg-red-950/60 backdrop-blur-sm pointer-events-auto">
-                            <div className="flex flex-col items-center gap-6 animate-in fade-in zoom-in duration-300">
-                                <h2 className="text-4xl font-black text-white drop-shadow-[0_0_20px_red] tracking-widest text-center">TARGET INTERCEPTED</h2>
+                        <div className="absolute inset-0 flex items-center justify-center z-[100] bg-black/85 backdrop-blur-md pointer-events-auto">
+                            <div className="flex flex-col items-center gap-5 animate-in fade-in zoom-in duration-300 p-8 border border-white/20 bg-zinc-950/90 rounded-2xl shadow-[0_0_60px_rgba(0,0,0,0.9)] max-w-md mx-4 text-center">
+                                <span className={`text-[10px] font-mono font-black tracking-widest px-3 py-1 rounded-full ${dogfightWinner === 'ACE' ? 'bg-blue-500/20 text-blue-400 border border-blue-500/40' : 'bg-mine/20 text-mine border border-mine/40'}`}>
+                                    AIR-TO-AIR ENGAGEMENT TERMINATED
+                                </span>
+                                <h2 className={`text-3xl md:text-5xl font-black tracking-widest ${dogfightWinner === 'ACE' ? 'text-blue-400 drop-shadow-[0_0_25px_#38b6ff]' : 'text-mine drop-shadow-[0_0_25px_#38ff42]'}`}>
+                                    {dogfightWinner === 'ACE' ? 'ACE VICTORIOUS' : dogfightWinner === 'INF' ? 'INF VICTORIOUS' : 'TARGET INTERCEPTED'}
+                                </h2>
+                                <p className="text-xs font-mono text-white/60">
+                                    {dogfightWinner === 'ACE' 
+                                        ? 'ACE executed high-G evasion and out-maneuvered INF with rear flank intercept.' 
+                                        : 'INF maintained tactical lead lock and completed intercept routine.'}
+                                </p>
                                 <button 
-                                    onClick={() => {
-                                        crashedStateRef.current = false;
-                                        dogfightTimerRef.current = 0;
-                                        setIsCrashed(false);
-                                        aceRef.current = { ...aceRef.current, x: 10, y: 10, vx: 0, vy: 0 };
-                                        infRef.current = { ...infRef.current, x: 90, y: 90, vx: 0, vy: 0 };
-                                        triggerSystemSignal("DOGFIGHT RESTARTED", "success");
-                                    }}
-                                    className="px-8 py-4 bg-red-600 hover:bg-red-500 text-white text-sm font-black tracking-widest uppercase border-2 border-red-400 rounded-lg shadow-[0_0_30px_rgba(220,38,38,0.5)] transition-all hover:scale-105 active:scale-95"
+                                    onClick={handleRestartSimulation}
+                                    className="px-8 py-3.5 bg-mine hover:bg-mine/85 text-black text-xs font-mono font-black tracking-widest uppercase rounded-lg shadow-[0_0_30px_rgba(56,255,66,0.35)] transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
                                 >
+                                    <RotateCcw size={15} />
                                     RESTART DOGFIGHT
                                 </button>
                             </div>
@@ -718,8 +912,8 @@ export const UAVSimulation = React.memo(function UAVSimulation({ isOpen, onClose
 
                     {/* Instructions */}
                     {missionMode === "manual" && (
-                        <div className="hidden lg:block absolute bottom-16 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/30 tracking-widest pointer-events-none">
-                            MANUAL PILOT ENGAGED. USE [WASD] FOR ACE, [ARROWS] FOR INF. AVOID RED ZONES.
+                        <div className="hidden lg:block absolute bottom-16 left-1/2 -translate-x-1/2 text-[10px] font-mono text-white/40 tracking-widest pointer-events-none whitespace-nowrap bg-black/60 px-4 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
+                            PILOT: [WASD] FOR ACE · [ARROWS] FOR INF · [R] TO RESTART · AVOID RED ZONES
                         </div>
                     )}
                 </div>

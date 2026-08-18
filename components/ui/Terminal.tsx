@@ -30,7 +30,14 @@ export const Terminal = ({ className }: TerminalProps) => {
             ]);
             triggerSystemSignal("MANIFEST_FETCHED", "info");
         },
-        "/sim": () => {
+        "/sim": (args) => {
+            const sub = args?.[0]?.toLowerCase();
+            if (sub === "restart" || sub === "reset") {
+                window.dispatchEvent(new CustomEvent("UAV_SIM_RESET"));
+                setHistory(prev => [...prev, "> Resetting UAV_FIELD_SIMULATION telemetry & drone state..."]);
+                triggerSystemSignal("SIM_RESTARTED", "success");
+                return;
+            }
             window.dispatchEvent(new CustomEvent("UAV_SIM_LAUNCH"));
             setHistory(prev => [...prev, "> Initializing UAV_FIELD_SIMULATION..."]);
             triggerSystemSignal("SIM_ENGAGED", "success");

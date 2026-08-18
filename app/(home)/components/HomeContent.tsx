@@ -76,7 +76,7 @@ export default function HomeContent({ initialProjects = [] }: { initialProjects?
 
                 {/* Global Scanline Effect - Optimized with SVG pattern for lower paint cost */}
                 <div
-                    className="fixed inset-0 pointer-events-none z-[1000] opacity-[0.03] will-change-transform transform-gpu"
+                    className="fixed inset-0 pointer-events-none z-[1000] opacity-[0.03]"
                     style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='4' height='4' viewBox='0 0 4 4' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 2h4M2 0v4' stroke='%23fff' fill='none' fill-rule='evenodd' opacity='.5'/%3E%3C/svg%3E")`
                     }}
