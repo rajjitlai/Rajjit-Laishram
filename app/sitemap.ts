@@ -1,30 +1,33 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
+    const baseUrl = 'https://rajjitlaishram.netlify.app';
+    const lastModified = new Date();
+
     return [
         {
-            url: 'https://rajjitlaishram.netlify.app',
-            lastModified: new Date(),
+            url: baseUrl,
+            lastModified,
             changeFrequency: 'weekly',
-            priority: 1,
+            priority: 1.0,
         },
         {
-            url: 'https://rajjitlaishram.netlify.app/data.json',
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://rajjitlaishram.netlify.app/llms.txt',
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.9,
-        },
-        {
-            url: 'https://rajjitlaishram.netlify.app/review',
-            lastModified: new Date(),
+            url: `${baseUrl}/review`,
+            lastModified,
             changeFrequency: 'monthly',
             priority: 0.8,
+        },
+        {
+            url: `${baseUrl}/llms.txt`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/data.json`,
+            lastModified,
+            changeFrequency: 'weekly',
+            priority: 0.7,
         },
     ]
 }

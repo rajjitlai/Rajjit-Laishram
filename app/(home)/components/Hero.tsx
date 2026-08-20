@@ -50,7 +50,7 @@ const Hero = React.memo(function Hero() {
                         </Tooltip>
                     </motion.div>
                     <h1 className='text-4xl lg:text-6xl font-black font-outfit leading-tight'>
-                        <DecryptedText text="I'm Rajjit" />
+                        <DecryptedText text="I'm Rajjit Laishram" />
                         {", and I write the code that makes machines "}
                         <span className='text-transparent bg-clip-text bg-gradient-to-r from-mine to-hers contrast-125'>think.</span>
                     </h1>

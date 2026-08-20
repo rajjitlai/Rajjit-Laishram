@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
             {
                 userAgent: '*',
                 allow: '/',
-                disallow: ['/setup/'],
+                disallow: ['/setup/', '/debug', '/login'],
             },
             {
                 userAgent: [
@@ -27,7 +27,7 @@ export default function robots(): MetadataRoute.Robots {
                     'Diffbot',
                 ],
                 allow: ['/', '/data.json', '/llms.txt'],
-                disallow: ['/setup/'],
+                disallow: ['/setup/', '/debug', '/login'],
             },
         ],
         sitemap: 'https://rajjitlaishram.netlify.app/sitemap.xml',
