@@ -7,6 +7,6 @@
         "start": "node src/main.js"
     },
     "dependencies": {
-        "nodemailer": "^9.0.1"
+        "nodemailer": "^9.1.1"
     }
 }
