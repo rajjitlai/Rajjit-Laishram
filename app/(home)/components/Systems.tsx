@@ -31,9 +31,9 @@ export function Systems() {
                     </div>
                     <h4 className="text-2xl font-black text-white mb-2">AUTONOMOUS DRONE SYSTEM</h4>
                     <p className="text-zinc-500 text-sm font-mono mb-6">NIDAR Disaster Management Competition · NAWA · 2025</p>
-                    
+
                     <p className="text-zinc-300 font-semibold mb-4">Complete autonomous drone software stack built from scratch.</p>
-                    
+
                     <ul className="space-y-3 mb-6">
                         {[
                             "Custom Electron desktop GCS (React + Tailwind CSS)",
@@ -56,22 +56,20 @@ export function Systems() {
                         <div className="flex border-b border-zinc-800 bg-zinc-950/60 p-1">
                             <button
                                 onClick={() => setActiveTab('carousel')}
-                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${
-                                    activeTab === 'carousel'
+                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'carousel'
                                         ? 'bg-zinc-900 text-mine shadow-[0_0_15px_rgba(56,255,66,0.15)] border border-mine/20'
                                         : 'text-zinc-400 hover:text-zinc-200'
-                                }`}
+                                    }`}
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
                                 [ IMAGES ]
                             </button>
                             <button
                                 onClick={() => setActiveTab('video')}
-                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${
-                                    activeTab === 'video'
+                                className={`flex-1 py-2 px-3 rounded-lg text-xs font-mono font-bold uppercase transition-all duration-300 flex items-center justify-center gap-2 ${activeTab === 'video'
                                         ? 'bg-zinc-900 text-mine shadow-[0_0_15px_rgba(56,255,66,0.15)] border border-mine/20'
                                         : 'text-zinc-400 hover:text-zinc-200'
-                                }`}
+                                    }`}
                             >
                                 <span className="w-1.5 h-1.5 rounded-full bg-current"></span>
                                 [ VIDEO_FEED ]
@@ -97,9 +95,10 @@ export function Systems() {
                             <span>[ Launch Simulated GCS ]</span>
                             <FaExternalLinkAlt className="w-3 h-3" />
                         </Link>
-                        <div className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 text-zinc-600 text-sm font-mono cursor-not-allowed">
-                            <span>[ Read Case Study - Coming Soon ]</span>
-                        </div>
+                        <Link href="https://rjsblog.in/blogs/6a945498000b7588c603" target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-zinc-950/50 border border-zinc-800/50 hover:border-mine/50 hover:text-mine text-zinc-400 transition-colors text-sm font-mono">
+                            <span>[ Read Case Study ]</span>
+                            <FaExternalLinkAlt className="w-3 h-3" />
+                        </Link>
                     </div>
                 </motion.div>
 
@@ -115,9 +114,9 @@ export function Systems() {
                     </div>
                     <h4 className="text-2xl font-black text-white mb-2">IOT MONITORING INFRASTRUCTURE</h4>
                     <p className="text-zinc-500 text-sm font-mono mb-6">Nibiaa · July 2025 – July 2026</p>
-                    
+
                     <p className="text-zinc-300 font-semibold mb-4">Enterprise IoT platform with hybrid indoor/outdoor coverage.</p>
-                    
+
                     <ul className="space-y-3 mb-6">
                         {[
                             "Hybrid LoRaWAN + Satellite asset tracking prototype",
